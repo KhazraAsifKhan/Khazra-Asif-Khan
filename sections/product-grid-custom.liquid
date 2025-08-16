@@ -275,21 +275,6 @@
   border: 1px solid #aaa;
 }
 
-.color-swatch {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid #ddd;
-  flex-shrink: 0;
-  display: inline-block;
-}
-
-.color-swatch.selected {
-  border: 2px solid #000; /* highlight selected */
-}
-
-
 /* ================= RESPONSIVE ================= */
 @media (max-width: 700px) {
   .popup-body {
@@ -396,22 +381,6 @@ document.addEventListener("DOMContentLoaded", () => {
           colorContainer.innerHTML = "";
 
           const colors = [...new Set(product.variants.map(v => v.option2))];
-// Map custom color names to actual hex codes or valid CSS colors
-const colorMap = {
-  "Red": "#ff0000",
-  "Blue": "#0000ff",
-  "Green": "#008000",
-  "Black": "#000000",
-  "White": "#ffffff",
-  "Beige": "#f5f5dc",
-  "Grey": "#808080",
-  "Light Grey": "#d3d3d3",
-  "Navy": "#000080",
-  "Pink": "#ffc0cb",
-  "Sky Blue": "#87ceeb",
-  "Army Green": "#4b5320",
-  // ➕ Add more as needed
-};
 
           {% comment %} colors.forEach(color => {
             const wrapper = document.createElement("div");
@@ -452,20 +421,27 @@ const colorMap = {
 
             colorContainer.appendChild(wrapper);
           }); {% endcomment %}
-         
           colors.forEach(color => {
   const swatch = document.createElement("div");
   swatch.className = "color-swatch";
   swatch.dataset.color = color;
 
-  // ✅ use map (fallback to black if not found)
-  swatch.style.backgroundColor = colorMap[color] || color.toLowerCase();
+  // ✅ Try to use actual color names as background (CSS recognizes common names like "red", "blue", "navy")
+  // Or fallback to text if it’s not a valid CSS color
+  swatch.style.backgroundColor = color;
+
+  // If the color is something fancy like "Sky Blue" that CSS doesn’t recognize, keep the label
+  if (swatch.style.backgroundColor === "") {
+    swatch.textContent = color;
+    swatch.style.border = "1px solid #ccc";
+    swatch.style.padding = "5px";
+  }
 
   swatch.addEventListener("click", () => {
     document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
     swatch.classList.add("selected");
 
-    // update size dropdown
+    // ✅ Filter sizes for this color
     const sizeDropdown = document.getElementById("popup-variant");
     sizeDropdown.innerHTML = "";
     product.variants
