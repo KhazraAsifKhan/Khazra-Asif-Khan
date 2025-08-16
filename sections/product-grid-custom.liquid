@@ -1,4 +1,9 @@
-<h2 id="popup-title"></h2>
+<div id="product-popup" class="popup hidden">
+  <div class="popup-content">
+    <span class="popup-close">&times;</span>
+    <div class="popup-body"> 
+      
+      <h2 id="popup-title"></h2>
 <img id="popup-image" src="" alt="">
 <p id="popup-price"></p>
 <p id="popup-description"></p>
@@ -25,6 +30,10 @@
 <button id="popup-add-to-cart">Add to Cart</button>
 
 
+    </div>
+  </div>
+</div>
+
 
 <div class="custom-grid">
   <div class="grid-wrapper">
@@ -47,49 +56,6 @@
 </div>
 
 <style>
-
-.color-options {
-  width: 100%;
-  text-align: left;
-}
-
-.color-options p {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.color-scroll {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-}
-
-.color-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-
-.color-scroll::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-/* Swatches */
-.color-swatch {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  flex-shrink: 0; /* prevent shrinking */
-}
-
-.color-swatch.selected {
-  border: 2px solid #333; /* highlight selected */
-}
-
-
 .custom-grid {
   padding: 40px 20px;
 }
