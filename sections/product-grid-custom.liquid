@@ -103,6 +103,8 @@
   }
 }
 
+
+/* Popup background */
 /* ===== POPUP BACKDROP ===== */
 .popup {
   position: fixed;
@@ -259,6 +261,85 @@
     text-align: center;
   }
 }
+
+
+
+
+/* Color boxes */
+.color-container {
+  display: flex;
+  gap: 0px;
+  margin: 10px 0;
+
+}
+
+{% comment %} .color-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* text on the left side */
+  width: 200px;
+  height: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding-left: 5px; /* space for the ::before */
+  color: black; /* default text color */
+}
+
+.color-box.selected {
+  background: black; /* selected box background */
+  color: white;      /* selected text color */
+}
+
+.color-box::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 100%;
+  margin-right: 8px;
+  border-radius: 4px 0 0 4px;
+  background-color: white; /* small square color */
+} {% endcomment %}
+.color-box {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding-left: 5px;
+  color: black;
+  position: relative;
+  overflow: hidden;
+}
+
+.color-box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;          /* small strip width */
+  height: 100%;
+  border-radius: 6px 0 0 6px;  /* rounded left side */
+  background-color: var(--square-color, #fff);
+}
+
+.color-box span {
+  margin-left: 35px; /* push text after the strip */
+  z-index: 1;
+}
+
+/* Selected state */
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
 
 
 
