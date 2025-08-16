@@ -183,34 +183,69 @@
 }
 
 
-/* ===== POPUP CONTENT ===== */
+/* ===== BACKDROP ===== */
+.popup {
+  position: fixed;
+  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 */
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup.hidden {
+  display: none;
+}
+
+/* ===== POPUP BOX ===== */
 .popup-content {
   background: #fff;
-  width: 80vw;          /* wider to allow side-by-side */
-  max-width: 900px;     /* let it expand beyond 400px */
-  height: 85vh;
+  width: 80vw;
+  max-width: 900px;
+  max-height: 90vh;
   padding: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  overflow: hidden;     /* stop spilling outside */
-}
-
-/* ===== MAIN LAYOUT ===== */
-.popup-top {
-  display: flex;
-  flex: 1;
-  gap: 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   overflow: hidden;
 }
 
-.popup-image {
-  flex: 1;
+/* ===== CLOSE BUTTON ===== */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  background: #f5f5f5;
+  color: #333;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: bold;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
+
+.popup-close:hover {
+  background: crimson;
+  color: #fff;
+}
+
+/* ===== TOP LAYOUT (Image + Details) ===== */
+.popup-top {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  overflow: hidden;
+}
+
 .popup-image img {
   width: 100%;
   max-width: 350px;
@@ -220,35 +255,41 @@
 }
 
 .popup-details {
-  flex: 2;  /* give more space to text */
+  flex: 1;
+  overflow-y: auto; /* scroll only details if too long */
+}
+
+/* ===== ACTIONS (BOTTOM) ===== */
+.popup-actions {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-width: 250px;
-  overflow-y: auto; /* if description is long, scroll only inside details */
+  gap: 12px;
 }
 
 /* ===== RESPONSIVE ===== */
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .popup-content {
     width: 95vw;
     height: auto;
     max-height: 90vh;
   }
+
   .popup-top {
     flex-direction: column;
     align-items: center;
   }
+
   .popup-details {
     text-align: center;
-    overflow-y: visible; /* don’t scroll on small screen */
+    overflow-y: visible;
   }
+
   .popup-image img {
     max-width: 100%;
-    width: auto;
-    height: auto;
   }
 }
+
 
 
 
