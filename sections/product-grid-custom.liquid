@@ -198,74 +198,7 @@
   display: none;
 }
 
-/* ===== POPUP BOX ===== */
-.popup-content {
-  background: #fff;
-  width: 80vw;
-  max-width: 900px;
-  max-height: 90vh;
-  padding: 24px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  overflow: hidden;
-}
 
-/* ===== CLOSE BUTTON ===== */
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
-  background: #f5f5f5;
-  color: #333;
-  font-size: 18px;
-  line-height: 1;
-  font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.popup-close:hover {
-  background: crimson;
-  color: #fff;
-}
-
-/* ===== TOP LAYOUT (Image + Details) ===== */
-.popup-top {
-  display: flex;
-  gap: 20px;
-  flex: 1;
-  overflow: hidden;
-}
-
-.popup-image img {
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.popup-details {
-  flex: 1;
-  overflow-y: auto; /* scroll only details if too long */
-}
-
-/* ===== ACTIONS (BOTTOM) ===== */
-.popup-actions {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
