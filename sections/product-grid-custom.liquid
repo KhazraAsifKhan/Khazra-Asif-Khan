@@ -1,34 +1,24 @@
 <!-- Popup HTML -->
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
-   <div class="popup-content">
-  <span class="popup-close">&times;</span>
+    <span class="popup-close">&times;</span>
+    <div class="popup-body">
+      <div class="popup-image">
+        <img id="popup-image" src="" alt="">
+      </div>
+      <div class="popup-details">
+        <h2 id="popup-title"></h2>
+        <p id="popup-price"></p>
+        <p id="popup-description"></p>
 
-  <div class="popup-body">
-    <div class="popup-image">
-      <img id="popup-image" src="" alt="">
-    </div>
+        <div id="popup-colors" class="color-container"></div>
 
-    <div class="popup-details">
-      <h2 id="popup-title"></h2>
-      <p id="popup-price"></p>
-      <p id="popup-description"></p>
-    </div>
-  </div>
+        <label for="popup-variant">Choose your size:</label>
+        <select id="popup-variant">
+          <option value="">Choose your size</option>
+        </select>
 
-  <!-- NEW: actions live BELOW the image+details -->
-  <div class="popup-actions">
-    <label class="field-label">Color</label>
-    <div id="popup-colors" class="color-container"></div>
-
-    <label class="field-label" for="popup-variant">Size</label>
-    <select id="popup-variant">
-      <option value="">Choose your size</option>
-    </select>
-
-    <button id="popup-add-to-cart">ADD TO CART</button>
-
-
+        <button id="popup-add-to-cart">ADD TO CART</button>
       </div>
     </div>
   </div>
@@ -105,7 +95,6 @@
     grid-template-columns: 1fr;
   }
 }
-
 
 /* Popup background */
 .popup {
@@ -314,8 +303,6 @@
     width: 100%; /* full width on very small screens */
   }
 }
-
-
 
 
 </style>
