@@ -105,6 +105,14 @@
 
 
 /* Popup background */
+
+
+.popup.hidden {
+  display: none;
+}
+
+/* Popup content */
+/* Popup background */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -116,20 +124,26 @@
   z-index: 9999;
 }
 
-.popup.hidden {
-  display: none;
-}
-
 /* Popup content */
 .popup-content {
   background: #fff;
+  border-radius: 12px;
+  width: 90vw;       /* 90% of screen width */
+  height: 90vh;      /* 90% of screen height */
   padding: 20px;
-  border-radius: 10px;
-  max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* Remove inner scrollbars */
+.popup-content::-webkit-scrollbar {
+  display: none;
+}
+.popup-content {
+  -ms-overflow-style: none;  /* IE/Edge */
+  scrollbar-width: none;     /* Firefox */
 }
 
 /* Close button */
