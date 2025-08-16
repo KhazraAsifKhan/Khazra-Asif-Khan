@@ -1,47 +1,43 @@
-<!-- === BOOTSTRAP MODAL POPUP === -->
-<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg"><!-- modal-lg makes it wide -->
-    <div class="modal-content">
-
-      <!-- Close button -->
-      <div class="modal-header border-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Product Grid -->
+<div class="row">
+  {% for product in collection.products %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <img src="{{ product.featured_image | img_url: '400x400' }}" class="card-img-top" alt="{{ product.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.title }}</h5>
+          <p class="card-text">{{ product.price | money }}</p>
+          <!-- Trigger button -->
+          <button class="btn btn-dark" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#productModal"
+                  data-title="{{ product.title }}"
+                  data-price="{{ product.price | money }}"
+                  data-img="{{ product.featured_image | img_url: '600x600' }}">
+            Quick View
+          </button>
+        </div>
       </div>
+    </div>
+  {% endfor %}
+</div>
 
-      <!-- Body -->
+<!-- === Bootstrap Modal (ONLY ONE, placed outside loop) === -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
       <div class="modal-body">
         <div class="row g-4 align-items-center">
-          <!-- IMAGE -->
           <div class="col-md-6 text-center">
-            <img src="https://via.placeholder.com/400x400" alt="Product" class="img-fluid rounded">
+            <img id="popupImage" src="" alt="" class="img-fluid rounded">
           </div>
-
-          <!-- DETAILS -->
           <div class="col-md-6">
-            <h2 class="h4 mb-3">Product Title</h2>
-            <p class="fw-bold mb-2">$99.00</p>
-            <p class="text-muted">This is the product description. It stays beside the picture on larger screens and below it on smaller screens.</p>
-
-            <!-- Color options -->
-            <div class="mb-3">
-              <label class="form-label fw-semibold">Color</label>
-              <div class="d-flex gap-2">
-                <button class="btn btn-outline-dark">Black</button>
-                <button class="btn btn-outline-dark">White</button>
-              </div>
-            </div>
-
-            <!-- Size options -->
-            <div class="mb-3">
-              <label class="form-label fw-semibold">Size</label>
-              <select class="form-select">
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
-              </select>
-            </div>
-
-            <!-- Add to Cart -->
+            <h2 id="popupTitle" class="h4 mb-3"></h2>
+            <p id="popupPrice" class="fw-bold mb-2"></p>
+            <p class="text-muted">Product description goes here...</p>
             <button class="btn btn-dark w-100">Add to Cart</button>
           </div>
         </div>
@@ -50,10 +46,20 @@
   </div>
 </div>
 
-<!-- === TRIGGER BUTTON (for testing) === -->
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
-  Open Product Popup
-</button>
+<script>
+  // Bootstrap modal event listener
+  var productModal = document.getElementById('productModal')
+  productModal.addEventListener('show.bs.modal', function (event) {
+    var button = event.relatedTarget
+    var title = button.getAttribute('data-title')
+    var price = button.getAttribute('data-price')
+    var img = button.getAttribute('data-img')
+
+    document.getElementById('popupTitle').textContent = title
+    document.getElementById('popupPrice').textContent = price
+    document.getElementById('popupImage').src = img
+  })
+</script>
 
 
 
