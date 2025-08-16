@@ -104,9 +104,8 @@
   }
 }
 
-
-/* Popup background */
-/* ===== POPUP BACKDROP ===== */
+{% comment %} -------------------------------------------------------- {% endcomment %}
+/* Backdrop */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -116,63 +115,60 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  overflow-y: auto; /* natural scroll if content overflows */
+  overflow-y: auto; /* page scroll if content too tall */
 }
 
 .popup.hidden {
   display: none;
 }
 
-/* ===== POPUP CONTENT ===== */
+/* Popup Box */
 .popup-content {
   background: #fff;
-  {% comment %} border-radius: 12px; {% endcomment %}
-  width: 65vw;          /* narrower than tall */
-  max-width: 400px;
-  height: 85vh;         /* taller than wide */
-  padding: 24px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 95vh;  /* never taller than screen */
+  padding: 20px;
+  border-radius: 12px;
   position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
-/* ===== CLOSE BUTTON ===== */
+/* Close Button */
 .popup-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 35px;
-  height: 35px;
-  background: #f5f5f5;
-  color: #444;
-  font-size: 22px;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
   font-weight: bold;
+  cursor: pointer;
+  color: #444;
+  background: #eee;
   border-radius: 50%;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .popup-close:hover {
-  background: rgb(180, 50, 50);
-  color: #fff;
-  transform: scale(1.1);
+  background: red;
+  color: white;
 }
 
-/* ===== MAIN LAYOUT ===== */
+/* Main Layout */
 .popup-top {
   display: flex;
-  flex: 1;
   gap: 20px;
-  overflow: hidden;
+  flex: 1;
+  flex-wrap: wrap; /* ensures wrapping on small screens */
 }
 
 .popup-image img {
-  max-width: 350px;
+  max-width: 300px;
   width: 100%;
   height: auto;
   border-radius: 8px;
@@ -183,166 +179,88 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   min-width: 250px;
 }
 
+/* Price & Text */
 .popup-details h2 {
-  font-size: 22px;
   margin: 0;
+  font-size: 22px;
 }
 
 #popup-price {
   font-size: 18px;
   font-weight: 600;
-  margin: 5px 0;
+  color: #111;
 }
 
 .popup-details p {
   font-size: 14px;
-  color: #555;
+  color: #444;
 }
 
-/* ===== ACTIONS (BOTTOM) ===== */
+/* Actions */
 .popup-actions {
-  margin-top: auto; /* push to bottom */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  margin-top: auto;
 }
 
-/* Dropdown */
-#popup-variant {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #f9f9f9;
-}
-
-#popup-variant:focus {
-  border-color: #333;
-  outline: none;
-  background: #fff;
-}
-
-/* Add to Cart button */
 #popup-add-to-cart {
   width: 100%;
   padding: 14px;
   background: black;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 #popup-add-to-cart:hover {
-  background: rgba(0,0,0,0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  background: #333;
 }
 
-/* ===== RESPONSIVE ===== */
-@media screen and (max-width: 768px) {
-  .popup-content {
-    width: 95vw;
-    height: auto;       /* let it grow naturally */
-    max-height: 90vh;
-  }
+/* Color Box */
+.color-container {
+  display: flex;
+  gap: 10px;
+}
+
+.color-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  background: white;
+}
+
+.color-box::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: var(--square-color, #000);
+  margin-right: 8px;
+  border-radius: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .popup-top {
     flex-direction: column;
     align-items: center;
   }
+
+  .popup-image img {
+    max-width: 90%;
+  }
+
   .popup-details {
     text-align: center;
   }
 }
-
-
-
-
-/* Color boxes */
-.color-container {
-  display: flex;
-  gap: 0px;
-  margin: 10px 0;
-
-}
-
-{% comment %} .color-box {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* text on the left side */
-  width: 200px;
-  height: 40px;
-  background: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  padding-left: 5px; /* space for the ::before */
-  color: black; /* default text color */
-}
-
-.color-box.selected {
-  background: black; /* selected box background */
-  color: white;      /* selected text color */
-}
-
-.color-box::before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 100%;
-  margin-right: 8px;
-  border-radius: 4px 0 0 4px;
-  background-color: white; /* small square color */
-} {% endcomment %}
-.color-box {
-  display: flex;
-  align-items: center;
-  width: 200px;
-  height: 40px;
-  background: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  padding-left: 5px;
-  color: black;
-  position: relative;
-  overflow: hidden;
-}
-
-.color-box::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 5px;          /* small strip width */
-  height: 100%;
-  border-radius: 6px 0 0 6px;  /* rounded left side */
-  background-color: var(--square-color, #fff);
-}
-
-.color-box span {
-  margin-left: 35px; /* push text after the strip */
-  z-index: 1;
-}
-
-/* Selected state */
-.color-box.selected {
-  background: black;
-  color: white;
-}
-
-
-
 
 </style>
 
