@@ -105,7 +105,6 @@
 }
 
 
-/* Popup background */
 /* ===== POPUP BACKDROP ===== */
 .popup {
   position: fixed;
@@ -116,7 +115,7 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  overflow-y: auto; /* natural scroll if content overflows */
+  overflow-y: auto;
 }
 
 .popup.hidden {
@@ -126,41 +125,35 @@
 /* ===== POPUP CONTENT ===== */
 .popup-content {
   background: #fff;
-  {% comment %} border-radius: 12px; {% endcomment %}
-  width: 65vw;          /* narrower than tall */
+  width: 65vw;
   max-width: 400px;
-  height: 85vh;         /* taller than wide */
+  height: 85vh;
   padding: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  border-radius: 8px;
 }
 
-/* ===== CLOSE BUTTON ===== */
+/* ===== CLOSE BUTTON (simple ×) ===== */
 .popup-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 35px;
-  height: 35px;
-  background: #f5f5f5;
-  color: #444;
-  font-size: 22px;
+  top: 10px;
+  right: 12px;
+  font-size: 28px;
   font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #000;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 .popup-close:hover {
-  background: rgb(180, 50, 50);
-  color: #fff;
-  transform: scale(1.1);
+  color: #d00;
+  background: none;
+  transform: none;
 }
 
 /* ===== MAIN LAYOUT ===== */
@@ -176,7 +169,7 @@
   width: 100%;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;  /* 🔑 keeps full image visible */
 }
 
 .popup-details {
@@ -203,15 +196,14 @@
   color: #555;
 }
 
-/* ===== ACTIONS (BOTTOM) ===== */
+/* ===== ACTIONS ===== */
 .popup-actions {
-  margin-top: auto; /* push to bottom */
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* Dropdown */
 #popup-variant {
   width: 100%;
   padding: 10px 12px;
@@ -227,7 +219,6 @@
   background: #fff;
 }
 
-/* Add to Cart button */
 #popup-add-to-cart {
   width: 100%;
   padding: 14px;
@@ -238,75 +229,50 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease;
 }
 
 #popup-add-to-cart:hover {
   background: rgba(0,0,0,0.9);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
   .popup-content {
     width: 95vw;
-    height: auto;       /* let it grow naturally */
-    max-height: 90vh;
+    height: auto;
+    max-height: 95vh;
+    padding: 16px;
   }
   .popup-top {
     flex-direction: column;
     align-items: center;
+    gap: 16px;
+  }
+  .popup-image img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;  /* ensures it fits nicely */
+    object-fit: contain;
   }
   .popup-details {
+    min-width: auto;
     text-align: center;
   }
 }
 
-
-
-
-/* Color boxes */
+/* ===== COLOR BOXES ===== */
 .color-container {
   display: flex;
-  gap: 0px;
+  flex-direction: column;
+  gap: 8px;
   margin: 10px 0;
-
 }
 
-{% comment %} .color-box {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* text on the left side */
-  width: 200px;
-  height: 40px;
-  background: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  padding-left: 5px; /* space for the ::before */
-  color: black; /* default text color */
-}
-
-.color-box.selected {
-  background: black; /* selected box background */
-  color: white;      /* selected text color */
-}
-
-.color-box::before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 100%;
-  margin-right: 8px;
-  border-radius: 4px 0 0 4px;
-  background-color: white; /* small square color */
-} {% endcomment %}
 .color-box {
   display: flex;
   align-items: center;
-  width: 200px;
+  width: 100%;
   height: 40px;
   background: white;
   border: 1px solid #ccc;
@@ -322,20 +288,17 @@
 .color-box::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 5px;          /* small strip width */
+  left: 0; top: 0;
+  width: 5px;
   height: 100%;
-  border-radius: 6px 0 0 6px;  /* rounded left side */
+  border-radius: 6px 0 0 6px;
   background-color: var(--square-color, #fff);
 }
 
 .color-box span {
-  margin-left: 35px; /* push text after the strip */
-  z-index: 1;
+  margin-left: 35px;
 }
 
-/* Selected state */
 .color-box.selected {
   background: black;
   color: white;
