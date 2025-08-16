@@ -12,16 +12,23 @@
 
 .banner-button {
   display: inline-block;
-  padding: 10px 25px;
-  background-color:rgb(118, 71, 71);
+  padding: 12px 30px; /* slightly bigger for better look */
+  background-color: rgb(118, 71, 71);
   color: #fff;
   text-decoration: none;
-  transition: transform 0.3s ease;
+  border-radius: 25px; /* makes edges rounded */
+  transition: all 0.3s ease; /* smooth animation */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* subtle shadow for depth */
+  font-weight: bold;
 }
 
 .banner-button:hover {
-  transform: scale(1.1);
+  transform: scale(1.1); /* grows slightly on hover */
+  background-color: rgb(150, 90, 90); /* optional: slightly lighter color on hover */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* stronger shadow on hover */
 }
+
+
 @media screen and (max-width: 750px) {
   .custom-banner .banner-image {
     max-height: 300px; /* smaller height on mobile */
