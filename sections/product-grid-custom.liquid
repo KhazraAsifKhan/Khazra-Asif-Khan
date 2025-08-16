@@ -1,3 +1,4 @@
+<!-- Popup HTML -->
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
     <span class="popup-close">&times;</span>
@@ -7,10 +8,14 @@
       <p id="popup-price"></p>
       <p id="popup-description"></p>
 
-      <label for="popup-variant">Choose a variant:</label>
-      <select id="popup-variant"></select>
+      <div id="popup-colors" class="color-container"></div>
 
-      <button id="popup-add-to-cart">Add to Cart</button>
+      <label for="popup-variant">Choose a size:</label>
+      <select id="popup-variant">
+        <option value="">Choose your size</option>
+      </select>
+
+      <button id="popup-add-to-cart">ADD TO CART</button>
     </div>
   </div>
 </div>
@@ -202,6 +207,43 @@
   color: #555;
 }
 
+/* Color boxes */
+.color-container {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.color-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100px;
+  height: 40px;
+  background: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.color-box.selected {
+  background: #000;
+  color: #fff;
+}
+
+.color-box::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 100%;
+  border-radius: 4px 0 0 4px;
+  background-color: currentColor; /* this will be set dynamically */
+}
+
 
 /* Responsive */
 @media screen and (max-width: 900px) {
@@ -228,62 +270,88 @@ document.addEventListener("DOMContentLoaded", function() {
   const popupDescription = document.getElementById("popup-description");
   const popupVariant = document.getElementById("popup-variant");
   const popupAddToCart = document.getElementById("popup-add-to-cart");
+  const popupColors = document.getElementById("popup-colors");
 
-  // Handle grid item click
   document.querySelectorAll(".grid-item").forEach(item => {
     item.addEventListener("click", function() {
-      const handle = this.getAttribute("data-handle");
+      const handle = this.dataset.handle;
 
-      // Fetch product JSON by handle
       fetch(`/products/${handle}.js`)
         .then(res => res.json())
         .then(product => {
           popupTitle.textContent = product.title;
           popupImage.src = product.images[0] || "";
-          popupPrice.textContent = (product.price / 100).toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD"
-          });
+          popupPrice.textContent = (product.price / 100).toLocaleString("en-US", { style: "currency", currency: "EUR" });
           popupDescription.textContent = product.description;
 
-          // Populate variants
-          popupVariant.innerHTML = "";
-          product.variants.forEach(variant => {
-            let option = document.createElement("option");
-            option.value = variant.id;
-            option.textContent = variant.title + " - " + (variant.price / 100).toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD"
-            });
-            popupVariant.appendChild(option);
+          // --- Populate sizes ---
+          popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+          product.variants.forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = v.id;
+            opt.textContent = v.option1;
+            popupVariant.appendChild(opt);
           });
 
-          popup.classList.remove("hidden");
+          // --- Populate colors ---
+          popupColors.innerHTML = "";
+          const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
 
-          // Add to Cart
-          popupAddToCart.onclick = function() {
-            const variantId = popupVariant.value;
-            fetch("/cart/add.js", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ id: variantId, quantity: 1 })
-            })
-              .then(res => res.json())
-              .then(data => {
-                alert("Added to cart: " + data.title);
-                popup.classList.add("hidden");
-              })
-              .catch(err => console.error(err));
-          };
+          colors.forEach(color => {
+            const box = document.createElement("div");
+            box.className = "color-box";
+            box.style.setProperty("color", color.toLowerCase()); // left edge color
+            box.textContent = color;
+
+            box.addEventListener("click", () => {
+              // deselect all
+              document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
+              box.classList.add("selected");
+
+              // filter sizes for this color
+              popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+              product.variants
+                .filter(v => v.option2 === color)
+                .forEach(v => {
+                  const opt = document.createElement("option");
+                  opt.value = v.id;
+                  opt.textContent = v.option1;
+                  popupVariant.appendChild(opt);
+                });
+            });
+
+            popupColors.appendChild(box);
+          });
+
+          // auto-select first color
+          if (popupColors.firstChild) popupColors.firstChild.click();
+
+          popup.classList.remove("hidden");
         });
     });
   });
 
+  // Add to cart
+  popupAddToCart.addEventListener("click", () => {
+    const variantId = popupVariant.value;
+    if(!variantId) return alert("Please select a size.");
+
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: variantId, quantity: 1 })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert("Added to cart: " + data.title);
+      popup.classList.add("hidden");
+    })
+    .catch(err => console.error(err));
+  });
+
   // Close popup
   popupClose.addEventListener("click", () => popup.classList.add("hidden"));
-  popup.addEventListener("click", e => {
-    if (e.target === popup) popup.classList.add("hidden");
-  });
+  popup.addEventListener("click", e => { if(e.target === popup) popup.classList.add("hidden"); });
 });
 </script>
 
