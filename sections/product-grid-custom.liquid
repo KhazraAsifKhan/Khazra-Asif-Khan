@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
           // auto-select first color
-          if (popupColors.firstChild) popupColors.firstChild.click();
+          {% comment %} if (popupColors.firstChild) popupColors.firstChild.click(); {% endcomment %}
 
           popup.classList.remove("hidden");
         });
