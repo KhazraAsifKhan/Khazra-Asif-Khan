@@ -375,11 +375,11 @@ document.querySelectorAll(".grid-item").forEach(item => {
             const sizeDropdown = document.getElementById("popup-variant");
             sizeDropdown.innerHTML = "";
             product.variants
-              .filter(v => v.option1 === color)
+              .filter(v => v.option2 === color)
               .forEach(v => {
                 const opt = document.createElement("option");
                 opt.value = v.id;
-                opt.textContent = v.option2;
+                opt.textContent = v.option1;
                 sizeDropdown.appendChild(opt);
               });
           });
