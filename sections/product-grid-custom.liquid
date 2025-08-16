@@ -192,25 +192,32 @@
   color: #555;
 }
 
+/* Color boxes */
+.color-container {
+  display: flex;
+  gap: 0px;
+  margin: 10px 0;
+
+}
+
 .color-box {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  gap: 0px;
   width: 200px;
   height: 40px;
-  background: white; /* default box background */
+  background: white;
   border: 1px solid #ccc;
   cursor: pointer;
-  border-radius: 6px;
-  padding-left: 5px;
-  position: relative;
-  color: black; /* text color */
   transition: all 0.3s ease;
+  border-radius: 6px;
+  
 }
 
 .color-box.selected {
-  background: black; /* selected box background */
-  color: white;      /* selected text color */
+  background: black;
+  color: white;
 }
 
 .color-box::before {
@@ -218,12 +225,9 @@
   display: inline-block;
   width: 20px;
   height: 100%;
-  margin-right: 8px;
   border-radius: 4px 0 0 4px;
-  background-color: black; /* small square color */
+  background-color: currentColor;
 }
-
-
 
 /* Variant dropdown */
 #popup-variant {
