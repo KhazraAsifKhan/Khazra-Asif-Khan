@@ -382,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           const colors = [...new Set(product.variants.map(v => v.option2))];
 
-          colors.forEach(color => {
+          {% comment %} colors.forEach(color => {
             const wrapper = document.createElement("div");
             wrapper.className = "color-box";
             wrapper.dataset.color = color;
@@ -420,7 +420,34 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             colorContainer.appendChild(wrapper);
-          });
+          }); {% endcomment %}
+          colors.forEach(color => {
+  const swatch = document.createElement("div");
+  swatch.className = "color-swatch";
+  swatch.dataset.color = color;
+
+  // ✅ Set background color based on the color name
+  swatch.style.backgroundColor = color.toLowerCase();
+
+  swatch.addEventListener("click", () => {
+    document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
+    swatch.classList.add("selected");
+
+    // ✅ Filter sizes for this color
+    const sizeDropdown = document.getElementById("popup-variant");
+    sizeDropdown.innerHTML = "";
+    product.variants
+      .filter(v => v.option2 === color)
+      .forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.id;
+        opt.textContent = v.option1;
+        sizeDropdown.appendChild(opt);
+      });
+  });
+  colorContainer.appendChild(swatch);
+});
+
 
           // --- Auto-select first color ---
           if (colorContainer.firstChild) {
