@@ -360,7 +360,7 @@ document.querySelectorAll(".grid-item").forEach(item => {
         // ✅ Extract unique colors from variants
         const colorContainer = document.getElementById("popup-colors");
         colorContainer.innerHTML = "";
-        const colors = [...new Set(product.variants.map(v => v.option1))];
+        const colors = [...new Set(product.variants.map(v => v.option2))];
 
         colors.forEach(color => {
           const swatch = document.createElement("div");
