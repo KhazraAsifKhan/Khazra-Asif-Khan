@@ -36,13 +36,16 @@
   border-radius: 30px;
   font-weight: bold;
   box-shadow: 0 5px 15px rgba(245, 106, 106, 0.4);
-  transition: all 0.4s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform; /* smooth transition */
+  transform: translateZ(0); /* force GPU rendering */
 }
 
 .banner-button:hover {
   transform: scale(1.1);
   box-shadow: 0 8px 25px rgba(245, 106, 106, 0.6);
 }
+
 
 /* Mobile adjustments */
 @media screen and (max-width: 750px) {
