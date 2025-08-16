@@ -2,61 +2,41 @@
   <div class="popup-content">
     <span class="popup-close">&times;</span>
     <div class="popup-body"> 
-      
-      <!-- Left: Image -->
-      <div class="popup-image-wrap">
-        <img id="popup-image" src="" alt="">
-      </div>
+      <h2 id="popup-title"></h2>
+      <img id="popup-image" src="" alt="">
+      <p id="popup-price"></p>
+      <p id="popup-description"></p>
 
-      <!-- Right: Details -->
-      <div class="popup-details">
-        <h2 id="popup-title"></h2>
-        <p id="popup-price"></p>
-        <p id="popup-description"></p>
+      <label for="popup-variant">Choose a variant:</label>
+      <select id="popup-variant"></select>
 
-        <!-- ✅ Dynamic Color Options -->
-        <div class="color-options">
-  <p>Color</p>
-  <div id="popup-colors" class="color-scroll">
-    
-  </div>
-</div>
-
-<label for="popup-variant">Size</label>
-<select id="popup-variant">
-  <option>Choose your size</option>
-</select>
-
-<button id="popup-add-to-cart">ADD TO CART →</button>
-
-      </div>
+      <button id="popup-add-to-cart">Add to Cart</button>
     </div>
   </div>
 </div>
 
 
-<!-- Product Grid -->
 <div class="custom-grid">
   <div class="grid-wrapper">
     {% for i in (1..6) %}
-      {% assign setting_id = "product_" | append: i %}
-      {% assign product = all_products[section.settings[setting_id]] %}
-      {% if product %}
-        <div class="grid-item" data-handle="{{ product.handle }}">
-          <div class="grid-img">
-            <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
-          </div>
-          <h3 class="grid-title">{{ product.title }}</h3>
-          <p class="grid-price">{{ product.price | money }}</p>
-        </div>
-      {% endif %}
-    {% endfor %}
+  {% assign setting_id = "product_" | append: i %}
+  {% assign product = all_products[section.settings[setting_id]] %}
+  {% if product %}
+    <div class="grid-item" data-handle="{{ product.handle }}">
+      <div class="grid-img">
+       <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
+
+      </div>
+      <h3 class="grid-title">{{ product.title }}</h3>
+      <p class="grid-price">{{ product.price | money }}</p>
+    </div>
+  {% endif %}
+{% endfor %}
+
   </div>
 </div>
 
-
 <style>
-/* ================= GRID LIST ================= */
 .custom-grid {
   padding: 40px 20px;
 }
@@ -81,9 +61,10 @@
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
-  max-height: 250px;
+  object-fit: cover;   /* makes sure images don’t stretch weirdly */
+  max-height: 250px;   /* keep them from being too tall */
 }
+
 .grid-title {
   font-size: 1rem;
   margin: 10px 0 5px;
@@ -92,8 +73,6 @@
   font-size: 0.9rem;
   color: #555;
 }
-
-/* ================= POPUP ================= */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -104,23 +83,39 @@
   justify-content: center;
   z-index: 9999;
 }
-.popup.hidden { display: none; }
+#product-popup img {
+  max-width: 100%;
+  max-height: 400px;  /* prevents it from being taller than the screen */
+  width: auto;
+  height: auto;
+  object-fit: contain;  /* keeps full image visible, no cropping */
+}
 
-/* Popup box */
+
+.popup.hidden {
+  display: none;
+}
+
 .popup-content {
   background: #fff;
-  border-radius: 12px;
-  max-width: 600px;   /* smaller popup */
-  width: 95%;
-  max-height: 85vh;   /* fits inside screen */
-  overflow-y: auto;   /* scroll inside if too tall */
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+   max-height: 90vh;  /* 90% of viewport */
+  overflow-y: auto;  /* allow scrolling if content is tall */
+  width: 100%;
+  text-align: center;
   position: relative;
 }
 
-/* Close button */
+#popup-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(33, 229, 118);
+  margin: 10px 0;
+}
+
+
 .popup-close {
   position: absolute;
   top: 15px;
@@ -139,73 +134,39 @@
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
 .popup-close:hover {
   background: rgb(180, 50, 50);
   color: #fff;
   transform: scale(1.1);
 }
 
-/* Layout: image + details side by side */
-.popup-body {
-  display: flex;
-  gap: 25px;
-  align-items: flex-start;
-}
 
-/* Left: image */
-.popup-image-wrap {
-  flex: 1;
-  max-width: 45%;
-}
-.popup-image-wrap img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: contain;
-}
 
-/* Right: details */
-.popup-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  text-align: left;
-}
-#popup-title {
-  font-size: 22px;
-  font-weight: 700;
-}
-#popup-price {
-  font-size: 20px;
-  font-weight: 600;
-  color: rgb(33, 229, 118);
-}
-#popup-description {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
-}
-
-/* Variant dropdown */
+/* Variant Dropdown */
 #popup-variant {
+  width: 100%;
   padding: 10px 12px;
+  margin: 15px 0;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
   background: #f9f9f9;
   transition: border-color 0.2s ease;
 }
+
 #popup-variant:focus {
   border-color: #333;
   outline: none;
   background: #fff;
 }
 
-/* Add to cart */
+/* Add to Cart Button */
 #popup-add-to-cart {
+  display: inline-block;
+  width: 100%;
   padding: 14px;
-  background: rgb(33, 229, 118);
+  background:rgb(33, 229, 118); /* Shopify black vibe */
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -213,84 +174,52 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 10px;
 }
+
 #popup-add-to-cart:hover {
-  background: rgb(25, 190, 95);
+  background: rgb(25, 190, 95); /* darker green shade */
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-{% comment %} /* ================= COLOR OPTIONS ================= */
-.color-options {
-  width: 100%;
-  text-align: left;
-}
-.color-options p {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #333;
-}
 
-/* Scrollable row */
-.color-scroll {
+/* Add subtle spacing for popup layout */
+.popup-body {
   display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-}
-.color-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-.color-scroll::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-/* Each color box */
-.color-box {
-  display: flex;
+  flex-direction: column;
+  gap: 12px;
   align-items: center;
-  gap: 6px;
-  border: 1px solid #ccc;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  flex-shrink: 0;   /* don’t shrink */
-  transition: 0.2s;
-  white-space: nowrap;
-}
-.color-box:hover {
-  background: #f9f9f9;
-}
-.color-box.selected {
-  border: 2px solid #000;
-  background: #f2f2f2;
 }
 
-/* Small colored square */
-.color-square {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  border: 1px solid #aaa;
-} {% endcomment %}
+.popup-body h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 
-/* ================= RESPONSIVE ================= */
-@media (max-width: 700px) {
-  .popup-body {
-    flex-direction: column;
+.popup-body p {
+  font-size: 14px;
+  color: #555;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .popup-image-wrap, .popup-details {
-    max-width: 100%;
+}
+@media screen and (max-width: 600px) {
+  .grid-wrapper {
+    grid-template-columns: 1fr;
   }
 }
 </style>
 
 
 
-{% comment %} 
 <script>
-{% comment %} document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
   const popup = document.getElementById("product-popup");
   const popupClose = document.querySelector(".popup-close");
   const popupTitle = document.getElementById("popup-title");
@@ -355,229 +284,8 @@
   popup.addEventListener("click", e => {
     if (e.target === popup) popup.classList.add("hidden");
   });
-}); {% endcomment %}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const popup = document.getElementById("product-popup");
-  const popupClose = document.querySelector(".popup-close");
-
-  // Grid item click → open popup
-  document.querySelectorAll(".grid-item").forEach(item => {
-    item.addEventListener("click", () => {
-      const handle = item.dataset.handle;
-
-      fetch(`/products/${handle}.js`)
-        .then(res => res.json())
-        .then(product => {
-          // --- Basic info ---
-          document.getElementById("popup-title").textContent = product.title;
-          document.getElementById("popup-price").textContent =
-            (product.price / 100).toFixed(2) + " " + product.currency;
-          document.getElementById("popup-image").src = product.images[0];
-          document.getElementById("popup-description").textContent = product.description;
-
-          // --- Color options ---
-          const colorContainer = document.getElementById("popup-colors");
-          colorContainer.innerHTML = "";
-
-          const colors = [...new Set(product.variants.map(v => v.option2))];
-
-          {% comment %} colors.forEach(color => {
-            const wrapper = document.createElement("div");
-            wrapper.className = "color-box";
-            wrapper.dataset.color = color;
-
-            // small square with bg color
-            const square = document.createElement("span");
-            square.className = "color-square";
-            square.style.backgroundColor = color.toLowerCase();
-
-            // text label
-            const label = document.createElement("span");
-            label.textContent = color;
-
-            wrapper.appendChild(square);
-            wrapper.appendChild(label);
-
-            wrapper.addEventListener("click", () => {
-              // remove old selection
-              document.querySelectorAll(".color-box").forEach(el =>
-                el.classList.remove("selected")
-              );
-              wrapper.classList.add("selected");
-
-              // filter sizes for this color
-              const sizeDropdown = document.getElementById("popup-variant");
-              sizeDropdown.innerHTML = "";
-              product.variants
-                .filter(v => v.option2 === color)
-                .forEach(v => {
-                  const opt = document.createElement("option");
-                  opt.value = v.id;
-                  opt.textContent = v.option1;
-                  sizeDropdown.appendChild(opt);
-                });
-            });
-
-            colorContainer.appendChild(wrapper);
-          }); {% endcomment %}
-       // Color name → HEX mapping
-const colorMap = {
-  "Red": "#FF0000",
-  "Blue": "#0000FF",
-  "Sky Blue": "#87CEEB",
-  "Light Blue": "#ADD8E6",
-  "Navy": "#000080",
-  "Black": "#000000",
-  "White": "#FFFFFF",
-  "Green": "#008000",
-  "Yellow": "#FFFF00",
-  "Pink": "#FFC0CB",
-  "Purple": "#800080",
-  // ➕ Add more as needed
-};
-colors.forEach(color => {
-  const swatch = document.createElement("div");
-  swatch.className = "color-swatch";
-  swatch.dataset.color = color;
-
-  // ✅ Use mapped hex if available, otherwise fallback
-  const hex = colorMap[color] || null;
-
-  if (hex) {
-    swatch.style.backgroundColor = hex;
-  } else {
-    // If not found, show the text label instead
-    swatch.textContent = color;
-    swatch.style.border = "1px solid #ccc";
-    swatch.style.padding = "5px";
-    swatch.style.borderRadius = "5px";
-  }
-
-  swatch.addEventListener("click", () => {
-    document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
-    swatch.classList.add("selected");
-
-    // ✅ Filter sizes for this color
-    const sizeDropdown = document.getElementById("popup-variant");
-    sizeDropdown.innerHTML = "";
-    product.variants
-      .filter(v => v.option2 === color)
-      .forEach(v => {
-        const opt = document.createElement("option");
-        opt.value = v.id;
-        opt.textContent = v.option1;
-        sizeDropdown.appendChild(opt);
-      });
-  });
-
-  colorContainer.appendChild(swatch);
-});
-
-
-
-          // --- Auto-select first color ---
-          if (colorContainer.firstChild) {
-            colorContainer.firstChild.click();
-          }
-
-          // Show popup
-          popup.classList.remove("hidden");
-        });
-    });
-  });
-
-  // Close popup
-  popupClose.addEventListener("click", () => popup.classList.add("hidden"));
-  popup.addEventListener("click", e => {
-    if (e.target === popup) popup.classList.add("hidden");
-  });
-});
-
-</script> {% endcomment %}
-
-function getCssColor(colorName) {
-  const s = new Option().style;
-  s.color = colorName; 
-  // browser sets '' if invalid
-  return s.color || '#ccc';
-}
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const popup = document.getElementById("product-popup");
-  const popupClose = document.querySelector(".popup-close");
-
-  function getCssColor(colorName) {
-    const s = new Option().style;
-    s.color = colorName;
-    return s.color || '#ccc'; // fallback gray if invalid
-  }
-
-  document.querySelectorAll(".grid-item").forEach(item => {
-    item.addEventListener("click", () => {
-      const handle = item.dataset.handle;
-
-      fetch(`/products/${handle}.js`)
-        .then(res => res.json())
-        .then(product => {
-          document.getElementById("popup-title").textContent = product.title;
-          document.getElementById("popup-price").textContent =
-            (product.price / 100).toFixed(2) + " " + product.currency;
-          document.getElementById("popup-image").src = product.images[0] || "";
-          document.getElementById("popup-description").textContent = product.description;
-
-          const colorContainer = document.getElementById("popup-colors");
-          colorContainer.innerHTML = "";
-
-          const colors = [...new Set(product.variants.map(v => v.option2))];
-
-          colors.forEach(color => {
-            const swatch = document.createElement("div");
-            swatch.className = "color-swatch";
-            swatch.dataset.color = color;
-            swatch.style.cursor = "pointer";
-            swatch.style.display = "inline-block";
-            swatch.style.width = "30px";
-            swatch.style.height = "30px";
-            swatch.style.margin = "5px";
-            swatch.style.borderRadius = "50%";
-            swatch.style.border = "1px solid #ccc";
-            swatch.style.backgroundColor = getCssColor(color); // ✅ dynamic color
-            swatch.title = color;
-
-            swatch.addEventListener("click", () => {
-              document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
-              swatch.classList.add("selected");
-
-              const sizeDropdown = document.getElementById("popup-variant");
-              sizeDropdown.innerHTML = "";
-              product.variants
-                .filter(v => v.option2 === color)
-                .forEach(v => {
-                  const opt = document.createElement("option");
-                  opt.value = v.id;
-                  opt.textContent = v.option1;
-                  sizeDropdown.appendChild(opt);
-                });
-            });
-
-            colorContainer.appendChild(swatch);
-          });
-
-          if (colorContainer.firstChild) colorContainer.firstChild.click();
-          popup.classList.remove("hidden");
-        });
-    });
-  });
-
-  popupClose.addEventListener("click", () => popup.classList.add("hidden"));
-  popup.addEventListener("click", e => { if (e.target === popup) popup.classList.add("hidden"); });
 });
 </script>
-
-
 
 
 {% schema %}
