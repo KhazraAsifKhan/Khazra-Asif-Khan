@@ -421,7 +421,7 @@ wrapper.addEventListener("click", () => {
 });
 
 colorContainer.appendChild(wrapper);
-
+{% comment %} 
           swatch.addEventListener("click", () => {
             document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
             swatch.classList.add("selected");
@@ -442,7 +442,7 @@ colorContainer.appendChild(wrapper);
         });
 
         // ✅ Auto-select first color
-        if (colorContainer.firstChild) colorContainer.firstChild.click();
+        if (colorContainer.firstChild) colorContainer.firstChild.click(); {% endcomment %}
 
         // Show popup
         document.getElementById("product-popup").classList.remove("hidden");
