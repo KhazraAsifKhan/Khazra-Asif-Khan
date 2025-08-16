@@ -323,31 +323,34 @@ document.addEventListener("DOMContentLoaded", function() {
           popupColors.innerHTML = "";
           const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
 
-          colors.forEach(color => {
-            const box = document.createElement("div");
-            box.className = "color-box";
-            box.style.setProperty("color", color.toLowerCase()); // left edge color
-            box.textContent = color;
+         colors.forEach(color => {
+  const box = document.createElement("div");
+  box.className = "color-box";
+  box.textContent = color;
 
-            box.addEventListener("click", () => {
-              // deselect all
-              document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
-              box.classList.add("selected");
+  // store left-square color in data attribute
+  box.dataset.square = color.toLowerCase();
 
-              // filter sizes for this color
-              popupVariant.innerHTML = `<option value="">Choose your size</option>`;
-              product.variants
-                .filter(v => v.option2 === color)
-                .forEach(v => {
-                  const opt = document.createElement("option");
-                  opt.value = v.id;
-                  opt.textContent = v.option1;
-                  popupVariant.appendChild(opt);
-                });
-            });
+  box.addEventListener("click", () => {
+    // deselect all
+    document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
+    box.classList.add("selected");
 
-            popupColors.appendChild(box);
-          });
+    // filter sizes for this color
+    popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+    product.variants
+      .filter(v => v.option2 === color)
+      .forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.id;
+        opt.textContent = v.option1;
+        popupVariant.appendChild(opt);
+      });
+  });
+
+  popupColors.appendChild(box);
+});
+
 
           // auto-select first color
           if (popupColors.firstChild) popupColors.firstChild.click();
