@@ -183,6 +183,73 @@
 }
 
 
+/* ===== POPUP CONTENT ===== */
+.popup-content {
+  background: #fff;
+  width: 80vw;          /* wider to allow side-by-side */
+  max-width: 900px;     /* let it expand beyond 400px */
+  height: 85vh;
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;     /* stop spilling outside */
+}
+
+/* ===== MAIN LAYOUT ===== */
+.popup-top {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.popup-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup-image img {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.popup-details {
+  flex: 2;  /* give more space to text */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+  overflow-y: auto; /* if description is long, scroll only inside details */
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 768px) {
+  .popup-content {
+    width: 95vw;
+    height: auto;
+    max-height: 90vh;
+  }
+  .popup-top {
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-details {
+    text-align: center;
+    overflow-y: visible; /* don’t scroll on small screen */
+  }
+  .popup-image img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+  }
+}
+
 
 
 </style>
