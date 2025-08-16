@@ -195,8 +195,9 @@
 /* Color boxes */
 .color-container {
   display: flex;
-  gap: 10px;
+  gap: 0px;
   margin: 10px 0;
+
 }
 
 .color-box {
@@ -206,18 +207,17 @@
   gap: 0px;
   width: 200px;
   height: 40px;
-  background: white; /* default background */
+  background: white;
   border: 1px solid #ccc;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 6px;
-  color: black; /* default text color */
-  position: relative;
+  
 }
 
 .color-box.selected {
-  background: black; /* selected background */
-  color: white; /* selected text color */
+  background: black;
+  color: white;
 }
 
 .color-box::before {
@@ -226,10 +226,8 @@
   width: 20px;
   height: 100%;
   border-radius: 4px 0 0 4px;
-  background-color: attr(data-color color); /* uses data-color */
-  margin-right: 8px;
+  background-color: currentColor;
 }
-
 
 /* Variant dropdown */
 #popup-variant {
