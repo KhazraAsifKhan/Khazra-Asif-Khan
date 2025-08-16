@@ -200,7 +200,7 @@
 
 }
 
-.color-box {
+{% comment %} .color-box {
   display: flex;
   align-items: center;
   justify-content: flex-start; /* text on the left side */
@@ -228,7 +228,45 @@
   margin-right: 8px;
   border-radius: 4px 0 0 4px;
   background-color: white; /* small square color */
+} {% endcomment %}
+.color-box {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding-left: 5px;
+  color: black;
+  position: relative;
+  overflow: hidden;
 }
+
+.color-box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25px;          /* small strip width */
+  height: 100%;
+  border-radius: 6px 0 0 6px;  /* rounded left side */
+  background-color: var(--square-color, #fff);
+}
+
+.color-box span {
+  margin-left: 35px; /* push text after the strip */
+  z-index: 1;
+}
+
+/* Selected state */
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
 
 
 /* Variant dropdown */
@@ -323,20 +361,20 @@ document.addEventListener("DOMContentLoaded", function() {
           popupColors.innerHTML = "";
           const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
 
-         colors.forEach(color => {
+       colors.forEach(color => {
   const box = document.createElement("div");
   box.className = "color-box";
-  box.textContent = color;
+  box.style.setProperty("--square-color", color.toLowerCase());
 
-  // store left-square color in data attribute
-  box.dataset.square = color.toLowerCase();
+  const label = document.createElement("span");
+  label.textContent = color;
+  box.appendChild(label);
 
   box.addEventListener("click", () => {
-    // deselect all
     document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
     box.classList.add("selected");
 
-    // filter sizes for this color
+    // filter sizes
     popupVariant.innerHTML = `<option value="">Choose your size</option>`;
     product.variants
       .filter(v => v.option2 === color)
@@ -350,6 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   popupColors.appendChild(box);
 });
+
 
 
           // auto-select first color
