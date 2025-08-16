@@ -1,31 +1,32 @@
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
     <span class="popup-close">&times;</span>
-    <div class="popup-body">
-      
-      <!-- Image + Title + Price + Description -->
-      <div class="popup-main">
-        <div class="popup-image">
-          <img id="popup-image" src="" alt="">
-        </div>
+    
+    <!-- Top row: Image + Details -->
+    <div class="popup-top">
+      <div class="popup-image">
+        <img id="popup-image" src="" alt="">
+      </div>
+
+      <div class="popup-details">
         <h2 id="popup-title"></h2>
         <p id="popup-price"></p>
         <p id="popup-description"></p>
       </div>
-
-      <!-- Colors + Size + Add to Cart -->
-      <div class="popup-actions">
-        <div id="popup-colors" class="color-container"></div>
-
-        <label for="popup-variant">Choose your size:</label>
-        <select id="popup-variant">
-          <option value="">Choose your size</option>
-        </select>
-
-        <button id="popup-add-to-cart">ADD TO CART</button>
-      </div>
-
     </div>
+
+    <!-- Bottom row: Colors + Size + Add to Cart -->
+    <div class="popup-actions">
+      <div id="popup-colors" class="color-container"></div>
+
+      <label for="popup-variant">Choose your size:</label>
+      <select id="popup-variant">
+        <option value="">Choose your size</option>
+      </select>
+
+      <button id="popup-add-to-cart">ADD TO CART</button>
+    </div>
+
   </div>
 </div>
 
@@ -314,6 +315,65 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+
+
+/* Top row with image + details side by side */
+.popup-top {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.popup-image img {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.popup-details {
+  flex: 1;
+  min-width: 250px;
+}
+
+.popup-details h2 {
+  font-size: 22px;
+  margin: 0 0 10px;
+}
+
+#popup-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  margin: 5px 0 10px;
+}
+
+#popup-description {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Actions below */
+.popup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+/* Responsive: stack on small screens */
+@media screen and (max-width: 768px) {
+  .popup-top {
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-details {
+    text-align: center;
+  }
+}
+
+
 /* Responsive */
 @media screen and (max-width: 900px) {
   .popup-body {
@@ -325,32 +385,6 @@
   }
 }
 
-.popup-body {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.popup-main {
-  text-align: center;
-}
-
-.popup-image img {
-  max-width: 350px;
-  width: 100%;
-  margin: 0 auto 15px;
-  display: block;
-  border-radius: 8px;
-}
-
-.popup-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 350px;
-  margin: 0 auto;
-  width: 100%;
-}
 
 
 </style>
