@@ -18,46 +18,7 @@
         <div class="color-options">
   <p>Color</p>
   <div id="popup-colors" class="color-scroll">
-    <script>
-  // your JS code here
-  console.log("Popup script loaded!");
-
-  function updateColors(size) {
-    const colorContainer = document.getElementById("popup-colors");
-    colorContainer.innerHTML = "";
-
-    const colors = ["Grey", "Black"]; // Example, later you’ll use product.variants
-
-    colors.forEach(color => {
-      const wrapper = document.createElement("div");
-      wrapper.className = "color-box";
-      wrapper.dataset.color = color;
-
-      const square = document.createElement("span");
-      square.className = "color-square";
-      square.style.backgroundColor = color.toLowerCase();
-
-      const label = document.createElement("span");
-      label.textContent = color;
-
-      wrapper.appendChild(square);
-      wrapper.appendChild(label);
-
-      wrapper.addEventListener("click", () => {
-        document.querySelectorAll(".color-box").forEach(el =>
-          el.classList.remove("selected")
-        );
-        wrapper.classList.add("selected");
-      });
-
-      colorContainer.appendChild(wrapper);
-    });
-  }
-
-  // Example: call with "M" size
-  updateColors("M");
-</script>
-
+    
   </div>
 </div>
 
@@ -302,6 +263,25 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+.color-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 6px 10px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.color-box.selected {
+  border: 2px solid #000;
+}
+
+.color-square {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+}
 
 /* Responsive: stack on small screens */
 @media (max-width: 700px) {
@@ -404,10 +384,44 @@ document.querySelectorAll(".grid-item").forEach(item => {
         const colors = [...new Set(product.variants.map(v => v.option2))];
 
         colors.forEach(color => {
-          const swatch = document.createElement("div");
-          swatch.className = "color-swatch";
-          swatch.dataset.color = color;
-          swatch.textContent = color; // can replace with circle + css later
+         const wrapper = document.createElement("div");
+wrapper.className = "color-box";
+wrapper.dataset.color = color;
+
+// colored square
+const square = document.createElement("span");
+square.className = "color-square";
+square.style.backgroundColor = color.toLowerCase(); // Grey → grey, Black → black
+
+// text label
+const label = document.createElement("span");
+label.textContent = color;
+
+wrapper.appendChild(square);
+wrapper.appendChild(label);
+
+// selection behavior
+wrapper.addEventListener("click", () => {
+  document.querySelectorAll(".color-box").forEach(el =>
+    el.classList.remove("selected")
+  );
+  wrapper.classList.add("selected");
+
+  // filter sizes for this color
+  const sizeDropdown = document.getElementById("popup-variant");
+  sizeDropdown.innerHTML = "";
+  product.variants
+    .filter(v => v.option2 === color)
+    .forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v.id;
+      opt.textContent = v.option1;
+      sizeDropdown.appendChild(opt);
+    });
+});
+
+colorContainer.appendChild(wrapper);
+
           swatch.addEventListener("click", () => {
             document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
             swatch.classList.add("selected");
