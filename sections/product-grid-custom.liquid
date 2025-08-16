@@ -1,0 +1,111 @@
+{% schema %}
+{
+  "name": "Custom Product Grid",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product 4"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "Product 5"
+    },
+    {
+      "type": "product",
+      "id": "product_6",
+      "label": "Product 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="custom-grid">
+  <div class="grid-wrapper">
+    {% for i in (1..6) %}
+  {% assign setting_id = "product_" | append: i %}
+  {% assign product = all_products[section.settings[setting_id]] %}
+  {% if product %}
+    <div class="grid-item" data-handle="{{ product.handle }}">
+      <div class="grid-img">
+        <img 
+          src="{{ product.featured_image | img_url: '400x' }}" 
+          alt="{{ product.title }}">
+      </div>
+      <h3 class="grid-title">{{ product.title }}</h3>
+      <p class="grid-price">{{ product.price | money }}</p>
+    </div>
+  {% endif %}
+{% endfor %}
+
+  </div>
+</div>
+
+<style>
+.custom-grid {
+  padding: 40px 20px;
+}
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.grid-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.grid-img img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.grid-title {
+  font-size: 1rem;
+  margin: 10px 0 5px;
+}
+.grid-price {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 600px) {
+  .grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
