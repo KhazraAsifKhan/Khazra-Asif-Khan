@@ -56,49 +56,7 @@
 
 
 <style>
-
-    .color-options {
-  width: 100%;
-  text-align: left;
-}
-
-.color-options p {
-  font-size: 14px;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.color-scroll {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-}
-
-.color-scroll::-webkit-scrollbar {
-  height: 6px;
-}
-
-.color-scroll::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-/* Swatches */
-.color-swatch {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  flex-shrink: 0; /* prevent shrinking */
-}
-
-.color-swatch.selected {
-  border: 2px solid #333; /* highlight selected */
-}
-
-
+/* ================= GRID LIST ================= */
 .custom-grid {
   padding: 40px 20px;
 }
@@ -123,10 +81,9 @@
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;   /* makes sure images don’t stretch weirdly */
-  max-height: 250px;   /* keep them from being too tall */
+  object-fit: cover;
+  max-height: 250px;
 }
-
 .grid-title {
   font-size: 1rem;
   margin: 10px 0 5px;
@@ -136,7 +93,7 @@
   color: #555;
 }
 
-/* Popup container */
+/* ================= POPUP ================= */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -153,8 +110,10 @@
 .popup-content {
   background: #fff;
   border-radius: 12px;
-  max-width: 900px;
-  width: 90%;
+  max-width: 600px;   /* smaller popup */
+  width: 95%;
+  max-height: 85vh;   /* fits inside screen */
+  overflow-y: auto;   /* scroll inside if too tall */
   padding: 25px;
   display: flex;
   flex-direction: column;
@@ -189,7 +148,7 @@
 /* Layout: image + details side by side */
 .popup-body {
   display: flex;
-  gap: 30px;
+  gap: 25px;
   align-items: flex-start;
 }
 
@@ -213,18 +172,15 @@
   gap: 15px;
   text-align: left;
 }
-
 #popup-title {
   font-size: 22px;
   font-weight: 700;
 }
-
 #popup-price {
   font-size: 20px;
   font-weight: 600;
   color: rgb(33, 229, 118);
 }
-
 #popup-description {
   font-size: 14px;
   color: #555;
@@ -263,27 +219,63 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
+/* ================= COLOR OPTIONS ================= */
+.color-options {
+  width: 100%;
+  text-align: left;
+}
+.color-options p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Scrollable row */
+.color-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+.color-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.color-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* Each color box */
 .color-box {
   display: flex;
   align-items: center;
-  border: 1px solid #000;
+  gap: 6px;
+  border: 1px solid #ccc;
   padding: 6px 10px;
-  margin-right: 8px;
+  border-radius: 6px;
   cursor: pointer;
+  flex-shrink: 0;   /* don’t shrink */
+  transition: 0.2s;
+  white-space: nowrap;
 }
-
+.color-box:hover {
+  background: #f9f9f9;
+}
 .color-box.selected {
   border: 2px solid #000;
+  background: #f2f2f2;
 }
 
+/* Small colored square */
 .color-square {
   width: 16px;
   height: 16px;
-  margin-right: 8px;
-  border: 1px solid #ccc;
+  border-radius: 4px;
+  border: 1px solid #aaa;
 }
 
-/* Responsive: stack on small screens */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 700px) {
   .popup-body {
     flex-direction: column;
@@ -292,8 +284,8 @@
     max-width: 100%;
   }
 }
-
 </style>
+
 
 
 
