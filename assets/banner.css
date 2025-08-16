@@ -16,3 +16,17 @@
 .banner-button:hover {
   transform: scale(1.1);
 }
+@media screen and (max-width: 750px) {
+  .custom-banner .banner-image {
+    max-height: 300px; /* smaller height on mobile */
+  }
+
+  .custom-banner .banner-content h1 {
+    font-size: 1.8rem; /* smaller heading */
+  }
+
+  .custom-banner .banner-content p {
+    font-size: 1.2rem; /* smaller subtitle */
+  }
+}
+
