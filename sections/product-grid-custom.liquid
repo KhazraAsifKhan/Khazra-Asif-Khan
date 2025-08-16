@@ -1,6 +1,6 @@
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
-    <span class="popup-close">&times;</span>
+    <span class="popup-close">X</span>
     
     <!-- Top row: Image + Details -->
     <div class="popup-top">
@@ -17,7 +17,7 @@
 
     <!-- Bottom row: Colors + Size + Add to Cart -->
     <div class="popup-actions">
-        {% comment %} <label for="popup-variant">Color:</label> {% endcomment %}
+      <label class="color-label">Color:</label>
       <div id="popup-colors" class="color-container"></div>
 
       <label for="popup-variant">Size:</label>
@@ -25,9 +25,8 @@
         <option value="">Choose your size</option>
       </select>
 
-      <button id="popup-add-to-cart">ADD TO CART</button>
+      <button id="popup-add-to-cart">ADD TO CART →</button>
     </div>
-
   </div>
 </div>
 
@@ -126,108 +125,43 @@
 /* ===== POPUP CONTENT ===== */
 .popup-content {
   background: #fff;
-  {% comment %} border-radius: 12px; {% endcomment %}
-  width: 65vw;          /* narrower than tall */
-  max-width: 400px;
-  height: 85vh;         /* taller than wide */
+  width: 65vw;
+  max-width: 420px;
+  height: 88vh;
   padding: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* ===== CLOSE BUTTON ===== */
 .popup-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 35px;
-  height: 35px;
-  background: #f5f5f5;
-  color: #444;
+  top: 12px;
+  right: 16px;
   font-size: 22px;
   font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #000;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background: none;
+  border: none;
+  line-height: 1;
 }
-
 .popup-close:hover {
-  background: rgb(180, 50, 50);
-  color: #fff;
-  transform: scale(1.1);
+  color: red;
 }
 
-/* ===== MAIN LAYOUT ===== */
-.popup-top {
-  display: flex;
-  flex: 1;
-  gap: 20px;
-  overflow: hidden;
-}
-
-.popup-image img {
-  max-width: 350px;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.popup-details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 250px;
-}
-
-.popup-details h2 {
-  font-size: 22px;
-  margin: 0;
-}
-
-#popup-price {
-  font-size: 18px;
+/* Color label */
+.color-label {
   font-weight: 600;
-  margin: 5px 0;
-}
-
-.popup-details p {
+  margin-bottom: 4px;
   font-size: 14px;
-  color: #555;
+  color: #222;
 }
 
-/* ===== ACTIONS (BOTTOM) ===== */
-.popup-actions {
-  margin-top: auto; /* push to bottom */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Dropdown */
-#popup-variant {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #f9f9f9;
-}
-
-#popup-variant:focus {
-  border-color: #333;
-  outline: none;
-  background: #fff;
-}
-
-/* Add to Cart button */
+/* Add to cart button */
 #popup-add-to-cart {
   width: 100%;
   padding: 14px;
@@ -239,19 +173,19 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-align: center;
 }
-
 #popup-add-to-cart:hover {
   background: rgba(0,0,0,0.9);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* ===== RESPONSIVE ===== */
+/* Responsive */
 @media screen and (max-width: 768px) {
   .popup-content {
     width: 95vw;
-    height: auto;       /* let it grow naturally */
+    height: auto;
     max-height: 90vh;
   }
   .popup-top {
@@ -262,7 +196,6 @@
     text-align: center;
   }
 }
-
 
 
 
