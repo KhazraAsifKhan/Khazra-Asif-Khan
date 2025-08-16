@@ -509,6 +509,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const popup = document.getElementById("product-popup");
   const popupClose = document.querySelector(".popup-close");
 
+  function getCssColor(colorName) {
+    const s = new Option().style;
+    s.color = colorName;
+    return s.color || '#ccc'; // fallback gray if invalid
+  }
+
   document.querySelectorAll(".grid-item").forEach(item => {
     item.addEventListener("click", () => {
       const handle = item.dataset.handle;
@@ -525,27 +531,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const colorContainer = document.getElementById("popup-colors");
           colorContainer.innerHTML = "";
 
-          // Get unique colors
           const colors = [...new Set(product.variants.map(v => v.option2))];
-
-          // Map descriptive color names to HEX values
-          const colorMap = {
-            "Red": "#FF0000",
-            "Blue": "#0000FF",
-            "Sky Blue": "#87CEEB",
-            "Light Blue": "#ADD8E6",
-            "Navy": "#000080",
-            "Black": "#000000",
-            "White": "#FFFFFF",
-            "Green": "#008000",
-            "Yellow": "#FFFF00",
-            "Pink": "#FFC0CB",
-            "Purple": "#800080",
-            "Beige": "#F5F5DC",
-            "Mint Green": "#98FF98",
-            "Orange": "#FFA500"
-            // ➕ add more as needed per your products
-          };
 
           colors.forEach(color => {
             const swatch = document.createElement("div");
@@ -558,9 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
             swatch.style.margin = "5px";
             swatch.style.borderRadius = "50%";
             swatch.style.border = "1px solid #ccc";
-
-            // Use mapped HEX if exists, fallback to grey
-            swatch.style.backgroundColor = colorMap[color] || "#ccc";
+            swatch.style.backgroundColor = getCssColor(color); // ✅ dynamic color
             swatch.title = color;
 
             swatch.addEventListener("click", () => {
@@ -583,7 +567,6 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           if (colorContainer.firstChild) colorContainer.firstChild.click();
-
           popup.classList.remove("hidden");
         });
     });
@@ -593,6 +576,7 @@ document.addEventListener("DOMContentLoaded", () => {
   popup.addEventListener("click", e => { if (e.target === popup) popup.classList.add("hidden"); });
 });
 </script>
+
 
 
 
