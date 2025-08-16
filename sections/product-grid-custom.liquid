@@ -124,52 +124,18 @@
 }
 
 /* ===== POPUP CONTENT ===== */
-/* Popup content — wider so it can hold side by side layout */
 .popup-content {
   background: #fff;
-  width: 80vw;          /* wider to fit image + details */
-  max-width: 900px;     /* allow a decent side-by-side */
-  height: 85vh;
+  {% comment %} border-radius: 12px; {% endcomment %}
+  width: 65vw;          /* narrower than tall */
+  max-width: 400px;
+  height: 85vh;         /* taller than wide */
   padding: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
-
-/* Image + details row */
-.popup-top {
-  display: flex;
-  flex: 1;
-  gap: 20px;
-  overflow: hidden;
-}
-
-/* Image */
-.popup-image {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.popup-image img {
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* Details */
-.popup-details {
-  flex: 2;              /* give more room to text */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-  min-width: 200px;
-}
-
 
 /* ===== CLOSE BUTTON ===== */
 .popup-close {
@@ -198,7 +164,27 @@
 }
 
 /* ===== MAIN LAYOUT ===== */
+.popup-top {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  overflow: hidden;
+}
 
+.popup-image img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.popup-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+}
 
 .popup-details h2 {
   font-size: 22px;
@@ -264,8 +250,9 @@
 @media screen and (max-width: 768px) {
   .popup-content {
     width: 95vw;
-    height: auto;
+    height: auto;       /* let it grow naturally */
     max-height: 90vh;
+    margin:0px;
   }
   .popup-top {
     flex-direction: column;
@@ -274,24 +261,21 @@
   .popup-details {
     text-align: center;
   }
+  .popup-image img {
+  max-width: 300px;
+  width: 50%;
+  height: 200px;
+  margin-left:0px;
+}
+.popup-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 10px;
 }
 
-
-@media screen and (max-width: 768px) {
-  .popup-content {
-    width: 95vw;
-    height: auto;
-    max-height: 90vh;
-  }
-  .popup-top {
-    flex-direction: column;
-    align-items: center;
-  }
-  .popup-details {
-    text-align: center;
-  }
 }
-
 
 
 
