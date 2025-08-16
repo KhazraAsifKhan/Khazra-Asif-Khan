@@ -1,3 +1,19 @@
+<div id="product-popup" class="popup hidden">
+  <div class="popup-content">
+    <span class="popup-close">&times;</span>
+    <div class="popup-body">
+      <h2 id="popup-title"></h2>
+      <img id="popup-image" src="" alt="">
+      <p id="popup-price"></p>
+      <p id="popup-description"></p>
+
+      <label for="popup-variant">Choose a variant:</label>
+      <select id="popup-variant"></select>
+
+      <button id="popup-add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+</div>
 
 
 <div class="custom-grid">
@@ -101,22 +117,76 @@
 </style>
 
 
-<div id="product-popup" class="popup hidden">
-  <div class="popup-content">
-    <span class="popup-close">&times;</span>
-    <div class="popup-body">
-      <h2 id="popup-title"></h2>
-      <img id="popup-image" src="" alt="">
-      <p id="popup-price"></p>
-      <p id="popup-description"></p>
 
-      <label for="popup-variant">Choose a variant:</label>
-      <select id="popup-variant"></select>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const popup = document.getElementById("product-popup");
+  const popupClose = document.querySelector(".popup-close");
+  const popupTitle = document.getElementById("popup-title");
+  const popupImage = document.getElementById("popup-image");
+  const popupPrice = document.getElementById("popup-price");
+  const popupDescription = document.getElementById("popup-description");
+  const popupVariant = document.getElementById("popup-variant");
+  const popupAddToCart = document.getElementById("popup-add-to-cart");
 
-      <button id="popup-add-to-cart">Add to Cart</button>
-    </div>
-  </div>
-</div>
+  // Handle grid item click
+  document.querySelectorAll(".grid-item").forEach(item => {
+    item.addEventListener("click", function() {
+      const handle = this.getAttribute("data-handle");
+
+      // Fetch product JSON by handle
+      fetch(`/products/${handle}.js`)
+        .then(res => res.json())
+        .then(product => {
+          popupTitle.textContent = product.title;
+          popupImage.src = product.images[0] || "";
+          popupPrice.textContent = (product.price / 100).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD"
+          });
+          popupDescription.textContent = product.description;
+
+          // Populate variants
+          popupVariant.innerHTML = "";
+          product.variants.forEach(variant => {
+            let option = document.createElement("option");
+            option.value = variant.id;
+            option.textContent = variant.title + " - " + (variant.price / 100).toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD"
+            });
+            popupVariant.appendChild(option);
+          });
+
+          popup.classList.remove("hidden");
+
+          // Add to Cart
+          popupAddToCart.onclick = function() {
+            const variantId = popupVariant.value;
+            fetch("/cart/add.js", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id: variantId, quantity: 1 })
+            })
+              .then(res => res.json())
+              .then(data => {
+                alert("Added to cart: " + data.title);
+                popup.classList.add("hidden");
+              })
+              .catch(err => console.error(err));
+          };
+        });
+    });
+  });
+
+  // Close popup
+  popupClose.addEventListener("click", () => popup.classList.add("hidden"));
+  popup.addEventListener("click", e => {
+    if (e.target === popup) popup.classList.add("hidden");
+  });
+});
+</script>
+
 
 {% schema %}
 {
