@@ -2,20 +2,24 @@
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
     <span class="popup-close">&times;</span>
-    <div class="popup-body"> 
-      <h2 id="popup-title"></h2>
-      <img id="popup-image" src="" alt="">
-      <p id="popup-price"></p>
-      <p id="popup-description"></p>
+    <div class="popup-body">
+      <div class="popup-image">
+        <img id="popup-image" src="" alt="">
+      </div>
+      <div class="popup-details">
+        <h2 id="popup-title"></h2>
+        <p id="popup-price"></p>
+        <p id="popup-description"></p>
 
-      <div id="popup-colors" class="color-container"></div>
+        <div id="popup-colors" class="color-container"></div>
 
-      <label for="popup-variant">Choose a size:</label>
-      <select id="popup-variant">
-        <option value="">Choose your size</option>
-      </select>
+        <label for="popup-variant">Choose your size:</label>
+        <select id="popup-variant">
+          <option value="">Choose your size</option>
+        </select>
 
-      <button id="popup-add-to-cart">ADD TO CART</button>
+        <button id="popup-add-to-cart">ADD TO CART</button>
+      </div>
     </div>
   </div>
 </div>
@@ -78,6 +82,22 @@
   font-size: 0.9rem;
   color: #555;
 }
+
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (max-width: 600px) {
+  .grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Popup background */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -88,39 +108,24 @@
   justify-content: center;
   z-index: 9999;
 }
-#product-popup img {
-  max-width: 100%;
-  max-height: 400px;  /* prevents it from being taller than the screen */
-  width: auto;
-  height: auto;
-  object-fit: contain;  /* keeps full image visible, no cropping */
-}
-
 
 .popup.hidden {
   display: none;
 }
 
+/* Popup content */
 .popup-content {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
-   max-height: 90vh;  /* 90% of viewport */
-  overflow-y: auto;  /* allow scrolling if content is tall */
-  width: 100%;
-  text-align: center;
+  max-width: 800px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
 }
 
-#popup-price {
-  font-size: 18px;
-  font-weight: 600;
-  color: rgb(33, 229, 118);
-  margin: 10px 0;
-}
-
-
+/* Close button */
 .popup-close {
   position: absolute;
   top: 15px;
@@ -146,63 +151,43 @@
   transform: scale(1.1);
 }
 
-
-
-/* Variant Dropdown */
-#popup-variant {
-  width: 100%;
-  padding: 10px 12px;
-  margin: 15px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #f9f9f9;
-  transition: border-color 0.2s ease;
-}
-
-#popup-variant:focus {
-  border-color: #333;
-  outline: none;
-  background: #fff;
-}
-
-/* Add to Cart Button */
-#popup-add-to-cart {
-  display: inline-block;
-  width: 100%;
-  padding: 14px;
-  background:rgb(33, 229, 118); /* Shopify black vibe */
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-
-#popup-add-to-cart:hover {
-  background: rgb(25, 190, 95); /* darker green shade */
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-
-/* Add subtle spacing for popup layout */
+/* Layout for image and details */
 .popup-body {
   display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.popup-image img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.popup-details {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
   flex-direction: column;
-  gap: 12px;
-  align-items: center;
+  gap: 10px;
 }
 
-.popup-body h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
+.popup-details h2 {
+  font-size: 22px;
+  margin: 0;
 }
 
-.popup-body p {
+#popup-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgb(33, 229, 118);
+  margin: 5px 0;
+}
+
+.popup-details p {
   font-size: 14px;
   color: #555;
 }
@@ -213,7 +198,6 @@
   gap: 10px;
   margin: 10px 0;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .color-box {
@@ -241,21 +225,60 @@
   width: 20px;
   height: 100%;
   border-radius: 4px 0 0 4px;
-  background-color: currentColor; /* this will be set dynamically */
+  background-color: currentColor;
 }
 
+/* Variant dropdown */
+#popup-variant {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f9f9f9;
+}
+
+#popup-variant:focus {
+  border-color: #333;
+  outline: none;
+  background: #fff;
+}
+
+/* Add to Cart button */
+#popup-add-to-cart {
+  display: inline-block;
+  width: 100%;
+  padding: 14px;
+  background: rgb(33, 229, 118);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+#popup-add-to-cart:hover {
+  background: rgb(25, 190, 95);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
 /* Responsive */
 @media screen and (max-width: 900px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(2, 1fr);
+  .popup-body {
+    flex-direction: column;
+    align-items: center;
+  }
+  .popup-image img {
+    max-width: 100%;
   }
 }
-@media screen and (max-width: 600px) {
-  .grid-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
+
+
 </style>
 
 
