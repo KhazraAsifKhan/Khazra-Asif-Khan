@@ -421,20 +421,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
             colorContainer.appendChild(wrapper);
           }); {% endcomment %}
-          colors.forEach(color => {
+       // Color name → HEX mapping
+const colorMap = {
+  "Red": "#FF0000",
+  "Blue": "#0000FF",
+  "Sky Blue": "#87CEEB",
+  "Light Blue": "#ADD8E6",
+  "Navy": "#000080",
+  "Black": "#000000",
+  "White": "#FFFFFF",
+  "Green": "#008000",
+  "Yellow": "#FFFF00",
+  "Pink": "#FFC0CB",
+  "Purple": "#800080",
+  // ➕ Add more as needed
+};
+colors.forEach(color => {
   const swatch = document.createElement("div");
   swatch.className = "color-swatch";
   swatch.dataset.color = color;
 
-  // ✅ Try to use actual color names as background (CSS recognizes common names like "red", "blue", "navy")
-  // Or fallback to text if it’s not a valid CSS color
-  swatch.style.backgroundColor = color;
+  // ✅ Use mapped hex if available, otherwise fallback
+  const hex = colorMap[color] || null;
 
-  // If the color is something fancy like "Sky Blue" that CSS doesn’t recognize, keep the label
-  if (swatch.style.backgroundColor === "") {
+  if (hex) {
+    swatch.style.backgroundColor = hex;
+  } else {
+    // If not found, show the text label instead
     swatch.textContent = color;
     swatch.style.border = "1px solid #ccc";
     swatch.style.padding = "5px";
+    swatch.style.borderRadius = "5px";
   }
 
   swatch.addEventListener("click", () => {
@@ -456,6 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   colorContainer.appendChild(swatch);
 });
+
 
 
           // --- Auto-select first color ---
