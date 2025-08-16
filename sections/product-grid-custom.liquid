@@ -205,15 +205,16 @@
   background: #fff;
   width: 65vw;
   max-width: 650px;
-  max-height: 90vh;
   padding: 24px;
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-  overflow-y: auto;
   animation: fadeIn 0.3s ease;
+  /* 🚫 no scroll */
+  max-height: none;
+  overflow: visible;
 }
 
 /* Popup fade-in */
@@ -348,7 +349,6 @@
   .popup-content {
     width: 90vw;
     max-width: 95%;
-    max-height: 85vh;
     padding: 16px;
   }
 
@@ -367,10 +367,7 @@
     text-align: center;
   }
 
-  #popup-price {
-    text-align: center;
-  }
-
+  #popup-price,
   #popup-description {
     text-align: center;
   }
