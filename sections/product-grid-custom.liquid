@@ -396,6 +396,22 @@ document.addEventListener("DOMContentLoaded", () => {
           colorContainer.innerHTML = "";
 
           const colors = [...new Set(product.variants.map(v => v.option2))];
+// Map custom color names to actual hex codes or valid CSS colors
+const colorMap = {
+  "Red": "#ff0000",
+  "Blue": "#0000ff",
+  "Green": "#008000",
+  "Black": "#000000",
+  "White": "#ffffff",
+  "Beige": "#f5f5dc",
+  "Grey": "#808080",
+  "Light Grey": "#d3d3d3",
+  "Navy": "#000080",
+  "Pink": "#ffc0cb",
+  "Sky Blue": "#87ceeb",
+  "Army Green": "#4b5320",
+  // ➕ Add more as needed
+};
 
           {% comment %} colors.forEach(color => {
             const wrapper = document.createElement("div");
@@ -436,19 +452,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
             colorContainer.appendChild(wrapper);
           }); {% endcomment %}
+         
           colors.forEach(color => {
   const swatch = document.createElement("div");
   swatch.className = "color-swatch";
   swatch.dataset.color = color;
 
-  // ✅ Set background color based on the color name
-  swatch.style.backgroundColor = color.toLowerCase();
+  // ✅ use map (fallback to black if not found)
+  swatch.style.backgroundColor = colorMap[color] || color.toLowerCase();
 
   swatch.addEventListener("click", () => {
     document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
     swatch.classList.add("selected");
 
-    // ✅ Filter sizes for this color
+    // update size dropdown
     const sizeDropdown = document.getElementById("popup-variant");
     sizeDropdown.innerHTML = "";
     product.variants
@@ -460,6 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sizeDropdown.appendChild(opt);
       });
   });
+
   colorContainer.appendChild(swatch);
 });
 
