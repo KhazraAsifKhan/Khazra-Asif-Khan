@@ -529,27 +529,28 @@ document.addEventListener("DOMContentLoaded", () => {
             swatch.dataset.color = color;
             swatch.style.cursor = "pointer";
             swatch.style.display = "inline-block";
-            swatch.style.width = "25px";
-            swatch.style.height = "25px";
+            swatch.style.width = "30px";
+            swatch.style.height = "30px";
             swatch.style.margin = "5px";
-            swatch.style.borderRadius = "5px";
+            swatch.style.borderRadius = "50%";
             swatch.style.border = "1px solid #ccc";
 
-            // Try to get a variant image with this color
-            const variantImage = product.variants.find(v => v.option2 === color)?.featured_image || product.images[0];
-            if (variantImage) {
-              swatch.style.backgroundImage = `url(${variantImage})`;
-              swatch.style.backgroundSize = "cover";
-              swatch.style.backgroundPosition = "center";
-            } else {
-              // fallback color name
-              swatch.style.backgroundColor = color.toLowerCase();
+            // Try to use the color name as CSS color
+            try {
+              swatch.style.backgroundColor = color;
+            } catch {
+              // fallback if invalid color
+              swatch.textContent = color;
+              swatch.style.backgroundColor = "#fff";
+              swatch.style.fontSize = "10px";
+              swatch.style.textAlign = "center";
+              swatch.style.lineHeight = "30px";
             }
 
             swatch.title = color;
 
             swatch.addEventListener("click", () => {
-              // Remove old selection
+              // Remove selection from other swatches
               document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
               swatch.classList.add("selected");
 
@@ -564,11 +565,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   opt.textContent = v.option1;
                   sizeDropdown.appendChild(opt);
                 });
-
-              // Change main image to first variant with this color
-              const mainImage = document.getElementById("popup-image");
-              const variantImg = product.variants.find(v => v.option2 === color)?.featured_image;
-              if (variantImg) mainImage.src = variantImg;
             });
 
             colorContainer.appendChild(swatch);
