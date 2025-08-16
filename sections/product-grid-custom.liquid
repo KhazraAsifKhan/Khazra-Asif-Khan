@@ -16,17 +16,58 @@
 
         <!-- ✅ Dynamic Color Options -->
         <div class="color-options">
-          <p>Choose a color:</p>
-          <div id="popup-colors" class="color-scroll">
-            <!-- JS will inject unique colors here -->
-          </div>
-        </div>
+  <p>Color</p>
+  <div id="popup-colors" class="color-scroll">
+    <script>
+  // your JS code here
+  console.log("Popup script loaded!");
 
-        <!-- ✅ Size Dropdown -->
-        <label for="popup-variant">Choose a size:</label>
-        <select id="popup-variant"></select>
+  function updateColors(size) {
+    const colorContainer = document.getElementById("popup-colors");
+    colorContainer.innerHTML = "";
 
-        <button id="popup-add-to-cart">Add to Cart</button>
+    const colors = ["Grey", "Black"]; // Example, later you’ll use product.variants
+
+    colors.forEach(color => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "color-box";
+      wrapper.dataset.color = color;
+
+      const square = document.createElement("span");
+      square.className = "color-square";
+      square.style.backgroundColor = color.toLowerCase();
+
+      const label = document.createElement("span");
+      label.textContent = color;
+
+      wrapper.appendChild(square);
+      wrapper.appendChild(label);
+
+      wrapper.addEventListener("click", () => {
+        document.querySelectorAll(".color-box").forEach(el =>
+          el.classList.remove("selected")
+        );
+        wrapper.classList.add("selected");
+      });
+
+      colorContainer.appendChild(wrapper);
+    });
+  }
+
+  // Example: call with "M" size
+  updateColors("M");
+</script>
+
+  </div>
+</div>
+
+<label for="popup-variant">Size</label>
+<select id="popup-variant">
+  <option>Choose your size</option>
+</select>
+
+<button id="popup-add-to-cart">ADD TO CART →</button>
+
       </div>
     </div>
   </div>
