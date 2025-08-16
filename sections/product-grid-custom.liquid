@@ -246,10 +246,14 @@
 }
 
 .color-box::before {
- 
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 5px;          /* small strip width */
-
-  background-color: #000;
+  height: 100%;
+  border-radius: 6px 0 0 6px;  /* rounded left side */
+  background-color: var(--square-color, #000)
 }
 
 .color-box span {
