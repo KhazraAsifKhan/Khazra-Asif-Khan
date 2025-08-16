@@ -1,40 +1,42 @@
 .custom-banner {
   text-align: center;
-  padding: 50px 20px;
+  padding: 0; /* remove top/bottom padding */
+  margin: 0;
   background-color: #f5f5f5;
-}
-.custom-banner .banner-image {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover; /* keeps proportions without stretching */
+  width: 100%;
+  overflow: hidden; /* remove any overflow */
 }
 
+.custom-banner .banner-image {
+  width: 100%; /* full width */
+  height: auto; /* maintain aspect ratio */
+  display: block;
+}
+
+.custom-banner .banner-content {
+  padding: 20px;
+}
+
+.custom-banner .banner-content h1 {
+  font-size: 2rem;
+  margin: 10px 0 5px 0;
+}
+
+.custom-banner .banner-content p {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
 
 .banner-button {
-  margin-top: 20px;
   display: inline-block;
-  padding: 12px 30px;
-  background: linear-gradient(135deg, #f56a6a, #d94f4f); /* gradient */
+  padding: 10px 25px;
+  background: linear-gradient(135deg, #f56a6a, #d94f4f);
   color: #fff;
   text-decoration: none;
-  border-radius: 30px; /* very rounded */
+  border-radius: 30px;
   font-weight: bold;
   box-shadow: 0 5px 15px rgba(245, 106, 106, 0.4);
   transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.banner-button::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255,255,255,0.2);
-  transform: rotate(45deg);
-  transition: all 0.5s ease;
 }
 
 .banner-button:hover {
@@ -42,24 +44,18 @@
   box-shadow: 0 8px 25px rgba(245, 106, 106, 0.6);
 }
 
-.banner-button:hover::after {
-  top: -30%;
-  left: -30%;
-}
-
-
-
+/* Mobile adjustments */
 @media screen and (max-width: 750px) {
-  .custom-banner .banner-image {
-    max-height: 300px; /* smaller height on mobile */
-  }
-
   .custom-banner .banner-content h1 {
-    font-size: 1.8rem; /* smaller heading */
+    font-size: 1.5rem;
   }
 
   .custom-banner .banner-content p {
-    font-size: 1.2rem; /* smaller subtitle */
+    font-size: 1rem;
+  }
+
+  .banner-button {
+    padding: 8px 20px; /* smaller button on mobile */
+    font-size: 0.9rem;
   }
 }
-
