@@ -2,15 +2,24 @@
   <div class="popup-content">
     <span class="popup-close">&times;</span>
     <div class="popup-body"> 
-      <h2 id="popup-title"></h2>
-      <img id="popup-image" src="" alt="">
-      <p id="popup-price"></p>
-      <p id="popup-description"></p>
+      
+      <!-- Left side: Image -->
+      <div class="popup-image-wrap">
+        <img id="popup-image" src="" alt="">
+      </div>
+      
+      <!-- Right side: Details -->
+      <div class="popup-details">
+        <h2 id="popup-title"></h2>
+        <p id="popup-price"></p>
+        <p id="popup-description"></p>
 
-      <label for="popup-variant">Choose a variant:</label>
-      <select id="popup-variant"></select>
+        <label for="popup-variant">Choose a variant:</label>
+        <select id="popup-variant"></select>
 
-      <button id="popup-add-to-cart">Add to Cart</button>
+        <button id="popup-add-to-cart">Add to Cart</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -73,6 +82,8 @@
   font-size: 0.9rem;
   color: #555;
 }
+
+/* Popup container */
 .popup {
   position: fixed;
   top: 0; left: 0;
@@ -83,39 +94,21 @@
   justify-content: center;
   z-index: 9999;
 }
-#product-popup img {
-  max-width: 100%;
-  max-height: 400px;  /* prevents it from being taller than the screen */
-  width: auto;
-  height: auto;
-  object-fit: contain;  /* keeps full image visible, no cropping */
-}
+.popup.hidden { display: none; }
 
-
-.popup.hidden {
-  display: none;
-}
-
+/* Popup box */
 .popup-content {
   background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-   max-height: 90vh;  /* 90% of viewport */
-  overflow-y: auto;  /* allow scrolling if content is tall */
-  width: 100%;
-  text-align: center;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 90%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 
-#popup-price {
-  font-size: 18px;
-  font-weight: 600;
-  color: rgb(33, 229, 118);
-  margin: 10px 0;
-}
-
-
+/* Close button */
 .popup-close {
   position: absolute;
   top: 15px;
@@ -134,39 +127,76 @@
   transition: all 0.3s ease;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
 .popup-close:hover {
   background: rgb(180, 50, 50);
   color: #fff;
   transform: scale(1.1);
 }
 
+/* Layout: image + details side by side */
+.popup-body {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
 
-
-/* Variant Dropdown */
-#popup-variant {
+/* Left: image */
+.popup-image-wrap {
+  flex: 1;
+  max-width: 45%;
+}
+.popup-image-wrap img {
   width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Right: details */
+.popup-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+#popup-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+#popup-price {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(33, 229, 118);
+}
+
+#popup-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Variant dropdown */
+#popup-variant {
   padding: 10px 12px;
-  margin: 15px 0;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 14px;
   background: #f9f9f9;
   transition: border-color 0.2s ease;
 }
-
 #popup-variant:focus {
   border-color: #333;
   outline: none;
   background: #fff;
 }
 
-/* Add to Cart Button */
+/* Add to cart */
 #popup-add-to-cart {
-  display: inline-block;
-  width: 100%;
   padding: 14px;
-  background:rgb(33, 229, 118); /* Shopify black vibe */
+  background: rgb(33, 229, 118);
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -174,46 +204,23 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
 }
-
 #popup-add-to-cart:hover {
-  background: rgb(25, 190, 95); /* darker green shade */
+  background: rgb(25, 190, 95);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-
-/* Add subtle spacing for popup layout */
-.popup-body {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: center;
-}
-
-.popup-body h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.popup-body p {
-  font-size: 14px;
-  color: #555;
-}
-
-
-/* Responsive */
-@media screen and (max-width: 900px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(2, 1fr);
+/* Responsive: stack on small screens */
+@media (max-width: 700px) {
+  .popup-body {
+    flex-direction: column;
+  }
+  .popup-image-wrap, .popup-details {
+    max-width: 100%;
   }
 }
-@media screen and (max-width: 600px) {
-  .grid-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
+
 </style>
 
 
