@@ -12,9 +12,10 @@
     "banner-custom": {
       "type": "banner-custom",
       "settings": {
-        "banner_title": "Welcome to Our Store",
+        "banner_image": "shopify://shop_images/gift-box-with-flower.jpg",
+        "banner_title": "",
         "banner_subtitle": "Shop the latest products now",
-        "banner_button_link": "#",
+        "banner_button_link": "https://khazra-asif-khan-48-teststore.myshopify.com/collections/all",
         "banner_button_text": "Shop Now"
       }
     },
