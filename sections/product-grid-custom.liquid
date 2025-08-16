@@ -116,6 +116,64 @@
   cursor: pointer;
 }
 
+/* Variant Dropdown */
+#popup-variant {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f9f9f9;
+  transition: border-color 0.2s ease;
+}
+
+#popup-variant:focus {
+  border-color: #333;
+  outline: none;
+  background: #fff;
+}
+
+/* Add to Cart Button */
+#popup-add-to-cart {
+  display: inline-block;
+  width: 100%;
+  padding: 14px;
+  background: #111; /* Shopify black vibe */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+#popup-add-to-cart:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Add subtle spacing for popup layout */
+.popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.popup-body h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.popup-body p {
+  font-size: 14px;
+  color: #555;
+}
+
 
 /* Responsive */
 @media screen and (max-width: 900px) {
