@@ -275,6 +275,21 @@
   border: 1px solid #aaa;
 }
 
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ddd;
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.color-swatch.selected {
+  border: 2px solid #000; /* highlight selected */
+}
+
+
 /* ================= RESPONSIVE ================= */
 @media (max-width: 700px) {
   .popup-body {
