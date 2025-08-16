@@ -14,13 +14,20 @@
       "settings": {
         "banner_title": "Welcome to Our Store",
         "banner_subtitle": "Shop the latest products now",
-        "banner_button_text": "Shop Now",
-        "banner_button_link": "#"
+        "banner_button_link": "#",
+        "banner_button_text": "Shop Now"
       }
     },
     "product-grid-custom": {
       "type": "product-grid-custom",
-      "settings": {}
+      "settings": {
+        "product_1": "black-leather-bag",
+        "product_2": "blue-silk-tuxedo",
+        "product_3": "chequered-red-shirt",
+        "product_4": "classic-leather-jacket",
+        "product_5": "classic-varsity-top",
+        "product_6": "dark-denim-top"
+      }
     }
   },
   "order": [
@@ -28,4 +35,3 @@
     "product-grid-custom"
   ]
 }
-
