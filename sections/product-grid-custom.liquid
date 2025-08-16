@@ -229,6 +229,7 @@
   border-radius: 4px 0 0 4px;
   background-color: white; /* small square color */
 } {% endcomment %}
+
 .color-box {
   display: flex;
   align-items: center;
@@ -250,14 +251,14 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 5px;          /* small strip width */
+  width: 25px;
   height: 100%;
-  border-radius: 6px 0 0 6px;  /* rounded left side */
-  background-color: var(--square-color, #000);
+  border-radius: 6px 0 0 6px;
+  background-color: white;   /* always white initially */
 }
 
 .color-box span {
-  margin-left: 35px; /* push text after the strip */
+  margin-left: 35px;
   z-index: 1;
 }
 
@@ -266,6 +267,11 @@
   background: black;
   color: white;
 }
+
+.color-box.selected::before {
+  background-color: var(--square-color, #000); /* show actual color only when selected */
+}
+
 
 
 
