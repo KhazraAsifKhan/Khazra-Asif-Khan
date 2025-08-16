@@ -1,35 +1,60 @@
-<div id="product-popup" class="popup hidden">
-  <div class="popup-content">
-    <span class="popup-close">&times;</span>
-    
-    <!-- Top row: Image + Details -->
-    <div class="popup-top">
-      <div class="popup-image">
-        <img id="popup-image" src="" alt="">
+<!-- === BOOTSTRAP MODAL POPUP === -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg"><!-- modal-lg makes it wide -->
+    <div class="modal-content">
+
+      <!-- Close button -->
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="popup-details">
-        <h2 id="popup-title"></h2>
-        <p id="popup-price"></p>
-        <p id="popup-description"></p>
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="row g-4 align-items-center">
+          <!-- IMAGE -->
+          <div class="col-md-6 text-center">
+            <img src="https://via.placeholder.com/400x400" alt="Product" class="img-fluid rounded">
+          </div>
+
+          <!-- DETAILS -->
+          <div class="col-md-6">
+            <h2 class="h4 mb-3">Product Title</h2>
+            <p class="fw-bold mb-2">$99.00</p>
+            <p class="text-muted">This is the product description. It stays beside the picture on larger screens and below it on smaller screens.</p>
+
+            <!-- Color options -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Color</label>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-dark">Black</button>
+                <button class="btn btn-outline-dark">White</button>
+              </div>
+            </div>
+
+            <!-- Size options -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Size</label>
+              <select class="form-select">
+                <option>Small</option>
+                <option>Medium</option>
+                <option>Large</option>
+              </select>
+            </div>
+
+            <!-- Add to Cart -->
+            <button class="btn btn-dark w-100">Add to Cart</button>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Bottom row: Colors + Size + Add to Cart -->
-    <div class="popup-actions">
-        {% comment %} <label for="popup-variant">Color:</label> {% endcomment %}
-      <div id="popup-colors" class="color-container"></div>
-
-      <label for="popup-variant">Size:</label>
-      <select id="popup-variant">
-        <option value="">Choose your size</option>
-      </select>
-
-      <button id="popup-add-to-cart">ADD TO CART</button>
-    </div>
-
   </div>
 </div>
+
+<!-- === TRIGGER BUTTON (for testing) === -->
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal">
+  Open Product Popup
+</button>
+
 
 
 
