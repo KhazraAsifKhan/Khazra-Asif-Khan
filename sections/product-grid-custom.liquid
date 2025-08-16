@@ -2,40 +2,32 @@
   <div class="popup-content">
     <span class="popup-close">&times;</span>
     <div class="popup-body"> 
-
-      <!-- ✅ Left side: image -->
+      
+      <!-- Left: Image -->
       <div class="popup-image-wrap">
         <img id="popup-image" src="" alt="">
       </div>
 
-      <!-- ✅ Right side: details -->
+      <!-- Right: Details -->
       <div class="popup-details">
         <h2 id="popup-title"></h2>
         <p id="popup-price"></p>
         <p id="popup-description"></p>
 
-        <!-- ✅ Color Options -->
+        <!-- ✅ Dynamic Color Options -->
         <div class="color-options">
           <p>Choose a color:</p>
-          <div class="color-scroll">
-            <!-- dynamically fill with product colors -->
-            <div class="color-swatch" style="background-color: red;" data-color="Red"></div>
-            <div class="color-swatch" style="background-color: blue;" data-color="Blue"></div>
-            <div class="color-swatch" style="background-color: black;" data-color="Black"></div>
+          <div id="popup-colors" class="color-scroll">
+            <!-- JS will inject unique colors here -->
           </div>
         </div>
 
         <!-- ✅ Size Dropdown -->
         <label for="popup-variant">Choose a size:</label>
-        <select id="popup-variant">
-          <option value="S">Small</option>
-          <option value="M">Medium</option>
-          <option value="L">Large</option>
-        </select>
+        <select id="popup-variant"></select>
 
         <button id="popup-add-to-cart">Add to Cart</button>
       </div>
-
     </div>
   </div>
 </div>
@@ -285,7 +277,7 @@
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+{% comment %} document.addEventListener("DOMContentLoaded", function() {
   const popup = document.getElementById("product-popup");
   const popupClose = document.querySelector(".popup-close");
   const popupTitle = document.getElementById("popup-title");
@@ -350,7 +342,64 @@ document.addEventListener("DOMContentLoaded", function() {
   popup.addEventListener("click", e => {
     if (e.target === popup) popup.classList.add("hidden");
   });
+}); {% endcomment %}
+document.querySelectorAll(".grid-item").forEach(item => {
+  item.addEventListener("click", () => {
+    const handle = item.dataset.handle;
+
+    fetch(`/products/${handle}.js`)
+      .then(res => res.json())
+      .then(product => {
+        // Basic info
+        document.getElementById("popup-title").textContent = product.title;
+        document.getElementById("popup-price").textContent = 
+          (product.price / 100).toFixed(2) + " " + product.currency;
+        document.getElementById("popup-image").src = product.images[0];
+        document.getElementById("popup-description").textContent = product.description;
+
+        // ✅ Extract unique colors from variants
+        const colorContainer = document.getElementById("popup-colors");
+        colorContainer.innerHTML = "";
+        const colors = [...new Set(product.variants.map(v => v.option1))];
+
+        colors.forEach(color => {
+          const swatch = document.createElement("div");
+          swatch.className = "color-swatch";
+          swatch.dataset.color = color;
+          swatch.textContent = color; // can replace with circle + css later
+          swatch.addEventListener("click", () => {
+            document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
+            swatch.classList.add("selected");
+
+            // ✅ Filter sizes for this color
+            const sizeDropdown = document.getElementById("popup-variant");
+            sizeDropdown.innerHTML = "";
+            product.variants
+              .filter(v => v.option1 === color)
+              .forEach(v => {
+                const opt = document.createElement("option");
+                opt.value = v.id;
+                opt.textContent = v.option2;
+                sizeDropdown.appendChild(opt);
+              });
+          });
+          colorContainer.appendChild(swatch);
+        });
+
+        // ✅ Auto-select first color
+        if (colorContainer.firstChild) colorContainer.firstChild.click();
+
+        // Show popup
+        document.getElementById("product-popup").classList.remove("hidden");
+      });
+  });
 });
+
+// Close popup
+document.querySelector(".popup-close").addEventListener("click", () => {
+  document.getElementById("product-popup").classList.add("hidden");
+});
+
 </script>
 
 
