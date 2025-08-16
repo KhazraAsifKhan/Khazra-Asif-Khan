@@ -288,7 +288,7 @@
 
 
 
-
+{% comment %} 
 <script>
 {% comment %} document.addEventListener("DOMContentLoaded", function() {
   const popup = document.getElementById("product-popup");
@@ -494,7 +494,103 @@ colors.forEach(color => {
   });
 });
 
+</script> {% endcomment %}
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("product-popup");
+  const popupClose = document.querySelector(".popup-close");
+
+  document.querySelectorAll(".grid-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const handle = item.dataset.handle;
+
+      fetch(`/products/${handle}.js`)
+        .then(res => res.json())
+        .then(product => {
+          // Basic product info
+          document.getElementById("popup-title").textContent = product.title;
+          document.getElementById("popup-price").textContent =
+            (product.price / 100).toFixed(2) + " " + product.currency;
+          document.getElementById("popup-image").src = product.images[0] || "";
+          document.getElementById("popup-description").textContent = product.description;
+
+          // Color swatches
+          const colorContainer = document.getElementById("popup-colors");
+          colorContainer.innerHTML = "";
+
+          const colors = [...new Set(product.variants.map(v => v.option2))];
+
+          // Map color names to hex (add more if needed)
+          const colorMap = {
+            "Red": "#FF0000",
+            "Blue": "#0000FF",
+            "Sky Blue": "#87CEEB",
+            "Light Blue": "#ADD8E6",
+            "Navy": "#000080",
+            "Black": "#000000",
+            "White": "#FFFFFF",
+            "Green": "#008000",
+            "Yellow": "#FFFF00",
+            "Pink": "#FFC0CB",
+            "Purple": "#800080"
+          };
+
+          colors.forEach(color => {
+            const swatch = document.createElement("div");
+            swatch.className = "color-swatch";
+            swatch.dataset.color = color;
+            swatch.style.cursor = "pointer";
+            swatch.style.display = "inline-block";
+            swatch.style.width = "25px";
+            swatch.style.height = "25px";
+            swatch.style.margin = "5px";
+            swatch.style.borderRadius = "5px";
+            swatch.style.border = "1px solid #ccc";
+
+            // Set background color if hex exists
+            const hex = colorMap[color] || color;
+            swatch.style.backgroundColor = hex;
+
+            swatch.title = color;
+
+            swatch.addEventListener("click", () => {
+              // Remove selection from other swatches
+              document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
+              swatch.classList.add("selected");
+
+              // Filter variants by color and populate size dropdown
+              const sizeDropdown = document.getElementById("popup-variant");
+              sizeDropdown.innerHTML = "";
+              product.variants
+                .filter(v => v.option2 === color)
+                .forEach(v => {
+                  const opt = document.createElement("option");
+                  opt.value = v.id;
+                  opt.textContent = v.option1;
+                  sizeDropdown.appendChild(opt);
+                });
+            });
+
+            colorContainer.appendChild(swatch);
+          });
+
+          // Auto-select first color
+          if (colorContainer.firstChild) colorContainer.firstChild.click();
+
+          popup.classList.remove("hidden");
+        });
+    });
+  });
+
+  // Close popup
+  popupClose.addEventListener("click", () => popup.classList.add("hidden"));
+  popup.addEventListener("click", e => {
+    if (e.target === popup) popup.classList.add("hidden");
+  });
+});
 </script>
+
 
 
 {% schema %}
