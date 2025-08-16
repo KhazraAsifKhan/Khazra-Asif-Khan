@@ -85,7 +85,7 @@
   display: none;
 }
 
-{% comment %} .popup-content {
+ .popup-content {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -95,7 +95,7 @@
   width: 100%;
   text-align: center;
   position: relative;
-} {% endcomment %}
+}
 
 #popup-price {
   font-size: 18px;
@@ -170,7 +170,7 @@
 } {% endcomment %}
 
 /* Add subtle spacing for popup layout */
-.popup-body {
+{% comment %} .popup-body {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -185,96 +185,8 @@
 .popup-body p {
   font-size: 14px;
   color: #555;
-} 
+} {% endcomment %}
 
-.popup {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-content {
-  background: #fff;
-  padding: 20px;
-  width: 350px;
-  max-width: 90%;
-  border-radius: 8px;
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.popup-img {
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-}
-
-.popup-close {
-  position: absolute;
-  top: 12px; right: 12px;
-  width: 32px; height: 32px;
-  background: #fff;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  text-align: center;
-  line-height: 28px;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  color: #444;
-}
-.popup-close:hover {
-  background: #eee;
-  color: red;
-}
-
-.variant-selectors {
-  margin: 15px 0;
-}
-
-.color-options button {
-  border: 1px solid #444;
-  background: #fff;
-  padding: 8px 16px;
-  margin-right: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.color-options button.active {
-  background: black;
-  color: white;
-}
-
-#size-select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-#popup-add-to-cart {
-  display: inline-block;
-  width: 100%;
-  padding: 14px;
-  background: black;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 15px;
-}
-#popup-add-to-cart:hover {
-  background: rgb(33, 229, 118);
-}
 
 
 
