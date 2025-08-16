@@ -106,334 +106,148 @@
   }
 }
 
-
-/* Popup background */
+/* Popup background overlay */
 .popup {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.6);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 9999;
 }
 
-.popup.hidden {
-  display: none;
-}
-
-/* Popup content */
+/* Popup box */
 .popup-content {
   background: #fff;
-  padding: 20px;
   border-radius: 10px;
   max-width: 800px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 95%;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  overflow: hidden; /* No scroll inside */
   position: relative;
 }
 
 /* Close button */
 .popup-close {
   position: absolute;
-  top: 15px;
+  top: 12px;
   right: 15px;
-  width: 35px;
-  height: 35px;
-  background: #f5f5f5;
-  color: #444;
   font-size: 22px;
-  font-weight: bold;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  color: #333;
 }
 
-.popup-close:hover {
-  background: rgb(180, 50, 50);
-  color: #fff;
-  transform: scale(1.1);
+/* Left image */
+.popup-image {
+  flex: 1;
+  max-width: 300px;
 }
-
-/* Layout for image and details */
-.popup-body {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
 .popup-image img {
-  max-width: 350px;
   width: 100%;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
 }
 
+/* Right content */
 .popup-details {
-  flex: 1;
-  min-width: 250px;
+  flex: 2;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Title & price */
+.popup-details h2 {
+  font-size: 20px;
+  margin: 0 0 10px;
+  color: #222;
+}
+.popup-details .price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* Size & Color sections */
+.size-options, .color-options {
+  margin: 15px 0;
+}
+.size-options h4, .color-options h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* Size buttons */
+.size-options button {
+  margin: 5px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.size-options button:hover {
+  background: #ddd;
+}
+
+/* Color circles */
+.color-boxes {
+  display: flex;
   gap: 10px;
 }
-
-.popup-details h2 {
-  font-size: 22px;
-  margin: 0;
-}
-
-#popup-price {
-  font-size: 18px;
-  font-weight: 600;
-  color: black;
-  margin: 5px 0;
-}
-
-.popup-details p {
-  font-size: 14px;
-  color: #555;
-}
-
-/* Color boxes */
-.color-container {
-  display: flex;
-  gap: 0px;
-  margin: 10px 0;
-
-}
-
-{% comment %} .color-box {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* text on the left side */
-  width: 200px;
-  height: 40px;
-  background: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  padding-left: 5px; /* space for the ::before */
-  color: black; /* default text color */
-}
-
-.color-box.selected {
-  background: black; /* selected box background */
-  color: white;      /* selected text color */
-}
-
-.color-box::before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 100%;
-  margin-right: 8px;
-  border-radius: 4px 0 0 4px;
-  background-color: white; /* small square color */
-} {% endcomment %}
 .color-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 200px;
-  height: 40px;
-  background: white;               /* default white */
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
   cursor: pointer;
-  transition: all 0.25s ease;
-  color: black;
-  overflow: hidden;
+  border: 2px solid #ccc;
+  transition: all 0.2s;
 }
-
-.color-box::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;                      /* thin strip */
-  height: 100%;
-  border-radius: 6px 0 0 6px;      /* round only left edge */
-  background-color: var(--square-color, #000); /* show real color */
-}
-
-.color-box span {
-  margin-left: 12px;               /* spacing after the strip */
-  z-index: 1;
-}
-
-/* Selected state */
 .color-box.selected {
-  background: black;  /* whole box black */
-  color: white;
-}
-.color-box.selected::before {
-  background-color: black;  /* strip hides into black */
+  border: 2px solid #000; /* Selected shows black outline */
 }
 
-
-
-/* Variant dropdown */
-#popup-variant {
-  width: 100%;
-  padding: 10px 12px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  background: #f9f9f9;
-}
-
-#popup-variant:focus {
-  border-color: #333;
-  outline: none;
-  background: #fff;
-}
-
-/* Add to Cart button */
-#popup-add-to-cart {
-  display: inline-block;
-  width: 100%;
-  padding: 14px;
+/* Add to cart button */
+.add-to-cart {
+  margin-top: 20px;
+  padding: 12px;
   background: black;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
+  text-align: center;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.add-to-cart:hover {
+  background: #333;
 }
 
-#popup-add-to-cart:hover {
-  background: rgba(0, 0, 0, 0.89);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Responsive */
-@media screen and (max-width: 900px) {
-  .popup-body {
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .popup-content {
     flex-direction: column;
     align-items: center;
+    text-align: center;
   }
-  .popup-image img {
+  .popup-image {
     max-width: 100%;
   }
+  .popup-details {
+    width: 100%;
+  }
 }
 
-/* Keep image + details side-by-side on desktop */
-.popup-body {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-/* Actions block spans full width below */
-.popup-actions {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Optional small label style */
-.field-label {
-  font-size: 14px;
-  color: #111;
-}
-
-/* Make color row look like the screenshot: one wide field with two boxes */
-.color-container {
-  display: flex;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-/* Color boxes fill 50/50, start white, thin 3px real-color strip on left */
-.color-box {
-  position: relative;
-  flex: 1;
-  min-width: 0;
-  height: 46px;
-  background: #fff;
-  cursor: pointer;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .2s ease, color .2s ease;
-}
-
-/* vertical divider between boxes */
-.color-box + .color-box {
-  border-left: 1px solid #ccc;
-}
-
-/* 3px left strip showing the real color */
-.color-box::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0;
-  width: 3px;
-  height: 100%;
-  background: var(--square-color, #000);
-  border-radius: 6px 0 0 6px;
-}
-
-/* Selected: whole box (and strip) goes black with white text */
-.color-box.selected { background: #000; color: #fff; }
-.color-box.selected::before { background: #000; }
-
-.color-box span { pointer-events: none; }
-
-/* Inputs/buttons full width to match screenshot */
-#popup-variant,
-#popup-add-to-cart {
-  width: 100%;
-}
-
-#popup-variant {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #f9f9f9;
-  font-size: 14px;
-}
-
-#popup-add-to-cart {
-  padding: 14px;
-  background: #000;
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 6px;
-  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
-}
-
-#popup-add-to-cart:hover {
-  opacity: .92;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
-}
-
-/* Mobile: stack image over details (actions already below) */
-@media (max-width: 900px) {
-  .popup-body { flex-direction: column; }
-  .popup-image img { max-width: 100%; }
-}
 
 
 </style>
