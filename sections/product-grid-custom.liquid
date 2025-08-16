@@ -235,7 +235,7 @@
   align-items: center;
   width: 200px;
   height: 40px;
-  background: white;           /* box stays white before selection */
+  background: white;               /* default white */
   border: 1px solid #ccc;
   border-radius: 6px;
   cursor: pointer;
@@ -249,24 +249,24 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 25px;                 /* small strip */
+  width: 3px;                      /* thin strip */
   height: 100%;
-  border-radius: 6px 0 0 6px;  /* small radius on the left */
-  background-color: var(--square-color, white); /* show actual color by default */
+  border-radius: 6px 0 0 6px;      /* round only left edge */
+  background-color: var(--square-color, #000); /* show real color */
 }
 
 .color-box span {
-  margin-left: 35px;           /* push label after the strip */
+  margin-left: 12px;               /* spacing after the strip */
   z-index: 1;
 }
 
-/* Selected state: whole box turns black (strip too) */
+/* Selected state */
 .color-box.selected {
-  background: black;
+  background: black;  /* whole box black */
   color: white;
 }
 .color-box.selected::before {
-  background-color: white;
+  background-color: black;  /* strip hides into black */
 }
 
 
