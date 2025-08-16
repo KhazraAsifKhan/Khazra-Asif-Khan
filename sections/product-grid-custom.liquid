@@ -1,36 +1,28 @@
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
-    <span class="popup-close">×</span>
+    <span class="popup-close">X</span>
     
+    <!-- Top row: Image + Details -->
     <div class="popup-top">
       <div class="popup-image">
         <img id="popup-image" src="" alt="">
       </div>
 
       <div class="popup-details">
-        <h2 id="popup-title">Tennis Blue T-Shirt</h2>
-        <p id="popup-price">980,00€</p>
-        <p id="popup-description">This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.</p>
+        <h2 id="popup-title"></h2>
+        <p id="popup-price"></p>
+        <p id="popup-description"></p>
       </div>
     </div>
 
+    <!-- Bottom row: Colors + Size + Add to Cart -->
     <div class="popup-actions">
-      <label class="color-label">Color</label>
-      <div id="popup-colors" class="color-container">
-        <div class="color-box" style="--square-color: #808080">
-          <span>Grey</span>
-        </div>
-        <div class="color-box selected" style="--square-color: #000000">
-          <span>Black</span>
-        </div>
-      </div>
+      <label class="color-label">Color:</label>
+      <div id="popup-colors" class="color-container"></div>
 
-      <label for="popup-variant">Size</label>
+      <label for="popup-variant">Size:</label>
       <select id="popup-variant">
         <option value="">Choose your size</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
       </select>
 
       <button id="popup-add-to-cart">ADD TO CART →</button>
@@ -38,244 +30,321 @@
   </div>
 </div>
 
-<style>
-  /* ===== ORIGINAL GRID STYLES (UNTOUCHED) ===== */
-  .custom-grid {
-    padding: 40px 20px;
-  }
-  .grid-wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .grid-item {
-    background: #fff;
-    border-radius: 12px;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .grid-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  }
-  .grid-img img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    max-height: 250px;
-  }
-  .grid-title {
-    font-size: 1rem;
-    margin: 10px 0 5px;
-  }
-  .grid-price {
-    font-size: 0.9rem;
-    color: #555;
-  }
-  @media screen and (max-width: 900px) {
-    .grid-wrapper {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media screen and (max-width: 600px) {
-    .grid-wrapper {
-      grid-template-columns: 1fr;
-    }
-  }
 
-  /* ===== EXACT POPUP STYLES FROM IMAGE ===== */
-  .popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    padding: 20px;
+
+<div class="custom-grid">
+  <div class="grid-wrapper">
+    {% for i in (1..6) %}
+  {% assign setting_id = "product_" | append: i %}
+  {% assign product = all_products[section.settings[setting_id]] %}
+  {% if product %}
+    <div class="grid-item" data-handle="{{ product.handle }}">
+      <div class="grid-img">
+       <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
+
+      </div>
+      <h3 class="grid-title">{{ product.title }}</h3>
+      <p class="grid-price">{{ product.price | money }}</p>
+    </div>
+  {% endif %}
+{% endfor %}
+
+  </div>
+</div>
+
+<style>
+.custom-grid {
+  padding: 40px 20px;
+}
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.grid-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+.grid-img img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;   /* makes sure images don’t stretch weirdly */
+  max-height: 250px;   /* keep them from being too tall */
+}
+
+.grid-title {
+  font-size: 1rem;
+  margin: 10px 0 5px;
+}
+.grid-price {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .popup.hidden {
-    display: none;
+}
+@media screen and (max-width: 600px) {
+  .grid-wrapper {
+    grid-template-columns: 1fr;
   }
+}
+
+
+/* Popup background */
+/* ===== POPUP BACKDROP ===== */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow-y: auto; /* natural scroll if content overflows */
+}
+
+.popup.hidden {
+  display: none;
+}
+
+/* ===== POPUP CONTENT ===== */
+.popup-content {
+  background: #fff;
+  {% comment %} border-radius: 12px; {% endcomment %}
+  width: 65vw;          /* narrower than tall */
+  max-width: 400px;
+  height: 85vh;         /* taller than wide */
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* ===== CLOSE BUTTON ===== */
+.popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background: #f5f5f5;
+  color: #444;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.popup-close:hover {
+  background: rgb(180, 50, 50);
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* ===== MAIN LAYOUT ===== */
+.popup-top {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.popup-image img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.popup-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+}
+
+.popup-details h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+#popup-price {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 5px 0;
+}
+
+.popup-details p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ===== ACTIONS (BOTTOM) ===== */
+.popup-actions {
+  margin-top: auto; /* push to bottom */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Dropdown */
+#popup-variant {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f9f9f9;
+}
+
+#popup-variant:focus {
+  border-color: #333;
+  outline: none;
+  background: #fff;
+}
+
+/* Add to Cart button */
+#popup-add-to-cart {
+  width: 100%;
+  padding: 14px;
+  background: black;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#popup-add-to-cart:hover {
+  background: rgba(0,0,0,0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 768px) {
   .popup-content {
-    background: #fff;
-    width: 90%;
-    max-width: 600px;
-    padding: 30px;
-    position: relative;
-    border-radius: 0;
+    width: 95vw;
+    height: auto;       /* let it grow naturally */
     max-height: 90vh;
-    overflow-y: auto;
-    font-family: Arial, sans-serif;
-  }
-  .popup-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    line-height: 1;
-    color: #000;
   }
   .popup-top {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
-  }
-  .popup-image {
-    flex: 1;
-    min-width: 0;
-  }
-  .popup-image img {
-    width: 100%;
-    height: auto;
-    max-height: 400px;
-    object-fit: contain;
+    flex-direction: column;
+    align-items: center;
   }
   .popup-details {
-    flex: 1;
-    min-width: 0;
+    text-align: center;
   }
-  .popup-details h2 {
-    font-size: 24px;
-    margin: 0 0 15px 0;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  #popup-price {
-    font-size: 16px;
-    margin: 0 0 20px 0;
-    color: #000;
-  }
-  .popup-details p {
-    font-size: 14px;
-    color: #555;
-    margin: 0;
-    line-height: 1.5;
-  }
-  .popup-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-  }
-  .color-label, 
-  .popup-actions label {
-    font-size: 14px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #000;
-  }
-  .color-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  .color-box {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 120px;
-    height: 40px;
-    background: white;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    border-radius: 0;
-    padding-left: 15px;
-    position: relative;
-    font-size: 14px;
-  }
-  .color-box::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 5px;
-    height: 100%;
-    background-color: var(--square-color, #ccc);
-  }
-  .color-box.selected {
-    background: #f5f5f5;
-    color: #000;
-    border-color: #000;
-  }
-  #popup-variant {
-    width: 100%;
-    max-width: 200px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 0;
-    font-size: 14px;
-    margin-bottom: 20px;
-    background: #fff;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 15px;
-  }
-  #popup-add-to-cart {
-    width: 100%;
-    max-width: 200px;
-    padding: 12px;
-    background: #000;
-    color: white;
-    font-size: 14px;
-    border: none;
-    border-radius: 0;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: opacity 0.3s ease;
-  }
-  #popup-add-to-cart:hover {
-    opacity: 0.9;
-  }
+}
 
-  /* ===== RESPONSIVE ADJUSTMENTS ===== */
-  @media screen and (max-width: 768px) {
-    .popup-top {
-      flex-direction: column;
-      gap: 20px;
-    }
-    .popup-content {
-      padding: 25px;
-    }
-    .popup-details h2 {
-      font-size: 20px;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .popup-content {
-      padding: 20px;
-    }
-    .popup-close {
-      top: 15px;
-      right: 15px;
-    }
-    .color-container {
-      flex-direction: column;
-    }
-    .color-box {
-      max-width: 100%;
-    }
-    #popup-variant,
-    #popup-add-to-cart {
-      max-width: 100%;
-    }
-  }
+
+
+
+/* Color boxes */
+.color-container {
+  display: flex;
+  gap: 0px;
+  margin: 10px 0;
+
+}
+
+{% comment %} .color-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* text on the left side */
+  width: 200px;
+  height: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding-left: 5px; /* space for the ::before */
+  color: black; /* default text color */
+}
+
+.color-box.selected {
+  background: black; /* selected box background */
+  color: white;      /* selected text color */
+}
+
+.color-box::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 100%;
+  margin-right: 8px;
+  border-radius: 4px 0 0 4px;
+  background-color: white; /* small square color */
+} {% endcomment %}
+.color-box {
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding-left: 5px;
+  color: black;
+  position: relative;
+  overflow: hidden;
+}
+
+.color-box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;          /* small strip width */
+  height: 100%;
+  border-radius: 6px 0 0 6px;  /* rounded left side */
+  background-color: var(--square-color, #fff);
+}
+
+.color-box span {
+  margin-left: 35px; /* push text after the strip */
+  z-index: 1;
+}
+
+/* Selected state */
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
+
+
+
 </style>
+
 
 
 <script>
