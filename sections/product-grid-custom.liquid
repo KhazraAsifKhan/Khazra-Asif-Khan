@@ -346,21 +346,7 @@
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .popup-content {
-    width: 90vw;
-    max-width: 95%;
-    padding: 16px;
-  }
-
-  .popup-top {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .popup-image img {
-    max-width: 100%;
-    margin-bottom: 12px;
-  }
+ 
 
   .popup-details h2 {
     font-size: 18px;
@@ -379,6 +365,33 @@
 
   #popup-add-to-cart .arrow {
     font-size: 24px;
+  }
+}
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .popup-content {
+    width: 90vw;
+    max-width: 95%;
+    padding: 16px;
+    max-height: 90vh;  /* ✅ still prevents cut-off */
+  }
+
+  .popup-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .popup-image img {
+    max-width: 100%;
+  }
+
+  #popup-add-to-cart {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  #popup-add-to-cart .arrow {
+    font-size: 22px;
   }
 }
 
