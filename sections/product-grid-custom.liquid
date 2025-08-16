@@ -24,9 +24,8 @@
   {% if product %}
     <div class="grid-item" data-handle="{{ product.handle }}">
       <div class="grid-img">
-        <img 
-          src="{{ product.featured_image | img_url: '400x' }}" 
-          alt="{{ product.title }}">
+       <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
+
       </div>
       <h3 class="grid-title">{{ product.title }}</h3>
       <p class="grid-price">{{ product.price | money }}</p>
@@ -60,8 +59,12 @@
 }
 .grid-img img {
   max-width: 100%;
+  height: auto;
   border-radius: 8px;
+  object-fit: cover;   /* makes sure images don’t stretch weirdly */
+  max-height: 250px;   /* keep them from being too tall */
 }
+
 .grid-title {
   font-size: 1rem;
   margin: 10px 0 5px;
