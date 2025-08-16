@@ -1,0 +1,58 @@
+<section class="custom-banner">
+  {% if section.settings.banner_image != blank %}
+    <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="Banner" class="banner-image">
+  {% endif %}
+
+  <div class="banner-content">
+    <h1>{{ section.settings.banner_title }}</h1>
+    <p>{{ section.settings.banner_subtitle }}</p>
+    {% if section.settings.banner_button_text != blank %}
+      <a href="{{ section.settings.banner_button_link }}" class="banner-button">
+        {{ section.settings.banner_button_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle",
+      "label": "Banner Subtitle",
+      "default": "Shop the latest products now"
+    },
+    {
+    "type": "url",
+    "id": "banner_button_link",
+    "label": "Button Link",
+    
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
