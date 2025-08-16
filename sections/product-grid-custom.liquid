@@ -203,8 +203,7 @@
 .color-box {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0px;
+  justify-content: flex-start; /* text on the left side */
   width: 200px;
   height: 40px;
   background: white;
@@ -212,22 +211,25 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 6px;
-  
+  padding-left: 5px; /* space for the ::before */
+  color: black; /* default text color */
 }
 
 .color-box.selected {
-  background: black;
-  color: white;
-  text: white;
+  background: black; /* selected box background */
+  color: white;      /* selected text color */
 }
 
 .color-box::before {
- 
+  content: "";
   display: inline-block;
+  width: 20px;
+  height: 100%;
+  margin-right: 8px;
   border-radius: 4px 0 0 4px;
-  background-color: white;
-  color:black;
+  background-color: white; /* small square color */
 }
+
 
 /* Variant dropdown */
 #popup-variant {
