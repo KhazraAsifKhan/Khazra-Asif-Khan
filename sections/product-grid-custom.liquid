@@ -229,20 +229,18 @@
   border-radius: 4px 0 0 4px;
   background-color: white; /* small square color */
 } {% endcomment %}
-
 .color-box {
+  position: relative;
   display: flex;
   align-items: center;
   width: 200px;
   height: 40px;
-  background: white;
+  background: white;           /* box stays white before selection */
   border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
   border-radius: 6px;
-  padding-left: 5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
   color: black;
-  position: relative;
   overflow: hidden;
 }
 
@@ -251,14 +249,29 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 25px;
+  width: 25px;                 /* small strip */
   height: 100%;
-  border-radius: 6px 0 0 6px;
-  background-color: white;   /* always white initially */
+  border-radius: 6px 0 0 6px;  /* small radius on the left */
+  background-color: var(--square-color, #000); /* show actual color by default */
 }
 
 .color-box span {
-  margin-left: 35px;
+  margin-left: 35px;           /* push label after the strip */
+  z-index: 1;
+}
+
+/* Selected state: whole box turns black (strip too) */
+.color-box.selected {
+  background: black;
+  color: white;
+}
+.color-box.selected::before {
+  background-color: black;
+}
+
+
+.color-box span {
+  margin-left: 35px; /* push text after the strip */
   z-index: 1;
 }
 
@@ -267,11 +280,6 @@
   background: black;
   color: white;
 }
-
-.color-box.selected::before {
-  background-color: var(--square-color, #000); /* show actual color only when selected */
-}
-
 
 
 
@@ -367,10 +375,10 @@ document.addEventListener("DOMContentLoaded", function() {
           popupColors.innerHTML = "";
           const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
 
-       colors.forEach(color => {
+      colors.forEach(color => {
   const box = document.createElement("div");
   box.className = "color-box";
-  box.style.setProperty("--square-color", color.toLowerCase());
+  box.style.setProperty("--square-color", color.toLowerCase()); // left strip color
 
   const label = document.createElement("span");
   label.textContent = color;
@@ -380,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
     box.classList.add("selected");
 
-    // filter sizes
+    // filter sizes for this color
     popupVariant.innerHTML = `<option value="">Choose your size</option>`;
     product.variants
       .filter(v => v.option2 === color)
@@ -394,6 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   popupColors.appendChild(box);
 });
+
 
 
 
