@@ -2,58 +2,64 @@
   <div class="popup-content">
     <span class="popup-close">&times;</span>
     <div class="popup-body"> 
-      
-      <h2 id="popup-title"></h2>
-<img id="popup-image" src="" alt="">
-<p id="popup-price"></p>
-<p id="popup-description"></p>
 
-<!-- ✅ Color Options -->
-<div class="color-options">
-  <p>Choose a color:</p>
-  <div class="color-scroll">
-    <!-- dynamically fill with product colors -->
-    <div class="color-swatch" style="background-color: red;" data-color="Red"></div>
-    <div class="color-swatch" style="background-color: blue;" data-color="Blue"></div>
-    <div class="color-swatch" style="background-color: black;" data-color="Black"></div>
-  </div>
-</div>
+      <!-- ✅ Left side: image -->
+      <div class="popup-image-wrap">
+        <img id="popup-image" src="" alt="">
+      </div>
 
-<!-- ✅ Size Dropdown -->
-<label for="popup-variant">Choose a size:</label>
-<select id="popup-variant">
-  <option value="S">Small</option>
-  <option value="M">Medium</option>
-  <option value="L">Large</option>
-</select>
+      <!-- ✅ Right side: details -->
+      <div class="popup-details">
+        <h2 id="popup-title"></h2>
+        <p id="popup-price"></p>
+        <p id="popup-description"></p>
 
-<button id="popup-add-to-cart">Add to Cart</button>
+        <!-- ✅ Color Options -->
+        <div class="color-options">
+          <p>Choose a color:</p>
+          <div class="color-scroll">
+            <!-- dynamically fill with product colors -->
+            <div class="color-swatch" style="background-color: red;" data-color="Red"></div>
+            <div class="color-swatch" style="background-color: blue;" data-color="Blue"></div>
+            <div class="color-swatch" style="background-color: black;" data-color="Black"></div>
+          </div>
+        </div>
 
+        <!-- ✅ Size Dropdown -->
+        <label for="popup-variant">Choose a size:</label>
+        <select id="popup-variant">
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+        </select>
+
+        <button id="popup-add-to-cart">Add to Cart</button>
+      </div>
 
     </div>
   </div>
 </div>
 
 
+<!-- Product Grid -->
 <div class="custom-grid">
   <div class="grid-wrapper">
     {% for i in (1..6) %}
-  {% assign setting_id = "product_" | append: i %}
-  {% assign product = all_products[section.settings[setting_id]] %}
-  {% if product %}
-    <div class="grid-item" data-handle="{{ product.handle }}">
-      <div class="grid-img">
-       <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
-
-      </div>
-      <h3 class="grid-title">{{ product.title }}</h3>
-      <p class="grid-price">{{ product.price | money }}</p>
-    </div>
-  {% endif %}
-{% endfor %}
-
+      {% assign setting_id = "product_" | append: i %}
+      {% assign product = all_products[section.settings[setting_id]] %}
+      {% if product %}
+        <div class="grid-item" data-handle="{{ product.handle }}">
+          <div class="grid-img">
+            <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
+          </div>
+          <h3 class="grid-title">{{ product.title }}</h3>
+          <p class="grid-price">{{ product.price | money }}</p>
+        </div>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
+
 
 <style>
 
