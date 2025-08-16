@@ -333,8 +333,70 @@
 }
 
 /* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVE FIXES ===== */
 @media (max-width: 768px) {
- 
+  .popup {
+    padding: 20px;
+  }
+
+  .popup-content {
+    width: 90vw;       /* take most of screen width */
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .popup-top {
+    flex-direction: column;   /* stack image and details */
+    align-items: center;
+    text-align: center;
+  }
+
+  .popup-image img {
+    width: 100%;
+    max-width: 250px;  /* shrink image for mobile */
+    height: auto;
+  }
+
+  .popup-details h2,
+  .popup-details p {
+    font-size: 14px;   /* slightly bigger for readability */
+    margin-left: 0;
+  }
+
+  #popup-add-to-cart {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  #popup-add-to-cart .arrow {
+    font-size: 28px; /* slim but big enough */
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-content {
+    padding: 12px;
+  }
+
+  .popup-details h2,
+  .popup-details p {
+    font-size: 12px;
+  }
+
+  .popup-image img {
+    max-width: 200px;
+  }
+
+  #popup-add-to-cart {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  #popup-add-to-cart .arrow {
+    font-size: 24px;
+  }
 }
 
 
