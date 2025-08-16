@@ -230,18 +230,17 @@
   background-color: white; /* small square color */
 } {% endcomment %}
 .color-box {
+  position: relative;
   display: flex;
   align-items: center;
   width: 200px;
   height: 40px;
-  background: white;
+  background: white;           /* box stays white before selection */
   border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
   border-radius: 6px;
-  padding-left: 5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
   color: black;
-  position: relative;
   overflow: hidden;
 }
 
@@ -250,21 +249,24 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 5px;          /* small strip width */
+  width: 25px;                 /* small strip */
   height: 100%;
-  border-radius: 6px 0 0 6px;  /* rounded left side */
-  background-color: var(--square-color, #000)
+  border-radius: 6px 0 0 6px;  /* small radius on the left */
+  background-color: var(--square-color, #000); /* show actual color by default */
 }
 
 .color-box span {
-  margin-left: 35px; /* push text after the strip */
+  margin-left: 35px;           /* push label after the strip */
   z-index: 1;
 }
 
-/* Selected state */
+/* Selected state: whole box turns black (strip too) */
 .color-box.selected {
   background: black;
   color: white;
+}
+.color-box.selected::before {
+  background-color: black;
 }
 
 
