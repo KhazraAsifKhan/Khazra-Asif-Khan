@@ -1,28 +1,29 @@
-<div id="product-popup" class="popup hidden">
-  <div class="popup-content">
-    <span class="popup-close">&times;</span>
-    <div class="popup-body"> 
-      
-      <!-- Left side: Image -->
-      <div class="popup-image-wrap">
-        <img id="popup-image" src="" alt="">
-      </div>
-      
-      <!-- Right side: Details -->
-      <div class="popup-details">
-        <h2 id="popup-title"></h2>
-        <p id="popup-price"></p>
-        <p id="popup-description"></p>
+<h2 id="popup-title"></h2>
+<img id="popup-image" src="" alt="">
+<p id="popup-price"></p>
+<p id="popup-description"></p>
 
-        <label for="popup-variant">Choose a variant:</label>
-        <select id="popup-variant"></select>
-
-        <button id="popup-add-to-cart">Add to Cart</button>
-      </div>
-
-    </div>
+<!-- ✅ Color Options -->
+<div class="color-options">
+  <p>Choose a color:</p>
+  <div class="color-scroll">
+    <!-- dynamically fill with product colors -->
+    <div class="color-swatch" style="background-color: red;" data-color="Red"></div>
+    <div class="color-swatch" style="background-color: blue;" data-color="Blue"></div>
+    <div class="color-swatch" style="background-color: black;" data-color="Black"></div>
   </div>
 </div>
+
+<!-- ✅ Size Dropdown -->
+<label for="popup-variant">Choose a size:</label>
+<select id="popup-variant">
+  <option value="S">Small</option>
+  <option value="M">Medium</option>
+  <option value="L">Large</option>
+</select>
+
+<button id="popup-add-to-cart">Add to Cart</button>
+
 
 
 <div class="custom-grid">
@@ -46,6 +47,49 @@
 </div>
 
 <style>
+
+.color-options {
+  width: 100%;
+  text-align: left;
+}
+
+.color-options p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.color-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.color-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.color-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* Swatches */
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  flex-shrink: 0; /* prevent shrinking */
+}
+
+.color-swatch.selected {
+  border: 2px solid #333; /* highlight selected */
+}
+
+
 .custom-grid {
   padding: 40px 20px;
 }
