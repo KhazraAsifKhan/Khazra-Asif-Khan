@@ -151,6 +151,159 @@
 }
 
 /* Layout for image and details */
+.popup-body {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.popup-image img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.popup-details {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.popup-details h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+#popup-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  margin: 5px 0;
+}
+
+.popup-details p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Color boxes */
+.color-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.color-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100px;       /* smaller width to fit small screens */
+  height: 40px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: black;
+  overflow: hidden;
+}
+
+.color-box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  border-radius: 6px 0 0 6px;
+  background-color: var(--square-color, #000);
+}
+
+.color-box span {
+  margin-left: 12px;
+  z-index: 1;
+}
+
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
+.color-box.selected::before {
+  background-color: black;
+}
+
+/* Variant dropdown */
+#popup-variant {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f9f9f9;
+}
+
+#popup-variant:focus {
+  border-color: #333;
+  outline: none;
+  background: #fff;
+}
+
+/* Add to Cart button */
+#popup-add-to-cart {
+  display: inline-block;
+  width: 100%;
+  padding: 14px;
+  background: black;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+#popup-add-to-cart:hover {
+  background: rgba(0, 0, 0, 0.89);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .popup-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .popup-image img {
+    max-width: 100%;
+  }
+
+  .popup-details {
+    width: 100%;
+  }
+
+  .color-box {
+    width: 48%;  /* 2 per row on small screens */
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .color-box {
+    width: 100%; /* full width on very small screens */
+  }
+}
+
 /* Popup body layout */
 .popup-body {
   display: flex;
