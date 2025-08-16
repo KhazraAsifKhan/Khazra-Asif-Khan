@@ -364,95 +364,88 @@
     if (e.target === popup) popup.classList.add("hidden");
   });
 }); {% endcomment %}
-document.querySelectorAll(".grid-item").forEach(item => {
-  item.addEventListener("click", () => {
-    const handle = item.dataset.handle;
 
-    fetch(`/products/${handle}.js`)
-      .then(res => res.json())
-      .then(product => {
-        // Basic info
-        document.getElementById("popup-title").textContent = product.title;
-        document.getElementById("popup-price").textContent = 
-          (product.price / 100).toFixed(2) + " " + product.currency;
-        document.getElementById("popup-image").src = product.images[0];
-        document.getElementById("popup-description").textContent = product.description;
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("product-popup");
+  const popupClose = document.querySelector(".popup-close");
 
-        // ✅ Extract unique colors from variants
-        const colorContainer = document.getElementById("popup-colors");
-        colorContainer.innerHTML = "";
-        const colors = [...new Set(product.variants.map(v => v.option2))];
+  // Grid item click → open popup
+  document.querySelectorAll(".grid-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const handle = item.dataset.handle;
 
-        colors.forEach(color => {
-         const wrapper = document.createElement("div");
-wrapper.className = "color-box";
-wrapper.dataset.color = color;
+      fetch(`/products/${handle}.js`)
+        .then(res => res.json())
+        .then(product => {
+          // --- Basic info ---
+          document.getElementById("popup-title").textContent = product.title;
+          document.getElementById("popup-price").textContent =
+            (product.price / 100).toFixed(2) + " " + product.currency;
+          document.getElementById("popup-image").src = product.images[0];
+          document.getElementById("popup-description").textContent = product.description;
 
-// colored square
-const square = document.createElement("span");
-square.className = "color-square";
-square.style.backgroundColor = color.toLowerCase(); // Grey → grey, Black → black
+          // --- Color options ---
+          const colorContainer = document.getElementById("popup-colors");
+          colorContainer.innerHTML = "";
 
-// text label
-const label = document.createElement("span");
-label.textContent = color;
+          const colors = [...new Set(product.variants.map(v => v.option2))];
 
-wrapper.appendChild(square);
-wrapper.appendChild(label);
+          colors.forEach(color => {
+            const wrapper = document.createElement("div");
+            wrapper.className = "color-box";
+            wrapper.dataset.color = color;
 
-// selection behavior
-wrapper.addEventListener("click", () => {
-  document.querySelectorAll(".color-box").forEach(el =>
-    el.classList.remove("selected")
-  );
-  wrapper.classList.add("selected");
+            // small square with bg color
+            const square = document.createElement("span");
+            square.className = "color-square";
+            square.style.backgroundColor = color.toLowerCase();
 
-  // filter sizes for this color
-  const sizeDropdown = document.getElementById("popup-variant");
-  sizeDropdown.innerHTML = "";
-  product.variants
-    .filter(v => v.option2 === color)
-    .forEach(v => {
-      const opt = document.createElement("option");
-      opt.value = v.id;
-      opt.textContent = v.option1;
-      sizeDropdown.appendChild(opt);
-    });
-});
+            // text label
+            const label = document.createElement("span");
+            label.textContent = color;
 
-colorContainer.appendChild(wrapper);
-{% comment %} 
-          swatch.addEventListener("click", () => {
-            document.querySelectorAll(".color-swatch").forEach(s => s.classList.remove("selected"));
-            swatch.classList.add("selected");
+            wrapper.appendChild(square);
+            wrapper.appendChild(label);
 
-            // ✅ Filter sizes for this color
-            const sizeDropdown = document.getElementById("popup-variant");
-            sizeDropdown.innerHTML = "";
-            product.variants
-              .filter(v => v.option2 === color)
-              .forEach(v => {
-                const opt = document.createElement("option");
-                opt.value = v.id;
-                opt.textContent = v.option1;
-                sizeDropdown.appendChild(opt);
-              });
+            wrapper.addEventListener("click", () => {
+              // remove old selection
+              document.querySelectorAll(".color-box").forEach(el =>
+                el.classList.remove("selected")
+              );
+              wrapper.classList.add("selected");
+
+              // filter sizes for this color
+              const sizeDropdown = document.getElementById("popup-variant");
+              sizeDropdown.innerHTML = "";
+              product.variants
+                .filter(v => v.option2 === color)
+                .forEach(v => {
+                  const opt = document.createElement("option");
+                  opt.value = v.id;
+                  opt.textContent = v.option1;
+                  sizeDropdown.appendChild(opt);
+                });
+            });
+
+            colorContainer.appendChild(wrapper);
           });
-          colorContainer.appendChild(swatch);
+
+          // --- Auto-select first color ---
+          if (colorContainer.firstChild) {
+            colorContainer.firstChild.click();
+          }
+
+          // Show popup
+          popup.classList.remove("hidden");
         });
-
-        // ✅ Auto-select first color
-        if (colorContainer.firstChild) colorContainer.firstChild.click(); {% endcomment %}
-
-        // Show popup
-        document.getElementById("product-popup").classList.remove("hidden");
-      });
+    });
   });
-});
 
-// Close popup
-document.querySelector(".popup-close").addEventListener("click", () => {
-  document.getElementById("product-popup").classList.add("hidden");
+  // Close popup
+  popupClose.addEventListener("click", () => popup.classList.add("hidden"));
+  popup.addEventListener("click", e => {
+    if (e.target === popup) popup.classList.add("hidden");
+  });
 });
 
 </script>
