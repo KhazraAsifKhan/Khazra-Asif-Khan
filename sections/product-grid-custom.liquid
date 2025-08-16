@@ -1,29 +1,28 @@
-<!-- Popup HTML -->
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
     <span class="popup-close">&times;</span>
     <div class="popup-body">
       
-      <div class="popup-image">
-        <img id="popup-image" src="" alt="">
-      </div>
-      
-      <div class="popup-details">
+      <!-- Image + Title + Price + Description -->
+      <div class="popup-main">
+        <div class="popup-image">
+          <img id="popup-image" src="" alt="">
+        </div>
         <h2 id="popup-title"></h2>
         <p id="popup-price"></p>
         <p id="popup-description"></p>
+      </div>
 
-        <!-- Actions grouped here -->
-        <div class="popup-actions">
-          <div id="popup-colors" class="color-container"></div>
+      <!-- Colors + Size + Add to Cart -->
+      <div class="popup-actions">
+        <div id="popup-colors" class="color-container"></div>
 
-          <label for="popup-variant">Choose your size:</label>
-          <select id="popup-variant">
-            <option value="">Choose your size</option>
-          </select>
+        <label for="popup-variant">Choose your size:</label>
+        <select id="popup-variant">
+          <option value="">Choose your size</option>
+        </select>
 
-          <button id="popup-add-to-cart">ADD TO CART</button>
-        </div>
+        <button id="popup-add-to-cart">ADD TO CART</button>
       </div>
 
     </div>
@@ -325,30 +324,6 @@
     max-width: 100%;
   }
 }
-
-.popup-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 15px;
-  border-top: 1px solid #eee;
-  padding-top: 15px;
-}
-
-.color-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-#popup-variant {
-  width: 100%;
-}
-
-#popup-add-to-cart {
-  width: 100%;
-}
-
 
 
 </style>
