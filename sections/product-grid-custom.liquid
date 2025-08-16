@@ -399,6 +399,66 @@
   }
 }
 
+/* Popup container */
+.popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow-y: auto; /* allow natural scroll if needed on very small devices */
+}
+
+/* Popup content */
+.popup-content {
+  background: #fff;
+  border-radius: 12px;
+  width: 70vw;       /* narrower than before */
+  height: 85vh;      /* taller than wide */
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;  /* prevent inner scrollbars */
+}
+
+/* Top row (image + details) */
+.popup-top {
+  display: flex;
+  gap: 20px;
+  flex: 1;              /* take available vertical space */
+  overflow: hidden;
+}
+
+/* Actions always visible at bottom */
+.popup-actions {
+  margin-top: auto;      /* push to bottom */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Responsive for small screens */
+@media screen and (max-width: 768px) {
+  .popup-content {
+    width: 95vw;
+    height: auto;       /* let height expand naturally */
+    max-height: 90vh;   /* don’t exceed screen */
+  }
+
+  .popup-top {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .popup-details {
+    text-align: center;
+  }
+}
 
 
 </style>
