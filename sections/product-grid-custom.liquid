@@ -1,33 +1,33 @@
-<div id="product-popup" class="popup hidden">
-  <div class="popup-content">
-    <span class="popup-close">&times;</span>
-    
-    <!-- Top row: Image + Details -->
-    <div class="popup-top">
-      <div class="popup-image">
-        <img id="popup-image" src="" alt="">
+<div class="modal fade" id="productPopup" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="popup-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-
-      <div class="popup-details">
-        <h2 id="popup-title"></h2>
-        <p id="popup-price"></p>
-        <p id="popup-description"></p>
+      <div class="modal-body">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-6 text-center">
+            <img id="popup-image" class="img-fluid rounded" alt="">
+          </div>
+          <div class="col-md-6">
+            <p id="popup-price" class="fw-bold fs-5 mb-2"></p>
+            <p id="popup-description"></p>
+            <div class="mb-3">
+              <label class="fw-semibold">Color:</label>
+              <div id="popup-colors" class="d-flex gap-2"></div>
+            </div>
+            <div class="mb-3">
+              <label class="fw-semibold">Size:</label>
+              <select id="popup-variant" class="form-select"></select>
+            </div>
+            <button id="popup-add-to-cart" class="btn btn-dark w-100">
+              ADD TO CART →
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Bottom row: Colors + Size + Add to Cart -->
-    <div class="popup-actions">
-        {% comment %} <label for="popup-variant">Color:</label> {% endcomment %}
-      <div id="popup-colors" class="color-container"></div>
-
-      <label for="popup-variant">Size:</label>
-      <select id="popup-variant">
-        <option value="">Choose your size</option>
-      </select>
-
-      <button id="popup-add-to-cart">ADD TO CART</button>
-    </div>
-
   </div>
 </div>
 
