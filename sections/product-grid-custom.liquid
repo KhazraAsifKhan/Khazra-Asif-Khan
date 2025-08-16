@@ -117,14 +117,30 @@
 
 
 .popup-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background: #f5f5f5;
   color: #444;
-  font-size: 28px;
+  font-size: 22px;
   font-weight: bold;
-  transition: color 0.2s ease;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
 .popup-close:hover {
-  color: red;
+  background: red;
+  color: #fff;
+  transform: scale(1.1);
 }
+
 
 
 /* Variant Dropdown */
