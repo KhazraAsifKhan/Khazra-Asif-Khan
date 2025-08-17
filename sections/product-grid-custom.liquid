@@ -242,19 +242,32 @@
   color: white;
   font-size: 16px;
   font-weight: bold;
-  padding: 12px;
+  padding: 14px;
   border: none;
   cursor: pointer;
-  display: flex;              /* put text + arrow side by side */
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;                  /* space between text and arrow */
+  gap: 14px;
 }
 
 #popup-add-to-cart .arrow {
-  font-size: 35px;            /* bigger arrow */
-  font-weight: bold;
-  line-height: 1;
+  width: 34px;        /* from figma width: 33.7px */
+  height: 0;          /* figma height: 0 */
+  border-top: 1.5px solid #fff;   /* line itself */
+  position: relative;
+}
+
+#popup-add-to-cart .arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -6px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
 }
 
 
