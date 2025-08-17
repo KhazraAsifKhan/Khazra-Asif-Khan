@@ -539,44 +539,20 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(err => console.error(err));
   }); {% endcomment %}
 
-  popupAddToCart.addEventListener("click", () => {
-  const variantId = popupVariant.value;
-  if (!variantId) return alert("Please select a size.");
-
-  // Add the selected product
-  fetch("/cart/add.js", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: variantId, quantity: 1 })
-  })
+  fetch("/products/dark-winter-jacket.js")
   .then(res => res.json())
-  .then(data => {
-    alert("Added to cart: " + data.title);
+  .then(swj => {
+    const swjVariantId = swj.variants.find(v => v.available)?.id;
+    if (!swjVariantId) throw new Error("No available variant for Dark Winter Jacket");
 
-    // --- Check for Black + Medium ---
-    const selectedColor = document.querySelector(".color-box.selected span")?.textContent;
-    const selectedSize = popupVariant.options[popupVariant.selectedIndex]?.textContent;
-
-    if (selectedColor === "Black" && selectedSize === "Medium") {
-      // Fetch the Soft Winter Jacket product handle dynamically
-      fetch("/product")
-        .then(res => res.json())
-        .then(swj => {
-          const swjVariantId = swj.variants[0].id; // assuming first variant
-          return fetch("/cart/add.js", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: swjVariantId, quantity: 1 })
-          });
-        })
-        .then(() => alert("Also added Soft Winter Jacket to cart!"))
-        .catch(err => console.error(err));
-    }
-
-    popup.classList.add("hidden"); // close popup
+    return fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: swjVariantId, quantity: 1 })
+    });
   })
+  .then(() => alert("Also added Dark Winter Jacket to cart!"))
   .catch(err => console.error(err));
-});
 
 
   // Close popup
