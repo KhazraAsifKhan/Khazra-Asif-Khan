@@ -557,7 +557,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const selectedColor = document.querySelector(".color-box.selected span")?.textContent;
     const selectedSize = popupVariant.options[popupVariant.selectedIndex]?.textContent;
 
-    if (selectedColor === "Black" && selectedSize === "M") {
+    if (selectedColor === "Black" && selectedSize === "Medium") {
       // Fetch the Soft Winter Jacket product handle dynamically
       fetch("/products/soft-winter-jacket.js")
         .then(res => res.json())
