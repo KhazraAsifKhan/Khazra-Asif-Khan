@@ -119,99 +119,29 @@
 }
 
 
-/* POPUP BOX */
-.popup-content {
-  background: #fff;
-  width: 311px;       /* Figma width */
-  height: 447px;      /* Figma height */
-  padding: 0;         /* remove extra spacing */
-  position: relative;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  border-radius: 0;
-  overflow: hidden;
-}
-
-/* TOP: Image + Details */
-.popup-top {
-  display: flex;
-  align-items: flex-start;
-  padding: 36px 20px 0 17px; /* match figma offsets */
-}
-
-.popup-image img {
-  width: 120px;
-  height: 140px;
-  object-fit: cover;
-}
-
-.popup-details {
-  margin-left: 8px;
-  width: 136px; /* from Figma */
-}
-
-.popup-details h2 {
-  font-family: "Jost", sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 120%;
-  margin: 3px 0 6px;
-}
-
-#popup-price {
-  font-weight: 500;
-  font-size: 14px;
-  margin: 0 0 6px;
-}
-
-#popup-description {
-  font-size: 12px;
-  line-height: 1.4;
-  color: #444;
-  margin: 0;
-}
-
-/* ACTIONS */
-.popup-actions {
-  margin-top: auto;
-  padding: 20px 17px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* ADD TO CART BUTTON */
-#popup-add-to-cart {
-  background: black;
-  color: white;
-  font-size: 15px;
-  padding: 14px;
-  border: none;
-  cursor: pointer;
+/* ===== BACKDROP ===== */
+.popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px; /* spacing between text and arrow */
+  z-index: 9999;
 }
 
-#popup-add-to-cart .arrow {
-  width: 34px;
-  height: 0;
-  border-top: 1.5px solid #fff;
+.popup.hidden { display: none; }
+
+/* ===== POPUP BOX ===== */
+.popup-content {
+  background: #fff;
+  width: 420px;
+  padding: 20px;
+  border-radius: 0;  /* sharp corners */
   position: relative;
-}
-
-#popup-add-to-cart .arrow::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: -6px;
-  border-top: 1.5px solid #fff;
-  border-right: 1.5px solid #fff;
-  width: 10px;
-  height: 10px;
-  transform: rotate(45deg);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
 }
 
 /* CLOSE BUTTON */
@@ -219,11 +149,13 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 12px;
-  height: 12px;
+  width: 12px;   /* figma width ~12px */
+  height: 12px;  /* figma height ~12px */
   cursor: pointer;
   background: #f8f8f8e5;
+  {% comment %} border: 1.5px solid #000; {% endcomment %}
 }
+
 .popup-close::before,
 .popup-close::after {
   content: "";
@@ -235,6 +167,7 @@
   background: #000;
   transform-origin: center;
 }
+
 .popup-close::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
@@ -242,6 +175,46 @@
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+
+/* TOP (Image + Details) */
+.popup-top {
+  display: flex;
+  gap: 15px;
+  align-items: stretch; /* make image match details height */
+}
+
+.popup-image img {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.popup-details {
+  flex: 1;
+}
+
+.popup-details h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+#popup-price {
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+.popup-details p {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ===== BOTTOM ACTIONS ===== */
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
 /* Color boxes */
 .color-container {
@@ -283,6 +256,48 @@
   color: white;
 }
 
+/* SIZE DROPDOWN */
+#popup-variant {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  font-size: 14px;
+  background: #fff;
+}
+
+/* ADD TO CART */
+#popup-add-to-cart {
+  background: black;
+  color: white;
+  font-size: 17px;
+  {% comment %} font-weight: bold; {% endcomment %}
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+#popup-add-to-cart .arrow {
+  width: 34px;        /* from figma width: 33.7px */
+  height: 0;          /* figma height: 0 */
+  border-top: 1.5px solid #fff;   /* line itself */
+  position: relative;
+}
+
+#popup-add-to-cart .arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -6px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
 
 
 
