@@ -58,6 +58,9 @@
        <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
 
       </div>
+        <div class="plus-box">
+    <span class="plus-sign">+</span>
+  </div>
       <h3 class="grid-title">{{ product.title }}</h3>
       <p class="grid-price">{{ product.price | money }}</p>
     </div>
@@ -135,6 +138,36 @@
 .grid-title,
 .grid-price {
   display: none;
+}
+
+
+
+/* Plus box (outer) */
+.grid-item .plus-box {
+  position: absolute;
+  top: 18px;       /* Figma top */
+  left: 101.29px;  /* Figma left */
+  width: 15.71px;
+  height: 15.71px;
+  border: 1px solid #000;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Plus sign inside the box */
+.grid-item .plus-box .plus-sign {
+  width: 6.04px;
+  height: 6.04px;
+  border-width: 1px;
+  font-size: 6px;
+  line-height: 6px;
+  text-align: center;
+  font-weight: bold;
+  display: block;
 }
 
 /* Responsive: 2 per row on smaller screens */
