@@ -57,13 +57,10 @@
 }
 
 .banner-button .arrow {
-  display: inline-block;
-  width: 12px;             /* square size */
-  height: 12px;
-  border-right: 1.5px solid #F5F5F5; /* vertical part */
-  border-bottom: 1.5px solid #F5F5F5; /* horizontal part */
-  transform: rotate(-45deg);          /* rotate to make arrow */
-  margin-left: 5px;                   /* spacing from text */
+ width: 34px;        /* from figma width: 33.7px */
+  height: 0;          /* figma height: 0 */
+  border-top: 1.5px solid #fff;   /* line itself */
+  position: relative;                /* spacing from text */
 }
 
 
