@@ -118,172 +118,86 @@
   }
 }
 
-
-/* ===== BACKDROP ===== */
-.popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.popup.hidden { display: none; }
-
-/* ===== POPUP BOX ===== */
+/* POPUP BOX */
 .popup-content {
   background: #fff;
-  width: 420px;
-  padding: 20px;
-  border-radius: 0;  /* sharp corners */
+  width: 311px;       /* Figma width */
+  height: 447px;      /* Figma height */
+  padding: 0;         /* remove extra spacing */
   position: relative;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
+  border-radius: 0;
+  overflow: hidden;
 }
 
-/* CLOSE BUTTON */
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 12px;   /* figma width ~12px */
-  height: 12px;  /* figma height ~12px */
-  cursor: pointer;
-  background: #f8f8f8e5;
-  {% comment %} border: 1.5px solid #000; {% endcomment %}
-}
-
-.popup-close::before,
-.popup-close::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 12px;
-  height: 1.5px;
-  background: #000;
-  transform-origin: center;
-}
-
-.popup-close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.popup-close::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-
-/* TOP (Image + Details) */
+/* TOP: Image + Details */
 .popup-top {
   display: flex;
-  gap: 15px;
-  align-items: stretch; /* make image match details height */
+  align-items: flex-start;
+  padding: 36px 20px 0 17px; /* match figma offsets */
 }
 
 .popup-image img {
-  width: 160px;
-  height: 100%;
+  width: 120px;
+  height: 140px;
   object-fit: cover;
 }
 
 .popup-details {
-  flex: 1;
+  margin-left: 8px;
+  width: 136px; /* from Figma */
 }
 
 .popup-details h2 {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
   font-size: 16px;
-  margin: 0 0 8px;
+  line-height: 120%;
+  margin: 3px 0 6px;
 }
 
 #popup-price {
-  font-weight: bold;
-  margin: 0 0 8px;
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0 0 6px;
 }
 
-.popup-details p {
-  font-size: 13px;
+#popup-description {
+  font-size: 12px;
   line-height: 1.4;
+  color: #444;
+  margin: 0;
 }
 
-/* ===== BOTTOM ACTIONS ===== */
+/* ACTIONS */
 .popup-actions {
-  margin-top: 20px;
+  margin-top: auto;
+  padding: 20px 17px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* Color boxes */
-.color-container {
-  display: flex;
-}
-
-.color-box {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  border: 1px solid #000;
-  height: 40px;
-  cursor: pointer;
-  position: relative;
-}
-
-.color-box + .color-box {
-  border-left: none; /* no double border */
-}
-
-.color-box::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 8px;
-  height: 100%;
-  background: var(--square-color, grey);
-}
-
-.color-box span {
-  flex: 1;
-  text-align: center;
-  font-size: 14px;
-  z-index: 1;
-}
-
-.color-box.selected {
-  background: black;
-  color: white;
-}
-
-/* SIZE DROPDOWN */
-#popup-variant {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #000;
-  font-size: 14px;
-  background: #fff;
-}
-
-/* ADD TO CART */
+/* ADD TO CART BUTTON */
 #popup-add-to-cart {
   background: black;
   color: white;
-  font-size: 17px;
-  {% comment %} font-weight: bold; {% endcomment %}
+  font-size: 15px;
   padding: 14px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 20px; /* spacing between text and arrow */
 }
 
 #popup-add-to-cart .arrow {
-  width: 34px;        /* from figma width: 33.7px */
-  height: 0;          /* figma height: 0 */
-  border-top: 1.5px solid #fff;   /* line itself */
+  width: 34px;
+  height: 0;
+  border-top: 1.5px solid #fff;
   position: relative;
 }
 
@@ -299,7 +213,33 @@
   transform: rotate(45deg);
 }
 
-
+/* CLOSE BUTTON */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
+  cursor: pointer;
+  background: #f8f8f8e5;
+}
+.popup-close::before,
+.popup-close::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 1.5px;
+  background: #000;
+  transform-origin: center;
+}
+.popup-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.popup-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
 
 
 
