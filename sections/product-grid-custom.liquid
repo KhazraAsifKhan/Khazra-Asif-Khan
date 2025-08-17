@@ -77,7 +77,7 @@
 
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* always 2 per row */
+  grid-template-columns: repeat(3, 1fr); /* 3 per row on large screens */
   gap: 30px; /* spacing between items */
   justify-content: center;
 }
@@ -137,7 +137,20 @@
   display: none;
 }
 
-/* Gap remains the same */
+/* Responsive: 2 per row on smaller screens */
+@media screen and (max-width: 900px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr); /* still 2 per row */
+    gap: 15px;
+  }
+}
 
 
 /* ===== BACKDROP ===== */
