@@ -71,7 +71,7 @@
   .custom-grid {
   padding: 40px 20px;
   width: 100%;
-  max-width: 1337px; /* total grid width */
+  max-width: 1337px; /* Figma total grid width */
   margin: 0 auto;
 }
 
@@ -85,7 +85,7 @@
 .grid-item {
   position: relative;
   width: 169px;  
-  height: 186.42px; 
+  height: 186.42px; /* exact Figma height */
   background: #fff;
   border-radius: 12px;
   text-align: center;
@@ -101,8 +101,8 @@
 
 /* Image */
 .grid-img {
-  width: 100%;
-  height: 100%;
+  width: 169px;       /* exact Figma width */
+  height: 186.42px;   /* exact Figma height */
   position: relative;
 }
 
@@ -138,17 +138,20 @@
   display: none;
 }
 
-/* Responsive: 2 per row on small screens */
+/* Responsive: 2 items per row on small screens */
 @media screen and (max-width: 900px) {
   .grid-wrapper {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 169px); /* 2 items per row */
     gap: 20px;
+    justify-content: center;
   }
 }
+
 @media screen and (max-width: 600px) {
   .grid-wrapper {
-    grid-template-columns: 2fr; /* optional: 1 per row on very small screens */
+    grid-template-columns: repeat(1, 169px); /* 1 item per row on very small screens */
     gap: 15px;
+    justify-content: center;
   }
 }
 
