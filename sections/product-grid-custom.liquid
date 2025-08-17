@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const popupAddToCart = document.getElementById("popup-add-to-cart");
   const popupColors = document.getElementById("popup-colors");
 
-  document.querySelectorAll(".grid-item").forEach(item => {
+  {% comment %} document.querySelectorAll(".grid-item").forEach(item => {
     item.addEventListener("click", function() {
       const handle = this.dataset.handle;
 
@@ -460,7 +460,66 @@ document.addEventListener("DOMContentLoaded", function() {
           popup.classList.remove("hidden");
         });
     });
+  }); {% endcomment %}
+
+  document.querySelectorAll(".grid-item .plus-box").forEach(box => {
+  box.addEventListener("click", function(e) {
+    e.stopPropagation(); // Prevent the click from bubbling up
+
+    const gridItem = this.closest(".grid-item");
+    const handle = gridItem.dataset.handle;
+
+    fetch(`/products/${handle}.js`)
+      .then(res => res.json())
+      .then(product => {
+        popupTitle.textContent = product.title;
+        popupImage.src = product.images[0] || "";
+        popupPrice.textContent = (product.price / 100).toLocaleString("en-US", { style: "currency", currency: "EUR" });
+        popupDescription.textContent = product.description;
+
+        // Populate sizes
+        popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+        product.variants.forEach(v => {
+          const opt = document.createElement("option");
+          opt.value = v.id;
+          opt.textContent = v.option1;
+          popupVariant.appendChild(opt);
+        });
+
+        // Populate colors
+        popupColors.innerHTML = "";
+        const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
+        colors.forEach(color => {
+          const box = document.createElement("div");
+          box.className = "color-box";
+          box.style.setProperty("--square-color", color.toLowerCase());
+          const label = document.createElement("span");
+          label.textContent = color;
+          box.appendChild(label);
+
+          box.addEventListener("click", () => {
+            document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
+            box.classList.add("selected");
+
+            popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+            product.variants
+              .filter(v => v.option2 === color)
+              .forEach(v => {
+                const opt = document.createElement("option");
+                opt.value = v.id;
+                opt.textContent = v.option1;
+                popupVariant.appendChild(opt);
+              });
+          });
+
+          popupColors.appendChild(box);
+        });
+
+        popup.classList.remove("hidden");
+      });
   });
+});
+
 
   // Add to cart
   popupAddToCart.addEventListener("click", () => {
