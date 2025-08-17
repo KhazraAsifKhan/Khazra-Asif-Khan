@@ -539,20 +539,41 @@ document.addEventListener("DOMContentLoaded", function() {
     .catch(err => console.error(err));
   }); {% endcomment %}
 
-  fetch("/products/dark-winter-jacket.js")
-  .then(res => res.json())
-  .then(swj => {
-    const swjVariantId = swj.variants.find(v => v.available)?.id;
-    if (!swjVariantId) throw new Error("No available variant for Dark Winter Jacket");
+  popupAddToCart.addEventListener("click", () => {
+  const variantId = popupVariant.value;
+  if (!variantId) return alert("Please select a size.");
 
-    return fetch("/cart/add.js", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: swjVariantId, quantity: 1 })
-    });
+  fetch("/cart/add.js", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: variantId, quantity: 1 })
   })
-  .then(() => alert("Also added Dark Winter Jacket to cart!"))
-  .catch(err => console.error(err));
+  .then(res => res.json())
+  .then(data => {
+    alert("Added to cart: " + data.title);
+
+    const selectedColor = document.querySelector(".color-box.selected span")?.textContent;
+    const selectedSize = popupVariant.options[popupVariant.selectedIndex]?.textContent;
+
+    if (selectedColor === "Black" && selectedSize === "Medium") {
+      return fetch("/products/dark-winter-jacket.js")
+        .then(res => res.json())
+        .then(swj => {
+          const swjVariantId = swj.variants.find(v => v.available)?.id;
+          if (!swjVariantId) throw new Error("No available variant for Soft Winter Jacket");
+
+          return fetch("/cart/add.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: swjVariantId, quantity: 1 })
+          });
+        })
+        .then(() => alert("Also added Soft Winter Jacket to cart!"));
+    }
+  })
+  .catch(err => console.error(err))
+  .finally(() => popup.classList.add("hidden"));
+});
 
 
   // Close popup
