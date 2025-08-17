@@ -138,16 +138,15 @@
   display: none;
 }
 
-/* Responsive */
 @media screen and (max-width: 900px) {
   .grid-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(169px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 }
 @media screen and (max-width: 600px) {
   .grid-wrapper {
-    grid-template-columns: repeat(auto-fit, minmax(169px, 1fr));
+    grid-template-columns: 1fr; /* optional: 1 per row on very small screens */
     gap: 15px;
   }
 }
