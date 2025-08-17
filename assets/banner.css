@@ -58,13 +58,14 @@
 
 .banner-button .arrow {
   display: inline-block;
-  width: 24px;
-  height: 0px;
-  border-top: 1.5px solid #F5F5F5; /* arrow line */
-  border-right: 1.5px solid #F5F5F5;
-  transform: rotate(-45deg);        /* diagonal arrow */
-  opacity: 1;
+  width: 12px;             /* square size */
+  height: 12px;
+  border-right: 1.5px solid #F5F5F5; /* vertical part */
+  border-bottom: 1.5px solid #F5F5F5; /* horizontal part */
+  transform: rotate(-45deg);          /* rotate to make arrow */
+  margin-left: 5px;                   /* spacing from text */
 }
+
 
 
 
