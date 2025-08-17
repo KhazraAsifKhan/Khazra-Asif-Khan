@@ -56,7 +56,9 @@
     <div class="grid-item" data-handle="{{ product.handle }}">
       <div class="grid-img">
        <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
-
+ <div class="plus-box">
+    <span class="plus-sign">+</span>
+  </div>
       </div>
       <h3 class="grid-title">{{ product.title }}</h3>
       <p class="grid-price">{{ product.price | money }}</p>
@@ -113,26 +115,53 @@
 }
 
 /* Plus Box */
-.grid-item::after {
+{% comment %} .grid-item::after {
   content: '+';
   position: absolute;
-  top: 18px;       /* Figma top */
-  left: 101.29px;  /* Figma left */
-  width: 15.71px;  /* plus box width */
-  height: 15.71px; /* plus box height */
+  top: 10%;   /* relative to item height */
+  right: 10%; /* position relative so it scales with item */
+  width: 10%;  /* scale with item */
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;       /* make it circular */
-  background: rgba(255, 255, 255, 0.8); /* light circle */
-  {% comment %} border: 1px solid #000;   /* optional: thin border */ {% endcomment %}
-  font-size: 6px;            /* plus sign size */
-  line-height: 6px;
+  border: 1px solid #000;
+  font-size: 0.6rem;
   font-weight: bold;
-  color: #000;               /* plus sign color */
-  text-align: center;
+  background: #fff;
   cursor: pointer;
   z-index: 10;
+} {% endcomment %}
+
+/* Plus box (circle) */
+.grid-item .plus-box {
+  position: absolute;
+  top: 18px;       /* Figma top */
+  left: 101.29px;  /* Figma left */
+  width: 15.71px;
+  height: 15.71px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8); /* light circle */
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Plus sign inside circle */
+.grid-item .plus-box .plus-sign {
+  position: absolute;
+  top: 5px;      /* Figma top inside box: 23.03 - 18 = 5.03px */
+  left: 4px;     /* Figma left inside box: 106.37 - 101.29 = 5.08px */
+  width: 6.04px;
+  height: 6.04px;
+  font-size: 6px;
+  line-height: 6px;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
 }
 
 
