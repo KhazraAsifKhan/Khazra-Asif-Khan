@@ -62,7 +62,17 @@
   border-top: 1.5px solid #fff;   /* line itself */
   position: relative;                /* spacing from text */
 }
-
+.banner-button .arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -6px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
 
 
 
