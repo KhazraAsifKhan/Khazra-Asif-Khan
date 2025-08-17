@@ -187,14 +187,18 @@
 }
 
 .popup-image img {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+}
+{% comment %} .popup-image img {
   position: absolute;  /* allow precise top/left */
   width: 120px;        /* exact width */
   height: 140px;       /* exact height */
   top: 36px;           /* distance from top of popup */
   left: 17px;          /* distance from left of popup */
   object-fit: cover;
-}
-
+} {% endcomment %}
 .popup-details {
   flex: 1;
 }
