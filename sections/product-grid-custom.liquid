@@ -1,329 +1,228 @@
-<!-- POPUP -->
-<div id="product-popup" class="popup hidden">
-  <div class="popup-content">
-    <!-- Before -->
-<!-- <span class="popup-close">&times;</span> -->
-
-<!-- After -->
-<span class="popup-close"></span>
-
+<div class="modal-overlay">
+  <div class="product-modal">
+    <button class="close-btn">×</button>
     
-    <!-- Top: Image + Details -->
-    <div class="popup-top">
-      <div class="popup-image">
-        <img id="popup-image" src="https://via.placeholder.com/200x250" alt="">
+    <div class="modal-content">
+      <div class="product-image">
+        <img src="https://csspicker.dev/api/image/?q=tennis+blue+shirt&image_type=photo" alt="Tennis Blue T-Shirt">
       </div>
-
-      <div class="popup-details">
-        <h2 id="popup-title">Tennis Blue T-Shirt</h2>
-        <p id="popup-price">980,00€</p>
-        <p id="popup-description">
+      
+      <div class="product-details">
+        <h2 class="product-title">Tennis Blue T-Shirt</h2>
+        <p class="product-price">980,00€</p>
+        <p class="product-description">
           This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.
         </p>
+        
+        <div class="color-section">
+          <label class="section-label">Color</label>
+          <div class="color-options">
+            <button class="color-option selected">Grey</button>
+            <button class="color-option">Black</button>
+          </div>
+        </div>
+        
+        <div class="size-section">
+          <label class="section-label">Size</label>
+          <div class="size-dropdown">
+            <select class="size-select">
+              <option>Choose your size</option>
+              <option>XS</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+            </select>
+          </div>
+        </div>
+        
+        <button class="add-to-cart-btn">
+          ADD TO CART
+          <span class="arrow">→</span>
+        </button>
       </div>
     </div>
-
-    <!-- Bottom: Colors + Size + Button -->
-    <div class="popup-actions">
-      <label>Color</label>
-      <div id="popup-colors" class="color-container">
-        <div class="color-box" style="--square-color: grey;"><span>Grey</span></div>
-        <div class="color-box" style="--square-color: black;"><span>Black</span></div>
-      </div>
-
-      <label>Size</label>
-      <select id="popup-variant">
-        <option value="">Choose your size</option>
-        <option>S</option>
-        <option>M</option>
-        <option>L</option>
-      </select>
-
-      <button id="popup-add-to-cart">ADD TO CART <span class="arrow"></span></button>
-    </div>
-  </div>
-</div>
-
-
-
-
-<div class="custom-grid">
-  <div class="grid-wrapper">
-    {% for i in (1..6) %}
-  {% assign setting_id = "product_" | append: i %}
-  {% assign product = all_products[section.settings[setting_id]] %}
-  {% if product %}
-    <div class="grid-item" data-handle="{{ product.handle }}">
-      <div class="grid-img">
-       <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
-
-      </div>
-      <h3 class="grid-title">{{ product.title }}</h3>
-      <p class="grid-price">{{ product.price | money }}</p>
-    </div>
-  {% endif %}
-{% endfor %}
-
   </div>
 </div>
 
 <style>
-.custom-grid {
-  padding: 40px 20px;
-}
-.grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.grid-item {
-  background: #fff;
-  border-radius: 12px;
-  padding: 15px;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.grid-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-}
-.grid-img img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  object-fit: cover;   /* makes sure images don’t stretch weirdly */
-  max-height: 250px;   /* keep them from being too tall */
-}
-
-.grid-title {
-  font-size: 1rem;
-  margin: 10px 0 5px;
-}
-.grid-price {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-
-/* Responsive */
-@media screen and (max-width: 900px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media screen and (max-width: 600px) {
-  .grid-wrapper {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* Popup Container */
-#product-popup.popup {
+.modal-overlay {
   position: fixed;
-  width: 311px;
-  height: 447px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FFFFFF;
-  box-shadow: 0px 2px 4px 0px #00000033;
-  opacity: 1;
-  z-index: 999;
-  {% comment %} border-radius: 8px; {% endcomment %}
-}
-
-#product-popup.hidden {
-  display: none;
-}
-
-/* Popup Content */
-.popup-content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Close Button */
-/* CLOSE BUTTON */
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 12px;
-  height: 12px;
-  cursor: pointer;
-  background: #f8f8f8e5;
-}
-.popup-close::before,
-.popup-close::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 12px;
-  height: 1.5px;
-  background: #000;
-  transform-origin: center;
-}
-.popup-close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-.popup-close::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-/* Top Section */
-.popup-top {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-}
-
-/* Product Image */
-.popup-image img {
-  position: absolute;
-  width: 120px;
-  height: 140px;
-  top: 36px;
-  left: 17px;
-  object-fit: cover;
-}
-
-/* Details Section */
-.popup-details {
-  position: absolute;
-  top: 49px;
-  left: 145px;
-  width: 136px;
-}
-
-#popup-title {
-  font-family: "Jost", sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 120%;
-  margin: 13px 0 5px;
-}
-
-#popup-price {
-  font-family: "Lustria", serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 120%;
-  margin: 5px 0;
-}
-
-#popup-description {
-  font-family: "Jost", sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 110%;
-  letter-spacing: -1%;
-  margin-top: 5px;
-}
-
-/* Actions Section */
-.popup-actions {
-  position: absolute;
-  top: 186px; /* matches figma placement */
-  left: 20px;
-  width: 271px;
-}
-
-/* Color boxes */
-.color-container {
-  display: flex;
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.color-box {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  border: 1px solid #000;
-  height: 40px;
-  cursor: pointer;
-  position: relative;
-}
-
-.color-box + .color-box {
-  border-left: none; /* avoid double border */
-}
-
-.color-box::before {
-  content: "";
-  position: absolute;
   top: 0;
   left: 0;
-  width: 8px;
+  width: 100%;
   height: 100%;
-  background: var(--square-color, grey);
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.color-box span {
-  flex: 1;
-  text-align: center;
-  font-size: 14px;
-  z-index: 1;
+.product-modal {
+  background: white;
+  border: 3px solid #2196F3;
+  border-radius: 8px;
+  width: 600px;
+  max-width: 90vw;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.color-box.selected {
-  background: black;
-  color: white;
-}
-
-/* Size dropdown */
-#popup-variant {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #000;
-  font-size: 14px;
-  background: #fff;
-  margin-bottom: 16px;
-  font-family: "Jost", sans-serif;
-}
-
-/* Add to cart button */
-#popup-add-to-cart {
-  width: 100%;
-  height: 45px;
-  background: black;
-  color: white;
-  font-size: 17px;
-  padding: 14px;
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
   border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+.modal-content {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+
+.product-image {
+  flex: 1;
+}
+
+.product-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0;
+  color: #333;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  color: #000;
+}
+
+.product-description {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #666;
+  margin: 0;
+}
+
+.section-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.color-options {
+  display: flex;
+  gap: 0;
+}
+
+.color-option {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.color-option:first-child {
+  border-right: 1px solid #ddd;
+}
+
+.color-option.selected {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+.color-option:hover {
+  background: #f0f0f0;
+}
+
+.size-dropdown {
+  position: relative;
+}
+
+.size-select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+
+.size-select:focus {
+  outline: none;
+  border-color: #2196F3;
+}
+
+.add-to-cart-btn {
+  background: #000;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  font-family: "Jost", sans-serif;
+  gap: 10px;
+  margin-top: 10px;
+  transition: background-color 0.2s;
 }
 
-#popup-add-to-cart .arrow {
-  width: 34px; /* from figma */
-  height: 0;
-  border-top: 1.5px solid #fff;
-  position: relative;
+.add-to-cart-btn:hover {
+  background: #333;
 }
 
-#popup-add-to-cart .arrow::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: -6px;
-  border-top: 1.5px solid #fff;
-  border-right: 1.5px solid #fff;
-  width: 10px;
-  height: 10px;
-  transform: rotate(45deg);
+.arrow {
+  font-size: 16px;
 }
 
-
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+  }
+  
+  .product-modal {
+    width: 95vw;
+    margin: 20px;
+  }
+}
 </style>
 
 
