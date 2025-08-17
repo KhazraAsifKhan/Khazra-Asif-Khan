@@ -71,21 +71,21 @@
   .custom-grid {
   padding: 40px 20px;
   width: 100%;
-  max-width: 1337px; /* Figma total grid width */
+  max-width: 1337px; /* total grid width */
   margin: 0 auto;
 }
 
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(169px, 1fr)); /* auto-fit items */
-  gap: 30px; /* as per Figma */
+  grid-template-columns: repeat(3, 169px); /* 3 items per row */
+  gap: 30px; /* spacing between items */
   justify-content: center; /* center the grid */
 }
 
 .grid-item {
   position: relative;
-  width: 169px;  /* fixed image width */
-  height: 186.42px; /* fixed image height */
+  width: 169px;  
+  height: 186.42px; 
   background: #fff;
   border-radius: 12px;
   text-align: center;
@@ -138,6 +138,7 @@
   display: none;
 }
 
+/* Responsive: 2 per row on small screens */
 @media screen and (max-width: 900px) {
   .grid-wrapper {
     grid-template-columns: repeat(2, 1fr);
