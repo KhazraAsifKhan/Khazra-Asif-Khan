@@ -210,65 +210,99 @@
 /* Actions Section */
 .popup-actions {
   position: absolute;
-  bottom: 20px;
+  top: 186px; /* matches figma placement */
   left: 20px;
   width: 271px;
 }
 
-.popup-actions label {
-  font-size: 14px;
-  display: block;
-  margin-bottom: 4px;
-  font-family: "Jost", sans-serif;
-}
-
-/* Color Box */
+/* Color boxes */
 .color-container {
   display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
+  width: 100%;
+  margin-bottom: 16px;
 }
 
 .color-box {
-  width: 271px;
-  height: 64.477px;
-  border: 1px solid #ccc;
+  flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-/* Size Box (Select) */
-#popup-variant {
-  width: 271px;
-  height: 64px;
-  padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  font-family: "Jost", sans-serif;
-}
-
-/* Add to Cart Button */
-#popup-add-to-cart {
-  width: 271px;
-  height: 45px;
-  background: #000;
-  color: #fff;
-  border: none;
+  border: 1px solid #000;
+  height: 40px;
   cursor: pointer;
-  font-family: "Jost", sans-serif;
-  font-size: 16px;
   position: relative;
 }
 
-#popup-add-to-cart .arrow {
+.color-box + .color-box {
+  border-left: none; /* avoid double border */
+}
+
+.color-box::before {
+  content: "";
   position: absolute;
-  right: 20px;
-  top: 50%;
-  width: 33.7px;
-  height: 0px;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  background: var(--square-color, grey);
+}
+
+.color-box span {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
+/* Size dropdown */
+#popup-variant {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  font-size: 14px;
+  background: #fff;
+  margin-bottom: 16px;
+  font-family: "Jost", sans-serif;
+}
+
+/* Add to cart button */
+#popup-add-to-cart {
+  width: 100%;
+  height: 45px;
+  background: black;
+  color: white;
+  font-size: 17px;
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  font-family: "Jost", sans-serif;
+}
+
+#popup-add-to-cart .arrow {
+  width: 34px; /* from figma */
+  height: 0;
   border-top: 1.5px solid #fff;
-  transform: translateY(-50%);
+  position: relative;
+}
+
+#popup-add-to-cart .arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -6px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
 }
 
 
