@@ -68,53 +68,88 @@
 </div>
 
 <style>
-.custom-grid {
+
+  .custom-grid {
   padding: 40px 20px;
+  width: 1337px; /* Figma total grid width */
+  margin: 0 auto;
 }
+
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 169px); /* each image width */
+  gap: 30px; /* as per Figma */
+  justify-content: center;
+  height: 981px; /* total height from Figma */
 }
+
 .grid-item {
+  position: relative; /* for plus box positioning */
+  width: 169px; /* image width */
+  height: 186.42px; /* image height */
   background: #fff;
   border-radius: 12px;
-  padding: 15px;
   text-align: center;
   cursor: pointer;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .grid-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
+
+/* Image */
+.grid-img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 .grid-img img {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 8px;
-  object-fit: cover;   /* makes sure images don’t stretch weirdly */
-  max-height: 250px;   /* keep them from being too tall */
 }
 
-.grid-title {
-  font-size: 1rem;
-  margin: 10px 0 5px;
+/* Plus Box */
+.grid-item::after {
+  content: '+';
+  position: absolute;
+  top: 18px;        /* Figma top */
+  left: 101.29px;   /* Figma left */
+  width: 15.71px;
+  height: 15.71px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  font-size: 10px;
+  font-weight: bold;
+  background: #fff;
+  cursor: pointer;
+  z-index: 10;
 }
+
+/* Title & Price (hidden by default) */
+.grid-title,
 .grid-price {
-  font-size: 0.9rem;
-  color: #555;
+  display: none;
 }
-
 
 /* Responsive */
 @media screen and (max-width: 900px) {
   .grid-wrapper {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 @media screen and (max-width: 600px) {
   .grid-wrapper {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 }
 
@@ -123,7 +158,7 @@
 .popup {
   position: fixed;
   inset: 0;
-  {% comment %} background: rgba(0,0,0,0.6); {% endcomment %}
+  {% comment %} background: rgba(0,0,0,0.6); %} {% endcomment %}
   display: flex;
   align-items: center;
   justify-content: center;
