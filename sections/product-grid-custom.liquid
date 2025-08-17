@@ -119,45 +119,43 @@
 }
 
 
-/* Popup Container */
-#product-popup.popup {
+/* ===== BACKDROP ===== */
+.popup {
   position: fixed;
-  width: 311px;
-  height: 447px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #FFFFFF;
-  box-shadow: 0px 2px 4px 0px #00000033;
-  opacity: 1;
-  z-index: 999;
-  border-radius: 8px;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
 }
 
-#product-popup.hidden {
-  display: none;
-}
+.popup.hidden { display: none; }
 
-/* Popup Content */
+/* ===== POPUP BOX ===== */
 .popup-content {
+  background: #fff;
+  width: 420px;
+  padding: 20px;
+  border-radius: 0;  /* sharp corners */
   position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  box-sizing: border-box;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Close Button */
 /* CLOSE BUTTON */
 .popup-close {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 12px;
-  height: 12px;
+  width: 12px;   /* figma width ~12px */
+  height: 12px;  /* figma height ~12px */
   cursor: pointer;
   background: #f8f8f8e5;
+  {% comment %} border: 1.5px solid #000; {% endcomment %}
 }
+
 .popup-close::before,
 .popup-close::after {
   content: "";
@@ -169,92 +167,58 @@
   background: #000;
   transform-origin: center;
 }
+
 .popup-close::before {
   transform: translate(-50%, -50%) rotate(45deg);
 }
 .popup-close::after {
   transform: translate(-50%, -50%) rotate(-45deg);
 }
-/* Top Section */
-.popup-top {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-   width: 100%;
-  height: 140px; /* match image height */
-}
-/* Top Section */
-.popup-top {
-  display: flex;
-  flex-direction: row;
-  position: relative;
-  width: 100%;
-  height: 140px; /* match image height */
-}
 
-/* Product Image */
-.popup-image {
-  position: relative; /* change from absolute */
-  width: 120px;
-  height: 140px;
-  margin-left: 17px;
-  margin-top: 36px;
+
+/* TOP (Image + Details) */
+.popup-top {
+  display: flex;
+  gap: 15px;
+  align-items: stretch; /* make image match details height */
 }
 
 .popup-image img {
-  width: 100%;
+  width: 160px;
   height: 100%;
   object-fit: cover;
 }
 
-/* Details Section */
 .popup-details {
-  position: relative; /* change from absolute */
-  margin-left: 8px; /* distance between image and details */
-  margin-top: 36px;
-  width: 136px;
-  display: flex;
-  flex-direction: column;
+  flex: 1;
 }
 
-#popup-title {
-  font-family: "Jost", sans-serif;
-  font-weight: 300;
+.popup-details h2 {
   font-size: 16px;
-  line-height: 120%;
-  margin: 13px 0 5px;
+  margin: 0 0 8px;
 }
 
 #popup-price {
-  font-family: "Lustria", serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 120%;
-  margin: 5px 0;
+  font-weight: bold;
+  margin: 0 0 8px;
 }
 
-#popup-description {
-  font-family: "Jost", sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 110%;
-  letter-spacing: -1%;
-  margin-top: 5px;
+.popup-details p {
+  font-size: 13px;
+  line-height: 1.4;
 }
 
-/* Actions Section */
+/* ===== BOTTOM ACTIONS ===== */
 .popup-actions {
-  position: absolute;
-  top: 186px; /* matches figma placement */
-  left: 20px;
-  width: 271px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* Color boxes */
 .color-container {
   display: flex;
-  width: 100%;
-  margin-bottom: 16px;
 }
 
 .color-box {
@@ -268,14 +232,13 @@
 }
 
 .color-box + .color-box {
-  border-left: none; /* avoid double border */
+  border-left: none; /* no double border */
 }
 
 .color-box::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 8px;
   height: 100%;
   background: var(--square-color, grey);
@@ -293,24 +256,21 @@
   color: white;
 }
 
-/* Size dropdown */
+/* SIZE DROPDOWN */
 #popup-variant {
   width: 100%;
   padding: 10px;
   border: 1px solid #000;
   font-size: 14px;
   background: #fff;
-  margin-bottom: 16px;
-  font-family: "Jost", sans-serif;
 }
 
-/* Add to cart button */
+/* ADD TO CART */
 #popup-add-to-cart {
-  width: 100%;
-  height: 45px;
   background: black;
   color: white;
   font-size: 17px;
+  {% comment %} font-weight: bold; {% endcomment %}
   padding: 14px;
   border: none;
   cursor: pointer;
@@ -318,13 +278,12 @@
   align-items: center;
   justify-content: center;
   gap: 40px;
-  font-family: "Jost", sans-serif;
 }
 
 #popup-add-to-cart .arrow {
-  width: 34px; /* from figma */
-  height: 0;
-  border-top: 1.5px solid #fff;
+  width: 34px;        /* from figma width: 33.7px */
+  height: 0;          /* figma height: 0 */
+  border-top: 1.5px solid #fff;   /* line itself */
   position: relative;
 }
 
@@ -339,6 +298,9 @@
   height: 10px;
   transform: rotate(45deg);
 }
+
+
+
 
 
 </style>
