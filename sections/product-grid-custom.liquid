@@ -134,17 +134,15 @@
 
 /* ===== POPUP BOX ===== */
 .popup-content {
-  width: 311px;
-  height: 447px;
   background: #fff;
-  box-shadow: 0px 2px 4px 0px #00000033;
-  border-radius: 0; /* sharp corners as per figma */
+  width: 420px;
   padding: 20px;
+  border-radius: 0;  /* sharp corners */
   position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
 }
-
 
 /* CLOSE BUTTON */
 .popup-close {
@@ -181,30 +179,18 @@
 /* TOP (Image + Details) */
 .popup-top {
   display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  gap: 15px;
+  align-items: stretch; /* make image match details height */
 }
 
 .popup-image img {
-  width: 120px;
-  height: 140px;
-  object-fit: cover;  /* keeps proportions clean */
-  margin-top: 36px;   /* from figma top: 36.42px */
-  margin-left: 17px;  /* from figma left: 17px */
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
 }
 
-
 .popup-details {
-  width: 136px;
-  height: 38px;
-  margin-top: 39px;   /* from figma top: 39px */
-  margin-left: 145px; /* from figma left: 145px */
-  font-family: 'Jost', sans-serif;
-  font-weight: 300;   /* light */
-  font-size: 16px;
-  line-height: 120%;  /* matches figma */
-  letter-spacing: 0;
-  color: #000;
+  flex: 1;
 }
 
 .popup-details h2 {
