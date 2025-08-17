@@ -178,41 +178,59 @@
 
 
 /* TOP (Image + Details) */
+/* Top Section Container */
 .popup-top {
-  display: flex;
-  gap: 15px;
-  align-items: stretch; /* make image match details height */
-  margin-top: 5%; 
-  
+  position: relative; /* parent for absolute positioning */
+  width: 100%;
+  height: 140px; /* matches image height */
 }
 
+/* Image */
 .popup-image img {
-  position: absolute;  /* allow precise top/left */
-  width: 120px;        /* exact width */
-  height: 140px;       /* exact height */
-  top: 36px;           /* distance from top of popup */
-  left: 17px;          /* distance from left of popup */
+  position: absolute;
+  width: 120px;
+  height: 140px;
+  top: 36px;
+  left: 17px;
   object-fit: cover;
 }
 
+/* Details */
 .popup-details {
-  flex: 1;
+  position: absolute;
+  top: 49px;   /* matches Figma title top */
+  left: 145px; /* matches Figma left */
+  width: 136px; /* optional: control width */
+  display: flex;
+  flex-direction: column;
 }
 
-.popup-details h2 {
+#popup-title {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
   font-size: 16px;
-  margin: 0 0 8px;
+  line-height: 120%;
+  margin: 0 0 5px;
 }
 
 #popup-price {
-  font-weight: bold;
-  margin: 0 0 8px;
+  font-family: "Lustria", serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  margin: 0 0 5px;
 }
 
-.popup-details p {
-  font-size: 13px;
-  line-height: 1.4;
+#popup-description {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 110%;
+  letter-spacing: -1%;
+  margin: 0;
 }
+
+
 
 /* ===== BOTTOM ACTIONS ===== */
 .popup-actions {
