@@ -116,18 +116,20 @@
 .grid-item::after {
   content: '+';
   position: absolute;
-  top: 18px;       /* Figma top for plus box */
-  left: 101.29px;  /* Figma left for plus box */
+  top: 18px;       /* Figma top */
+  left: 101.29px;  /* Figma left */
   width: 15.71px;  /* plus box width */
   height: 15.71px; /* plus box height */
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
-  background: #fff;
-  font-size: 6px;  /* plus sign size inside */
+  border-radius: 50%;       /* make it circular */
+  background: rgba(255, 255, 255, 0.8); /* light circle */
+  border: 1px solid #000;   /* optional: thin border */
+  font-size: 6px;            /* plus sign size */
   line-height: 6px;
   font-weight: bold;
+  color: #000;               /* plus sign color */
   text-align: center;
   cursor: pointer;
   z-index: 10;
