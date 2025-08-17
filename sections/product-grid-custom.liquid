@@ -1,37 +1,44 @@
+<!-- POPUP -->
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
     <span class="popup-close">&times;</span>
     
-    <!-- Top row: Image + Details -->
+    <!-- Top: Image + Details -->
     <div class="popup-top">
       <div class="popup-image">
-        <img id="popup-image" src="" alt="">
+        <img id="popup-image" src="https://via.placeholder.com/200x250" alt="">
       </div>
 
       <div class="popup-details">
-        <h2 id="popup-title"></h2>
-        <p id="popup-price"></p>
-        <p id="popup-description"></p>
+        <h2 id="popup-title">Tennis Blue T-Shirt</h2>
+        <p id="popup-price">980,00€</p>
+        <p id="popup-description">
+          This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.
+        </p>
       </div>
     </div>
 
-    <!-- Bottom row: Colors + Size + Add to Cart -->
+    <!-- Bottom: Colors + Size + Button -->
     <div class="popup-actions">
-        {% comment %} <label for="popup-variant">Color:</label> {% endcomment %}
-       <label for="popup-colors">Color:</label>
-        <div id="popup-colors" class="color-container"></div>
+      <label>Color</label>
+      <div id="popup-colors" class="color-container">
+        <div class="color-box" style="--square-color: grey;"><span>Grey</span></div>
+        <div class="color-box" style="--square-color: black;"><span>Black</span></div>
+      </div>
 
-      <label for="popup-variant">Size:</label>
+      <label>Size</label>
       <select id="popup-variant">
         <option value="">Choose your size</option>
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
       </select>
 
-      <button id="popup-add-to-cart">ADD TO CART   <span class="arrow">→</span>
-       </button>
+      <button id="popup-add-to-cart">ADD TO CART <span class="arrow">→</span></button>
     </div>
-
   </div>
 </div>
+
 
 
 
@@ -107,176 +114,72 @@
 }
 
 
-
-
-/* Color boxes */
-.color-container {
-  display: flex;
-  gap: 0px;
-  margin: 10px 0;
-
-}
-
-{% comment %} .color-box {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* text on the left side */
-  width: 200px;
-  height: 40px;
-  background: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  padding-left: 5px; /* space for the ::before */
-  color: black; /* default text color */
-}
-
-.color-box.selected {
-  background: black; /* selected box background */
-  color: white;      /* selected text color */
-}
-
-.color-box::before {
-  content: "";
-  display: inline-block;
-  width: 20px;
-  height: 100%;
-  margin-right: 8px;
-  border-radius: 4px 0 0 4px;
-  background-color: white; /* small square color */
-} {% endcomment %}
-.color-box {
-  display: flex;
-  align-items: center;
-  width: 200px;
-  height: 30px;
-  background: white;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
-  padding-left: 5px;
-  color: black;
-  position: relative;
-  overflow: hidden;
-}
-
-.color-box::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 5px;          /* small strip width */
-  height: 100%;
-  {% comment %} border-radius: 6px 0 0 6px;  /* rounded left side */ {% endcomment %}
-  background-color: var(--square-color, #fff);
-}
-
-.color-box span {
-  margin-left: 35px; /* push text after the strip */
-  z-index: 1;
-}
-
-/* Selected state */
-.color-box.selected {
-  background: black;
-  color: white;
-}
-
-
 /* ===== BACKDROP ===== */
 .popup {
   position: fixed;
-  inset: 0; /* shorthand for top:0; right:0; bottom:0; left:0 */
+  inset: 0;
   background: rgba(0,0,0,0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  padding:40px;
-  margin-bottom:5px;
 }
 
-.popup.hidden {
-  display: none;
-}
+.popup.hidden { display: none; }
 
 /* ===== POPUP BOX ===== */
 .popup-content {
   background: #fff;
-  width: 60vw;
-  max-width: 500px;
-  max-height: 95vh;
+  width: 420px;
   padding: 20px;
+  border-radius: 0;  /* sharp corners */
   position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
-  border-radius: 0px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  overflow: hidden;
-  margin-bottom:5px;
 }
 
-/* ===== CLOSE BUTTON ===== */
+/* CLOSE BUTTON */
 .popup-close {
   position: absolute;
-  top: 5px;
-  right: 8px;
-  width: 28px;
-  height: 28px;
-  color: #333;
-  font-size: 18px;
-  line-height: 1;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 10px; right: 10px;
+  font-size: 20px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-
-
-/* ===== TOP LAYOUT (Image + Details) ===== */
+/* TOP (Image + Details) */
 .popup-top {
   display: flex;
-  gap: 2px;
-  flex: 1;
-  overflow: hidden;
+  gap: 15px;
+  align-items: stretch; /* make image match details height */
 }
 
 .popup-image img {
-  width: 85%;
-  max-width: 350px;
-  height: 95%;
-  {% comment %} object-fit: cover; {% endcomment %}
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .popup-details {
-  {% comment %} flex: 1; {% endcomment %}
-  {% comment %} overflow-y: auto; /* scroll only details if too long */ {% endcomment %}
+  flex: 1;
 }
 
-.popup-details h2{
-  font-size: 12px;
-  {% comment %} font-weight: bold; {% endcomment %}
-  color: black;
-  margin-left: 5px;
+.popup-details h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
 }
 
-.popup-details p{
-  font-size: 12px;
-  color: black;
-  margin-left: 5px;
-
+#popup-price {
+  font-weight: bold;
+  margin: 0 0 8px;
 }
 
-#popup-price{
-  font-weight:bold;
+.popup-details p {
+  font-size: 13px;
+  line-height: 1.4;
 }
 
-/* ===== ACTIONS (BOTTOM) ===== */
+/* ===== BOTTOM ACTIONS ===== */
 .popup-actions {
   margin-top: 20px;
   display: flex;
@@ -284,137 +187,69 @@
   gap: 12px;
 }
 
-
-
-/* ===== SIZE DROPDOWN ===== */
-#popup-variant {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  margin-bottom: 16px;
-  background: #fafafa;
-  cursor: pointer;
+/* Color boxes */
+.color-container {
+  display: flex;
 }
 
-#popup-variant:focus {
-  border-color: #000;
-  outline: none;
+.color-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+.color-box + .color-box {
+  border-left: none; /* no double border */
+}
+
+.color-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 8px;
+  height: 100%;
+  background: var(--square-color, grey);
+}
+
+.color-box span {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
+/* SIZE DROPDOWN */
+#popup-variant {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  font-size: 14px;
   background: #fff;
 }
 
-/* ===== ADD TO CART BUTTON ===== */
+/* ADD TO CART */
 #popup-add-to-cart {
-  width: 95%;
-  padding: 10px;
   background: black;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
+  padding: 12px;
   border: none;
- 
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#popup-add-to-cart:hover {
-  background: #333;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 #popup-add-to-cart .arrow {
-  font-size: 40px;            /* make arrow bigger */
-  transition: transform 0.3s ease;
- font-weight: bold;
-   line-height: 1;
-  transition: transform 0.3s ease;
-  margin-left:10px;
-}
-
-/* ===== RESPONSIVE ===== */
-/* ===== RESPONSIVE FIXES ===== */
-@media (max-width: 768px) {
-  .popup {
-    padding: 20px;
-  }
-
-  .popup-content {
-    width: 90vw;       /* take most of screen width */
-    max-width: 95%;
-    padding: 15px;
-  }
-
-  .popup-top {
-    flex-direction: row;   /* stack image and details */
-    align-items: center;
-    text-align: center;
-  }
-
-  .popup-image img {
-    width: 100%;
-    max-width: 500px;  /* shrink image for mobile */
-    height: auto;
-  }
-
-  .popup-details h2,
-  .popup-details p {
-    font-size: 14px;   /* slightly bigger for readability */
-    margin-left: 0;
-  }
-
-  #popup-add-to-cart {
-    width: 100%;
-    font-size: 16px;
-    padding: 12px;
-  }
-
-  #popup-add-to-cart .arrow {
-    font-size: 28px; /* slim but big enough */
-    margin-left: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .popup-content {
-    padding: 20px;
-  }
-   .popup-top {
-    flex-direction: row;   /* stack image and details */
-    align-items: center;
-    text-align: center;
-  }
-
-
-.popup-details h2{
-  font-size: 12px;
-}
-#popup-price{
-   font-size: 15px;
-   padding:0px;
-   font-weight:bold;
-}
-
-  .popup-details p {
-    font-size: 8px;
-
-  }
-
-  .popup-image img {
-   width: 100%;
-    max-width: 500px;  /* shrink image for mobile */
-    height: auto;
-  }
-
-  #popup-add-to-cart {
-    font-size: 15px;
-    padding: 10px;
-  }
-
-  #popup-add-to-cart .arrow {
-    font-size: 24px;
-  }
+  margin-left: 10px;
+  font-size: 18px;
 }
 
 
