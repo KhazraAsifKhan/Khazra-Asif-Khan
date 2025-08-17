@@ -559,12 +559,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (selectedColor === "Black" && selectedSize === "Medium") {
       // Fetch the Soft Winter Jacket product handle dynamically
-      fetch("/product.json")
-  .then(res => res.json())
-  .then(data => {
-    const swj = data.products.find(p => p.title === "Soft Winter Jacket");
-    if (swj) {
-      const swjVariantId = swj.variants[0].id; // assuming first variant
+      fetch("/products")
+        .then(res => res.json())
+        .then(swj => {
+          const swjVariantId = swj.variants[0].id; // assuming first variant
           return fetch("/cart/add.js", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
