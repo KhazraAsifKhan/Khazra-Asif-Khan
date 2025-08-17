@@ -71,21 +71,20 @@
   .custom-grid {
   padding: 40px 20px;
   width: 100%;
-  max-width: 1337px; /* Figma total grid width */
+  max-width: 1337px;
   margin: 0 auto;
 }
 
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 169px); /* 3 items per row */
+  grid-template-columns: repeat(2, 1fr); /* always 2 per row */
   gap: 30px; /* spacing between items */
-  justify-content: center; /* center the grid */
+  justify-content: center;
 }
 
 .grid-item {
   position: relative;
-  width: 169px;  
-  height: 186.42px; /* exact Figma height */
+  width: 100%;  
   background: #fff;
   border-radius: 12px;
   text-align: center;
@@ -101,8 +100,8 @@
 
 /* Image */
 .grid-img {
-  width: 169px;       /* exact Figma width */
-  height: 186.42px;   /* exact Figma height */
+  width: 100%;
+  aspect-ratio: 169 / 186.42; /* maintain Figma ratio */
   position: relative;
 }
 
@@ -117,15 +116,15 @@
 .grid-item::after {
   content: '+';
   position: absolute;
-  top: 18px;        
-  left: 101.29px;   
-  width: 15.71px;
-  height: 15.71px;
+  top: 10%;   /* relative to item height */
+  right: 10%; /* position relative so it scales with item */
+  width: 10%;  /* scale with item */
+  aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #000;
-  font-size: 10px;
+  font-size: 0.6rem;
   font-weight: bold;
   background: #fff;
   cursor: pointer;
@@ -138,22 +137,7 @@
   display: none;
 }
 
-/* Responsive: 2 items per row on small screens */
-@media screen and (max-width: 900px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(2, 169px); /* 2 items per row */
-    gap: 20px;
-    justify-content: center;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .grid-wrapper {
-    grid-template-columns: repeat(1, 169px); /* 1 item per row on very small screens */
-    gap: 15px;
-    justify-content: center;
-  }
-}
+/* Gap remains the same */
 
 
 /* ===== BACKDROP ===== */
