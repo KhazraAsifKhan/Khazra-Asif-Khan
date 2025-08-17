@@ -83,12 +83,12 @@
   gap: 30px; /* spacing between items */
   justify-content: center;
 }
-{% comment %} 
+
 .grid-item {
   position: relative;
   width: 100%;  
   background: #fff;
-  border-radius: 12px;
+  {% comment %} border-radius: 12px; {% endcomment %}
   text-align: center;
   cursor: pointer;
   overflow: hidden;
@@ -105,46 +105,14 @@
   width: 100%;
   aspect-ratio: 169 / 186.42; /* maintain Figma ratio */
   position: relative;
-} {% endcomment %}
-
-{% comment %} .grid-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-} {% endcomment %}
-
-.grid-item {
-  position: relative;
-  width: 100%;  
-  background: #fff;
-  border-radius: 12px; /* wrapper corners */
-  text-align: center;
-  cursor: pointer;
-  overflow: hidden;     /* clip content to wrapper corners */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-img {
-  width: 100%;
-  aspect-ratio: 169 / 186.42; /* maintain Figma ratio */
-  position: relative;
-  overflow: hidden;           /* ensures image respects wrapper corners */
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
 }
 
 .grid-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-top-left-radius: 12px;   /* match wrapper */
-  border-top-right-radius: 12px;  /* match wrapper */
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  {% comment %} border-radius: 8px; {% endcomment %}
 }
-
-
 
 /* Plus Box */
 {% comment %} .grid-item::after {
