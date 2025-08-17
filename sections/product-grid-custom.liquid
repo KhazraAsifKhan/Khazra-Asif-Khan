@@ -68,25 +68,24 @@
 </div>
 
 <style>
-
   .custom-grid {
   padding: 40px 20px;
-  width: 1337px; /* Figma total grid width */
+  width: 100%;
+  max-width: 1337px; /* Figma total grid width */
   margin: 0 auto;
 }
 
 .grid-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 169px); /* each image width */
+  grid-template-columns: repeat(auto-fit, minmax(169px, 1fr)); /* auto-fit items */
   gap: 30px; /* as per Figma */
-  justify-content: center;
-  height: 981px; /* total height from Figma */
+  justify-content: center; /* center the grid */
 }
 
 .grid-item {
-  position: relative; /* for plus box positioning */
-  width: 169px; /* image width */
-  height: 186.42px; /* image height */
+  position: relative;
+  width: 169px;  /* fixed image width */
+  height: 186.42px; /* fixed image height */
   background: #fff;
   border-radius: 12px;
   text-align: center;
@@ -118,8 +117,8 @@
 .grid-item::after {
   content: '+';
   position: absolute;
-  top: 18px;        /* Figma top */
-  left: 101.29px;   /* Figma left */
+  top: 18px;        
+  left: 101.29px;   
   width: 15.71px;
   height: 15.71px;
   display: flex;
@@ -133,7 +132,7 @@
   z-index: 10;
 }
 
-/* Title & Price (hidden by default) */
+/* Hide title & price */
 .grid-title,
 .grid-price {
   display: none;
@@ -142,13 +141,13 @@
 /* Responsive */
 @media screen and (max-width: 900px) {
   .grid-wrapper {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(169px, 1fr));
     gap: 20px;
   }
 }
 @media screen and (max-width: 600px) {
   .grid-wrapper {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(169px, 1fr));
     gap: 15px;
   }
 }
