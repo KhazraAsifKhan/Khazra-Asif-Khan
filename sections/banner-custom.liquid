@@ -1,16 +1,18 @@
 <section class="custom-banner">
   {% if section.settings.banner_image != blank %}
     <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="Banner" class="banner-image">
-  {% endif %}
+  {% endif %} 
 
   <div class="banner-content">
     <h1>{{ section.settings.banner_title }}</h1>
     <p>{{ section.settings.banner_subtitle }}</p>
     {% if section.settings.banner_button_text != blank %}
       <a href="{{ section.settings.banner_button_link }}" class="banner-button">
-        {{ section.settings.banner_button_text }}
-      </a>
-    {% endif %}
+  <span>SHOP NOW</span>
+  <span class="arrow"></span>
+</a>
+
+    {% endif %}   
   </div>
 </section>
 
@@ -36,10 +38,10 @@
       "default": "Shop the latest products now"
     },
     {
-      "type": "url",
-      "id": "banner_button_link",
-      "label": "Button Link",
-      "default": "#"
+    "type": "url",
+    "id": "banner_button_link",
+    "label": "Button Link",
+ 
     },
     {
       "type": "text",
