@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- POPUP -->
 <div id="product-popup" class="popup hidden">
   <div class="popup-content">
@@ -627,4 +628,635 @@ document.addEventListener("DOMContentLoaded", function() {
 }
 
 
+=======
+<!-- POPUP -->
+<div id="product-popup" class="popup hidden">
+  <div class="popup-content">
+    <!-- Before -->
+<!-- <span class="popup-close">&times;</span> -->
+
+<!-- After -->
+<span class="popup-close"></span>
+
+    
+    <!-- Top: Image + Details -->
+    <div class="popup-top">
+      <div class="popup-image">
+        <img id="popup-image" src="https://via.placeholder.com/200x250" alt="">
+      </div>
+
+      <div class="popup-details">
+        <h2 id="popup-title">Tennis Blue T-Shirt</h2>
+        <p id="popup-price">980,00€</p>
+        <p id="popup-description">
+          This one-piece swimsuit is crafted from jersey featuring an allover micro Monogram motif in relief.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bottom: Colors + Size + Button -->
+    <div class="popup-actions">
+      <label>Color</label>
+      <div id="popup-colors" class="color-container">
+        <div class="color-box" style="--square-color: grey;"><span>Grey</span></div>
+        <div class="color-box" style="--square-color: black;"><span>Black</span></div>
+      </div>
+
+      <label>Size</label>
+      <select id="popup-variant">
+        <option value="">Choose your size</option>
+        <option>S</option>
+        <option>M</option>
+        <option>L</option>
+      </select>
+
+      <button id="popup-add-to-cart">ADD TO CART <span class="arrow"></span></button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="custom-grid">
+  <div class="grid-wrapper">
+    {% for i in (1..6) %}
+  {% assign setting_id = "product_" | append: i %}
+  {% assign product = all_products[section.settings[setting_id]] %}
+  {% if product %}
+    <div class="grid-item" data-handle="{{ product.handle }}">
+      <div class="grid-img">
+       <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title }}">
+ <div class="plus-box">
+    <span class="plus-sign">+</span>
+  </div>
+      </div>
+      <h3 class="grid-title">{{ product.title }}</h3>
+      <p class="grid-price">{{ product.price | money }}</p>
+    </div>
+  {% endif %}
+{% endfor %}
+
+  </div>
+</div>
+
+<style>
+  .custom-grid {
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 1337px;
+  margin: 0 auto;
+}
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 per row on large screens */
+  gap: 30px; /* spacing between items */
+  justify-content: center;
+}
+
+.grid-item {
+  position: relative;
+  width: 100%;  
+  background: #fff;
+  {% comment %} border-radius: 12px; {% endcomment %}
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Image */
+.grid-img {
+  width: 100%;
+  aspect-ratio: 169 / 186.42; /* maintain Figma ratio */
+  position: relative;
+}
+
+.grid-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  {% comment %} border-radius: 8px; {% endcomment %}
+}
+
+/* Plus Box */
+{% comment %} .grid-item::after {
+  content: '+';
+  position: absolute;
+  top: 10%;   /* relative to item height */
+  right: 10%; /* position relative so it scales with item */
+  width: 10%;  /* scale with item */
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  font-size: 0.6rem;
+  font-weight: bold;
+  background: #fff;
+  cursor: pointer;
+  z-index: 10;
+} {% endcomment %}
+
+/* Plus box (circle) */
+.grid-item .plus-box {
+  position: absolute;
+  top: 18px;       /* Figma top */
+  left: 101.29px;  /* Figma left */
+  width: 15.71px;
+  height: 15.71px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8); /* light circle */
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Plus sign inside circle */
+.grid-item .plus-box .plus-sign {
+  position: absolute;
+  top: 5px;      /* Figma top inside box: 23.03 - 18 = 5.03px */
+  left: 4px;     /* Figma left inside box: 106.37 - 101.29 = 5.08px */
+  width: 6.04px;
+  height: 6.04px;
+  font-size: 13px;
+  line-height: 6px;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+}
+
+
+/* Hide title & price */
+.grid-title,
+.grid-price {
+  display: none;
+}
+
+
+
+/* Responsive: 2 per row on smaller screens */
+@media screen and (max-width: 900px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr); /* still 2 per row */
+    gap: 15px;
+  }
+}
+
+
+/* ===== BACKDROP ===== */
+.popup {
+  position: fixed;
+  inset: 0;
+  {% comment %} background: rgba(0,0,0,0.6); %} {% endcomment %}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  margin: 2%;
+}
+
+.popup.hidden { display: none; }
+
+/* ===== POPUP BOX ===== */
+.popup-content {
+  background: #fff;
+  width: 420px;
+  padding: 20px;
+  border-radius: 0;  /* sharp corners */
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* CLOSE BUTTON */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;   /* figma width ~12px */
+  height: 12px;  /* figma height ~12px */
+  cursor: pointer;
+  background: #f8f8f8e5;
+  {% comment %} border: 1.5px solid #000; {% endcomment %}
+}
+
+.popup-close::before,
+.popup-close::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 1.5px;
+  background: #000;
+  transform-origin: center;
+}
+
+.popup-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.popup-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+
+/* TOP (Image + Details) */
+.popup-top {
+  display: flex;
+  gap: 15px;
+  align-items: stretch; /* make image match details height */
+  margin-top: 5%; 
+  
+}
+
+.popup-image img {
+  width: 160px;
+  height: 100%;
+  object-fit: cover;
+}
+{% comment %} .popup-image img {
+  position: absolute;  /* allow precise top/left */
+  width: 120px;        /* exact width */
+  height: 140px;       /* exact height */
+  top: 36px;           /* distance from top of popup */
+  left: 17px;          /* distance from left of popup */
+  object-fit: cover;
+} {% endcomment %}
+.popup-details {
+  flex: 1;
+}
+
+.popup-details h2 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+#popup-price {
+  font-weight: bold;
+  margin: 0 0 8px;
+}
+
+.popup-details p {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ===== BOTTOM ACTIONS ===== */
+.popup-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Color boxes */
+.color-container {
+  display: flex;
+}
+
+.color-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  height: 40px;
+  cursor: pointer;
+  position: relative;
+}
+
+.color-box + .color-box {
+  border-left: none; /* no double border */
+}
+
+.color-box::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 8px;
+  height: 100%;
+  background: var(--square-color, grey);
+}
+
+.color-box span {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  z-index: 1;
+}
+
+.color-box.selected {
+  background: black;
+  color: white;
+}
+
+/* SIZE DROPDOWN */
+#popup-variant {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000;
+  font-size: 14px;
+  background: #fff;
+}
+
+/* ADD TO CART */
+#popup-add-to-cart {
+  background: black;
+  color: white;
+  font-size: 17px;
+  {% comment %} font-weight: bold; {% endcomment %}
+  padding: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+#popup-add-to-cart .arrow {
+  width: 34px;        /* from figma width: 33.7px */
+  height: 0;          /* figma height: 0 */
+  border-top: 1.5px solid #fff;   /* line itself */
+  position: relative;
+}
+
+#popup-add-to-cart .arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -6px;
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+
+
+
+
+</style>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const popup = document.getElementById("product-popup");
+  const popupClose = document.querySelector(".popup-close");
+  const popupTitle = document.getElementById("popup-title");
+  const popupImage = document.getElementById("popup-image");
+  const popupPrice = document.getElementById("popup-price");
+  const popupDescription = document.getElementById("popup-description");
+  const popupVariant = document.getElementById("popup-variant");
+  const popupAddToCart = document.getElementById("popup-add-to-cart");
+  const popupColors = document.getElementById("popup-colors");
+
+  {% comment %} document.querySelectorAll(".grid-item").forEach(item => {
+    item.addEventListener("click", function() {
+      const handle = this.dataset.handle;
+
+      fetch(`/products/${handle}.js`)
+        .then(res => res.json())
+        .then(product => {
+          popupTitle.textContent = product.title;
+          popupImage.src = product.images[0] || "";
+          popupPrice.textContent = (product.price / 100).toLocaleString("en-US", { style: "currency", currency: "EUR" });
+          popupDescription.textContent = product.description;
+
+          // --- Populate sizes ---
+          popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+          product.variants.forEach(v => {
+            const opt = document.createElement("option");
+            opt.value = v.id;
+            opt.textContent = v.option1;
+            popupVariant.appendChild(opt);
+          });
+
+          // --- Populate colors ---
+          popupColors.innerHTML = "";
+          const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
+
+       colors.forEach(color => {
+  const box = document.createElement("div");
+  box.className = "color-box";
+  box.style.setProperty("--square-color", color.toLowerCase());
+
+  const label = document.createElement("span");
+  label.textContent = color;
+  box.appendChild(label);
+
+  box.addEventListener("click", () => {
+    document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
+    box.classList.add("selected");
+
+    // filter sizes
+    popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+    product.variants
+      .filter(v => v.option2 === color)
+      .forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.id;
+        opt.textContent = v.option1;
+        popupVariant.appendChild(opt);
+      });
+  });
+
+  popupColors.appendChild(box);
+});
+
+
+
+          // auto-select first color
+          {% comment %} if (popupColors.firstChild) popupColors.firstChild.click(); {% endcomment %}
+
+          popup.classList.remove("hidden");
+        });
+    });
+  }); {% endcomment %}
+
+  document.querySelectorAll(".grid-item .plus-box").forEach(box => {
+  box.addEventListener("click", function(e) {
+    e.stopPropagation(); // Prevent the click from bubbling up
+
+    const gridItem = this.closest(".grid-item");
+    const handle = gridItem.dataset.handle;
+
+    fetch(`/products/${handle}.js`)
+      .then(res => res.json())
+      .then(product => {
+        popupTitle.textContent = product.title;
+        popupImage.src = product.images[0] || "";
+        popupPrice.textContent = (product.price / 100).toLocaleString("en-US", { style: "currency", currency: "EUR" });
+        popupDescription.textContent = product.description;
+
+        // Populate sizes
+        popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+        product.variants.forEach(v => {
+          const opt = document.createElement("option");
+          opt.value = v.id;
+          opt.textContent = v.option1;
+          popupVariant.appendChild(opt);
+        });
+
+        // Populate colors
+        popupColors.innerHTML = "";
+        const colors = [...new Set(product.variants.map(v => v.option2))]; // unique colors
+        colors.forEach(color => {
+          const box = document.createElement("div");
+          box.className = "color-box";
+          box.style.setProperty("--square-color", color.toLowerCase());
+          const label = document.createElement("span");
+          label.textContent = color;
+          box.appendChild(label);
+
+          box.addEventListener("click", () => {
+            document.querySelectorAll(".color-box").forEach(b => b.classList.remove("selected"));
+            box.classList.add("selected");
+
+            popupVariant.innerHTML = `<option value="">Choose your size</option>`;
+            product.variants
+              .filter(v => v.option2 === color)
+              .forEach(v => {
+                const opt = document.createElement("option");
+                opt.value = v.id;
+                opt.textContent = v.option1;
+                popupVariant.appendChild(opt);
+              });
+          });
+
+          popupColors.appendChild(box);
+        });
+
+        popup.classList.remove("hidden");
+      });
+  });
+});
+
+
+  // Add to cart
+  {% comment %} popupAddToCart.addEventListener("click", () => {
+    const variantId = popupVariant.value;
+    if(!variantId) return alert("Please select a size.");
+
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: variantId, quantity: 1 })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert("Added to cart: " + data.title);
+      popup.classList.add("hidden");
+    })
+    .catch(err => console.error(err));
+  }); {% endcomment %}
+
+  popupAddToCart.addEventListener("click", () => {
+  const variantId = popupVariant.value;
+  if (!variantId) return alert("Please select a size.");
+
+  fetch("/cart/add.js", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: variantId, quantity: 1 })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Added to cart: " + data.title);
+
+    const selectedColor = document.querySelector(".color-box.selected span")?.textContent;
+    const selectedSize = popupVariant.options[popupVariant.selectedIndex]?.textContent;
+
+    if (selectedColor === "Black" && selectedSize === "M") {
+      return fetch("/products/dark-winter-jacket.js")
+        .then(res => res.json())
+        .then(swj => {
+          const swjVariantId = swj.variants.find(v => v.available)?.id;
+          if (!swjVariantId) throw new Error("No available variant for Soft Winter Jacket");
+
+          return fetch("/cart/add.js", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: swjVariantId, quantity: 1 })
+          });
+        })
+        .then(() => alert("Also added Soft Winter Jacket to cart!"));
+    }
+  })
+  .catch(err => console.error(err))
+  .finally(() => popup.classList.add("hidden"));
+});
+
+
+  // Close popup
+  popupClose.addEventListener("click", () => popup.classList.add("hidden"));
+  popup.addEventListener("click", e => { if(e.target === popup) popup.classList.add("hidden"); });
+});
+</script>
+
+
+{% schema %}
+{
+  "name": "Custom Product Grid",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product 4"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "Product 5"
+    },
+    {
+      "type": "product",
+      "id": "product_6",
+      "label": "Product 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Grid",
+      "category": "Custom"
+    }
+  ]
+}
+
+
+>>>>>>> e667d889c70b74ed6fe41e500ea099e13f7fdd41
 {% endschema %}
